@@ -1,4 +1,6 @@
-# Next.js starter template.
+# 誰でもチケットを販売できるアプリ
+
+## 技術スタック
 
 - Next.js
 - TypeScript
@@ -6,3 +8,15 @@
 - Prettier
 - Jest
 - Tailwind CSS
+- Stripe.js
+
+## ソース管理
+
+- Github
+
+## バックエンド
+
+- Firebase
+- Supabase
+- Stripe
+- Vercel
