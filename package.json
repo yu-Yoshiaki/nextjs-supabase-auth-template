@@ -36,16 +36,21 @@
     "printWidth": 120
   },
   "dependencies": {
+    "@headlessui/react": "^1.5.0",
+    "@stripe/stripe-js": "^1.24.0",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/forms": "0.3.4",
     "@tailwindcss/line-clamp": "0.2.2",
     "@tailwindcss/typography": "0.4.1",
+    "axios": "^0.26.0",
     "firebase": "^9.6.7",
-    "next": "11.1.2",
+    "next": "^11.1.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-error-boundary": "3.1.3",
-    "react-hook-form": "^7.27.0"
+    "react-hook-form": "^7.27.0",
+    "stripe": "^8.207.0",
+    "swr": "^1.2.2"
   },
   "devDependencies": {
     "@testing-library/cypress": "8.0.1",
