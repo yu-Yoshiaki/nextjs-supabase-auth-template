@@ -64,9 +64,7 @@ const Index: CustomNextPage<{ posts: Ticket }> = (props) => {
   // }, [sessionUrl]);
 
   const handleSubmit = async () => {
-    const res = await axios.post("/api/checkoutSession", {
-      stripePriceId: props.posts.stripePriceId,
-    });
+    const res = await axios.post(`/api/checkoutSession/${props.posts.stripePriceId}`);
 
     const redirect = await res.data;
     console.log("-------------");
@@ -74,7 +72,6 @@ const Index: CustomNextPage<{ posts: Ticket }> = (props) => {
     console.log("-------------");
 
     window.location.href = redirect;
-
     return;
   };
 
@@ -126,22 +123,31 @@ const Index: CustomNextPage<{ posts: Ticket }> = (props) => {
               </div>
             </div>
 
-            <div className="mt-10">
+            {/* <div className="mt-10">
               <h2 className="text-sm font-medium text-gray-900">Details</h2>
 
               <div className="mt-4 space-y-6">
                 <p className="text-sm text-gray-600">{props.posts.address.address}</p>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 
         {user ? (
-          <form onSubmit={handleSubmit} method={"POST"} className="flex justify-center items-center">
-            <button type="submit" role="link" className={BaseButtonClass}>
-              Checkout
-            </button>
-          </form>
+          <div>
+            {props.posts.stripePriceId && (
+              <form
+                // action={`/api/checkoutSession/${props.posts.stripePriceId}`}
+                // method={"POST"}
+                onSubmit={handleSubmit}
+                className="flex justify-center items-center"
+              >
+                <button type="submit" role="link" className={BaseButtonClass}>
+                  Checkout
+                </button>
+              </form>
+            )}
+          </div>
         ) : (
           <button
             onClick={() => {
@@ -149,7 +155,7 @@ const Index: CustomNextPage<{ posts: Ticket }> = (props) => {
             }}
             className={BaseButtonClass}
           >
-            Checkout
+            読み込み中...
           </button>
         )}
       </div>
