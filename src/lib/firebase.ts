@@ -8,13 +8,13 @@ import { getFirestore } from "firebase/firestore";
 import type { Ticket } from "src/type/ticket";
 
 const firebaseConfig = {
-  apiKey: process.env.API_KEY,
-  authDomain: process.env.AUTH_DOMAIN,
-  projectId: process.env.PROJECT_ID,
-  storageBucket: process.env.STORAGE_BUCKET,
-  messagingSenderId: process.env.MESSAGING_SENDER_ID,
-  appId: process.env.APP_ID,
-  measurementId: process.env.MEASURED_ID,
+  apiKey: "AIzaSyBM5DDEXXjKg1qNt917WjszGExxJ9aby9Y",
+  authDomain: "ticketia-b34da.firebaseapp.com",
+  projectId: "ticketia-b34da",
+  storageBucket: "ticketia-b34da.appspot.com",
+  messagingSenderId: "565523945662",
+  appId: "1:565523945662:web:ae46673a67f857751d66ef",
+  measurementId: "G-BRLLR77RF8",
 };
 
 const app = initializeApp(firebaseConfig);

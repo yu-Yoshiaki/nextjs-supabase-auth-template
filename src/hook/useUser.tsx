@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import type { User } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
 import type { DocumentData, FirestoreDataConverter, QueryDocumentSnapshot, SnapshotOptions } from "firebase/firestore";
@@ -71,6 +72,11 @@ export const useUser = () => {
 
     return;
   }, [setUserInfomation, user]);
+
+  // eslint-disable-next-line no-console
+  console.log("user", user);
+  console.log("userInfomation", userInfomation);
+  console.log("user");
 
   return { user, userID: user?.uid, userInfomation, fetchUser };
 };
