@@ -6,7 +6,7 @@ import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import type { CustomNextPage, GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import { BaseButtonClass } from "src/component/Button";
 import { useUser } from "src/hook/useUser";
 import { FixedLayout } from "src/layout";
@@ -53,27 +53,27 @@ export const getStaticProps: GetStaticProps = async (paths) => {
 const Index: CustomNextPage<{ posts: Ticket }> = (props) => {
   const { user } = useUser();
   const router = useRouter();
-  const [sessionUrl, setSessionUrl] = useState<string>();
+  // const [sessionUrl, setSessionUrl] = useState<string>();
 
-  useEffect(() => {
-    console.log("session---", sessionUrl);
+  // useEffect(() => {
+  //   console.log("session---", sessionUrl);
 
-    if (sessionUrl) {
-      window.location.href = sessionUrl;
-    }
-  }, [sessionUrl]);
+  //   if (sessionUrl) {
+  //     window.location.href = sessionUrl;
+  //   }
+  // }, [sessionUrl]);
 
   const handleSubmit = async () => {
     const res = await axios.post("/api/checkoutSession", {
       stripePriceId: props.posts.stripePriceId,
     });
 
-    const data = await res.data;
+    const redirect = await res.data;
     console.log("-------------");
-    console.log("-------------", data);
+    console.log("-------------", redirect);
     console.log("-------------");
 
-    setSessionUrl(data);
+    window.location.href = redirect;
 
     return;
   };
