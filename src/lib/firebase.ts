@@ -30,13 +30,12 @@ export const ticketConverter: FirestoreDataConverter<Ticket> = {
       updatedAt: serverTimestamp(),
       name: ticket.name,
       description: ticket.description,
-      image: ticket.image,
       organizer: ticket.organizer,
       stock: ticket.stock,
       start: ticket.start,
       isAccept: ticket.isAccept,
       priceList: ticket.priceList,
-      address: ticket.address,
+      stripePriceId: ticket.stripePriceId,
     };
   },
 

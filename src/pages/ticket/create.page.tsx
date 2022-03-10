@@ -6,25 +6,7 @@ import { useForm } from "react-hook-form";
 import { useFetchTicket } from "src/hook/useFetchTicket";
 import { useUser } from "src/hook/useUser";
 import { FixedLayout } from "src/layout";
-// type TicketData = {
-//   name: string;
-//   description: string;
-//   image?: string;
-//   organizer: string;
-//   stock: number;
-//   start: object;
-//   isAccept: boolean;
-//   priceList: {
-//     nomal: {
-//       price: string;
-//       content: string;
-//     };
-//   };
-//   address: {
-//     address: string;
-//     postCode: string;
-//   };
-// };
+import type { CreateTicket } from "src/type/ticket";
 
 const TicketCreate: CustomNextPage = () => {
   const router = useRouter();
@@ -59,7 +41,7 @@ const TicketCreate: CustomNextPage = () => {
 
         const stripePriceId = await createProduct();
         if (stripePriceId) {
-          const Data = {
+          const Data: CreateTicket = {
             name: e.name,
             description: e.description,
             organizer: user?.uid,
@@ -72,10 +54,7 @@ const TicketCreate: CustomNextPage = () => {
                 content: "",
               },
             },
-            address: {
-              address: e.address,
-              postCode: e.postCode,
-            },
+
             stripePriceId,
           };
           createDoc(Data);
