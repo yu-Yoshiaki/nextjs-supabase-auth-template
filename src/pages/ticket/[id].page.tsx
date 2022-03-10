@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable react/jsx-handler-names */
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
@@ -55,6 +56,8 @@ const Index: CustomNextPage<{ posts: Ticket }> = (props) => {
   const [sessionUrl, setSessionUrl] = useState<string>();
 
   useEffect(() => {
+    console.log("session---", sessionUrl);
+
     if (sessionUrl) {
       window.location.href = sessionUrl;
     }
@@ -66,6 +69,10 @@ const Index: CustomNextPage<{ posts: Ticket }> = (props) => {
     });
 
     const data = await res.data;
+    console.log("-------------");
+    console.log("-------------", data);
+    console.log("-------------");
+
     setSessionUrl(data);
 
     return;
