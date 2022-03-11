@@ -16,8 +16,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           },
         ],
         mode: "payment",
-        success_url: `${req.headers.origin}/testIndex/?success=true`,
-        cancel_url: `${req.headers.origin}/testIndex/?canceled=true`,
+        success_url: `${req.headers.origin}/ticket/checkout/?success=true`,
+        cancel_url: `${req.headers.origin}/ticket/checkout/?canceled=true`,
       });
       res.redirect(303, session.url);
     } catch {
