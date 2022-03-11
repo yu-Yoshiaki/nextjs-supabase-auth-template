@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable react/jsx-handler-names */
 import { loadStripe } from "@stripe/stripe-js";
-import axios from "axios";
+// import axios from "axios";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import type { CustomNextPage, GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
@@ -63,17 +63,17 @@ const Index: CustomNextPage<{ posts: Ticket }> = (props) => {
   //   }
   // }, [sessionUrl]);
 
-  const handleSubmit = async () => {
-    const res = await axios.post(`/api/checkoutSession/${props.posts.stripePriceId}`);
+  // const handleSubmit = async () => {
+  //   const res = await axios.post(`/api/checkoutSession/${props.posts.stripePriceId}`);
 
-    const redirect = await res.data;
-    console.log("-------------");
-    console.log("-------------", redirect);
-    console.log("-------------");
+  //   const redirect = await res.data;
+  //   console.log("-------------");
+  //   console.log("-------------", redirect);
+  //   console.log("-------------");
 
-    window.location.href = redirect;
-    return;
-  };
+  //   window.location.href = redirect;
+  //   return;
+  // };
 
   return (
     <div className="bg-white">
@@ -138,8 +138,8 @@ const Index: CustomNextPage<{ posts: Ticket }> = (props) => {
             {props.posts.stripePriceId && (
               <form
                 // action={`/api/checkoutSession/${props.posts.stripePriceId}`}
-                // method={"POST"}
-                onSubmit={handleSubmit}
+                method={"POST"}
+                action={`/api/checkout_session/${props.posts.stripePriceId}`}
                 className="flex justify-center items-center"
               >
                 <button type="submit" role="link" className={BaseButtonClass}>
