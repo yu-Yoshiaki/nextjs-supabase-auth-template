@@ -5,7 +5,6 @@ import { ProfileSP } from "src/layout/ProfileSP";
 
 const items = [
   { href: "/", label: "チケット一覧" },
-  { href: "/auth/login", label: "ログイン" },
 ];
 
 /**
@@ -13,11 +12,11 @@ const items = [
  */
 export const Header: VFC = () => {
   return (
-    <header className="fixed top-0 right-0 left-0 z-30 bg-white md:grid md:static md:grid-rows-[100px,1fr,100px] md:h-auto">
-      <div className="flex justify-between items-center w-full">
+    <header className="fixed top-0 right-0 left-0 z-30 px-2 min-w-[256px] md:grid md:static md:grid-rows-[auto,1fr,100px] md:h-auto">
+      <div className="flex justify-between items-center w-full ">
         <Link href={"/"}>
           <a className="flex items-center">
-            <h1 className="text-2xl font-bold md:text-6xl">
+            <h1 className="text-2xl font-bold md:text-6xl ">
               TICKET<span className="text-red-400">tia</span>
             </h1>
           </a>
