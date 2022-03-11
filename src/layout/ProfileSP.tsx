@@ -50,8 +50,8 @@ export const ProfileSP: VFC = () => {
       <div className="relative p-4">
         <Popover.Button className="h-full text-center sm:flex-row sm:justify-start sm:text-left">
           <Image
-            width={50}
-            height={50}
+            width={40}
+            height={40}
             alt="team"
             className="object-cover object-center flex-shrink-0 mb-4 rounded-full sm:mb-0"
             src="/bread.jpg"
