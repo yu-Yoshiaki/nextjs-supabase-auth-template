@@ -10,14 +10,15 @@ import { LayoutErrorBoundary } from "./LayoutErrorBoundary";
  */
 export const FixedLayout: CustomLayout = (page) => {
   return (
-    <div className="grid grid-cols-1 gap-x-4 px-2 pb-4 mx-auto min-h-screen bg-[#e7e0cf] md:grid-cols-[25%,1fr,25%] md:px-0">
-      <Header />
-
-      <main className="pt-[150px] md:overflow-y-auto md:pt-0">
+    <div className="grid grid-cols-1 gap-x-4 mx-auto min-h-screen font-sans md:grid-cols-[auto,1fr,25%] md:px-0">
+      <div className="bg-white border-b border-gray-100 shadow-md">
+        <Header />
+      </div>
+      <main className="pt-[150px] min-h-screen bg-gray-100 md:overflow-y-auto md:pt-0">
         <LayoutErrorBoundary>{page}</LayoutErrorBoundary>
       </main>
       {/* 後でコンポーネント書き出す */}
-      <div className="bg-white">
+      <div className="text-white bg-gray-700 border-l border-white">
         <Profile />
         <Footer />
       </div>
