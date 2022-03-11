@@ -20,8 +20,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         cancel_url: `${req.headers.origin}/testIndex/?canceled=true`,
       });
       res.redirect(303, session.url);
-    } catch (err) {
-      res.status(err.statusCode || 500).json(err.message);
+    } catch {
+      res.status(500).json("error");
     }
   } else {
     res.setHeader("Allow", "POST");
