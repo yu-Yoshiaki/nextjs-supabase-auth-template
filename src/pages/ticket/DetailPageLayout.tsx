@@ -80,7 +80,6 @@ export const DetailPageLayout: VFC<{ ticket: Ticket }> = (props) => {
           <div>
             {props.ticket.stripePriceId && (
               <form
-                // action={`/api/checkoutSession/${props.ticket.stripePriceId}`}
                 method={"POST"}
                 action={`/api/checkout_session/${props.ticket.stripePriceId}`}
                 className="flex justify-center items-center"

@@ -78,7 +78,7 @@ export const AuthForm = (props: { createNew: boolean }) => {
                 message: "メールアドレスの形式が不正です",
               },
             })}
-            {...(props.createNew && { defaultValue: "test@example.com" })}
+            {...(!props.createNew && { defaultValue: "test@example.com" })}
           />
           <p className="mb-5">例: sato12345@gmail.com</p>
 
@@ -101,7 +101,7 @@ export const AuthForm = (props: { createNew: boolean }) => {
                 message: "大文字、小文字、数字をそれぞれ1つ以上含めてください。",
               },
             })}
-            {...(props.createNew && { defaultValue: "test1234" })}
+            {...(!props.createNew && { defaultValue: "test1234" })}
           />
           <p className="mb-5">例: Sato12345</p>
 
