@@ -1,6 +1,7 @@
 import type { User } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
 import type { DocumentData, FirestoreDataConverter, QueryDocumentSnapshot, SnapshotOptions } from "firebase/firestore";
+import { setDoc } from "firebase/firestore";
 import { serverTimestamp } from "firebase/firestore";
 import { doc, getDoc } from "firebase/firestore";
 import { useCallback } from "react";
@@ -72,5 +73,13 @@ export const useUser = () => {
     return;
   }, [setUserInfomation, user]);
 
-  return { user, userID: user?.uid, userInfomation, fetchUser };
+  const createUser = useCallback(async (id: string) => {
+    const colRef = doc(firestore, "userInfomation", id).withConverter(userConverter);
+    await setDoc(colRef, {
+      name: "",
+      profile: "",
+    });
+  }, []);
+
+  return { user, userID: user?.uid, createUser,userInfomation, fetchUser };
 };

@@ -21,9 +21,9 @@ const Root: CustomNextPage<{ posts: Ticket[] }> = (props) => {
       <TicketList data={props.posts} />
       <button
         onClick={handleClick}
-        className="fixed right-5 bottom-12 p-8 text-lg font-bold text-white bg-blue-600 rounded-full ring ring-blue-400 shadow-lg md:right-56"
+        className="fixed right-5 bottom-12 py-4 px-8 text-xl font-bold text-white bg-blue-600 rounded-full shadow-lg md:right-0"
       >
-        new
+        new +
       </button>
     </div>
   );
@@ -44,6 +44,7 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       posts,
     },
+    revalidate: 5,
   };
 };
 
