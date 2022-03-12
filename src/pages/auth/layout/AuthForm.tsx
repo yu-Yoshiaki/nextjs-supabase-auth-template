@@ -1,6 +1,7 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
+import { useUser } from "src/hook/useUser";
 import { auth } from "src/lib/firebase";
 
 type Inputs = {
@@ -17,6 +18,7 @@ export const AuthForm = (props: { createNew: boolean }) => {
   } = useForm<Inputs>({ criteriaMode: "all" });
 
   const router = useRouter();
+  const { createUser } = useUser();
 
   const onLogin = (data: Inputs) => {
     signInWithEmailAndPassword(auth, data.email, data.password)
@@ -38,7 +40,8 @@ export const AuthForm = (props: { createNew: boolean }) => {
   //firebase user作成
   const onSignup = (data: Inputs) => {
     createUserWithEmailAndPassword(auth, data.email, data.password)
-      .then(() => {
+      .then(({ user }) => {
+        createUser(user.uid);
         window.alert("ユーザー作成が完了しました。");
         return router.push("/");
       })
@@ -75,6 +78,7 @@ export const AuthForm = (props: { createNew: boolean }) => {
                 message: "メールアドレスの形式が不正です",
               },
             })}
+            {...(props.createNew && { defaultValue: "test@example.com" })}
           />
           <p className="mb-5">例: sato12345@gmail.com</p>
 
@@ -97,6 +101,7 @@ export const AuthForm = (props: { createNew: boolean }) => {
                 message: "大文字、小文字、数字をそれぞれ1つ以上含めてください。",
               },
             })}
+            {...(props.createNew && { defaultValue: "test1234" })}
           />
           <p className="mb-5">例: Sato12345</p>
 
