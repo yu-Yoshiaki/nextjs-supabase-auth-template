@@ -21,7 +21,7 @@ export const CardLayout: VFC<{ ticket: Ticket }> = (props) => {
       </div>
       <div className="flex flex-col p-[10px] space-y-1">
         <h2 className="text-lg font-medium text-gray-900 ">{props.ticket.name}</h2>
-        <p className="px-1">{"コロナ禍で閉店してしまった仙台名物厚切り熟牛タンを全国のご家庭へ届けたい！！"}</p>
+        <p className="px-1">{props.ticket.description}</p>
         <p className="px-1 text-xl text-right">pay {props.ticket.priceList.nomal.price}~</p>
       </div>
     </div>
