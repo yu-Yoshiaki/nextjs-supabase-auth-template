@@ -2,11 +2,10 @@ import Image from "next/image";
 import type { VFC } from "react";
 // import { useEffect, useState } from "react";
 import { BaseButtonClass } from "src/component/Button";
-import { useUser } from "src/hook/useUser";
 import type { Ticket } from "src/type/ticket";
 
 export const DetailPageLayout: VFC<{ ticket: Ticket }> = (props) => {
-  const { user } = useUser();
+
 
   // const [sessionUrl, setSessionUrl] = useState<string>();
 
@@ -76,8 +75,8 @@ export const DetailPageLayout: VFC<{ ticket: Ticket }> = (props) => {
           </div>
         </div>
 
-        {user ? (
-          <div>
+       
+          
             {props.ticket.stripePriceId && (
               <form
                 method={"POST"}
@@ -89,12 +88,8 @@ export const DetailPageLayout: VFC<{ ticket: Ticket }> = (props) => {
                 </button>
               </form>
             )}
-          </div>
-        ) : (
-          <button className="flex justify-center items-center py-4 px-8 mx-auto text-white bg-gray-500 rounded-md">
-            読み込み中...
-          </button>
-        )}
+          
+        
       </div>
     </div>
   );
