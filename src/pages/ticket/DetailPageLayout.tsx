@@ -2,11 +2,10 @@ import Image from "next/image";
 import type { VFC } from "react";
 // import { useEffect, useState } from "react";
 import { BaseButtonClass } from "src/component/Button";
-import { useUser } from "src/hook/useUser";
 import type { Ticket } from "src/type/ticket";
 
 export const DetailPageLayout: VFC<{ ticket: Ticket }> = (props) => {
-  const { user } = useUser();
+
 
   // const [sessionUrl, setSessionUrl] = useState<string>();
 
