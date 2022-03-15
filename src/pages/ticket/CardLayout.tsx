@@ -10,7 +10,7 @@ export const CardLayout: VFC<{ ticket: Ticket }> = (props) => {
         <Link href={`/ticket/${props.ticket.id}`}>
           <a>
             <Image
-              src={"/noimage.png"}
+              src={"/bread.jpg"}
               alt={""}
               width={420}
               height={300}
