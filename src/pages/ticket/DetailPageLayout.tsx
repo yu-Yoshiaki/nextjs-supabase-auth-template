@@ -76,8 +76,8 @@ export const DetailPageLayout: VFC<{ ticket: Ticket }> = (props) => {
           </div>
         </div>
 
-        {user ? (
-          <div>
+       
+          
             {props.ticket.stripePriceId && (
               <form
                 method={"POST"}
@@ -89,12 +89,8 @@ export const DetailPageLayout: VFC<{ ticket: Ticket }> = (props) => {
                 </button>
               </form>
             )}
-          </div>
-        ) : (
-          <button className="flex justify-center items-center py-4 px-8 mx-auto text-white bg-gray-500 rounded-md">
-            読み込み中...
-          </button>
-        )}
+          
+        
       </div>
     </div>
   );
