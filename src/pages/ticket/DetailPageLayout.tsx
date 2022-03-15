@@ -38,7 +38,7 @@ export const DetailPageLayout: VFC<{ ticket: Ticket }> = (props) => {
         <Image
           width={1000}
           height={600}
-          src={"/noimage.png"}
+          src={"/bread.jpg"}
           alt={"test"}
           className="object-cover object-center w-full h-full"
         />
