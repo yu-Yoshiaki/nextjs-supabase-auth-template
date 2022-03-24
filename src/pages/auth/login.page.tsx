@@ -1,6 +1,6 @@
 import type { CustomNextPage } from "next";
 import Link from "next/link";
-import { FixedLayout } from "src/layout";
+import { Layout } from "src/layout";
 
 import { AuthForm } from "./layout/AuthForm";
 
@@ -15,6 +15,6 @@ const Login: CustomNextPage = () => {
   );
 };
 
-Login.getLayout = FixedLayout;
+Login.getLayout = Layout;
 
 export default Login;

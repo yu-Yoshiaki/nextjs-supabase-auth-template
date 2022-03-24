@@ -5,7 +5,7 @@ import { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useFetchTicket } from "src/hook/useFetchTicket";
 import { useUser } from "src/hook/useUser";
-import { FixedLayout } from "src/layout";
+import { Layout } from "src/layout";
 import type { CreateTicket } from "src/type/ticket";
 
 const TicketCreate: CustomNextPage = () => {
@@ -191,6 +191,6 @@ const TicketCreate: CustomNextPage = () => {
   );
 };
 
-TicketCreate.getLayout = FixedLayout;
+TicketCreate.getLayout = Layout;
 
 export default TicketCreate;

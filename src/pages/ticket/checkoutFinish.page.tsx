@@ -2,7 +2,7 @@
 import { loadStripe } from "@stripe/stripe-js";
 import type { CustomNextPage } from "next";
 import { useEffect, useState } from "react";
-import { FixedLayout } from "src/layout";
+import { Layout } from "src/layout";
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -25,6 +25,6 @@ const CheckoutResult: CustomNextPage = () => {
   return <div className="flex justify-center py-[100px] text-3xl font-bold">{result}</div>;
 };
 
-CheckoutResult.getLayout = FixedLayout;
+CheckoutResult.getLayout = Layout;
 
 export default CheckoutResult;

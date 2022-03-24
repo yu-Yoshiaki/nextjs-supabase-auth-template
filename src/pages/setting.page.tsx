@@ -4,7 +4,7 @@ import { deleteUser } from "firebase/auth";
 import type { CustomNextPage } from "next";
 import { useState } from "react";
 import { useUser } from "src/hook/useUser";
-import { FixedLayout } from "src/layout";
+import { Layout } from "src/layout";
 
 const Setting: CustomNextPage = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -54,6 +54,6 @@ const Setting: CustomNextPage = () => {
   );
 };
 
-Setting.getLayout = FixedLayout;
+Setting.getLayout = Layout;
 
 export default Setting;

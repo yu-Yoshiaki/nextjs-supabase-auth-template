@@ -1,7 +1,7 @@
 import type { CustomNextPage } from "next";
 import { useEffect } from "react";
 import { useUser } from "src/hook/useUser";
-import { FixedLayout } from "src/layout";
+import { Layout } from "src/layout";
 
 const UserProfile: CustomNextPage = () => {
   const { userInfomation, fetchUser } = useUser();
@@ -23,6 +23,6 @@ const UserProfile: CustomNextPage = () => {
   );
 };
 
-UserProfile.getLayout = FixedLayout;
+UserProfile.getLayout = Layout;
 
 export default UserProfile;

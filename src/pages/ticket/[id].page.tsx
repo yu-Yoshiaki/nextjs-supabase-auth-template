@@ -1,7 +1,7 @@
 import { loadStripe } from "@stripe/stripe-js";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import type { CustomNextPage, GetStaticPaths, GetStaticProps } from "next";
-import { FixedLayout } from "src/layout";
+import { Layout } from "src/layout";
 import { firestore, ticketConverter } from "src/lib/firebase";
 import type { Ticket } from "src/type/ticket";
 
@@ -49,6 +49,6 @@ const Index: CustomNextPage<{ posts: Ticket }> = (props) => {
   return <DetailPageLayout ticket={props.posts} />;
 };
 
-Index.getLayout = FixedLayout;
+Index.getLayout = Layout;
 
 export default Index;
