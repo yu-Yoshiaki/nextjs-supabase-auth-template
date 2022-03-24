@@ -10,7 +10,7 @@ const items = [{ href: "/", label: "チケット一覧" }];
  */
 export const Header: VFC = () => {
   return (
-    <header className="fixed top-6 right-0 left-0 z-30 min-w-[256px] border-b md:grid md:static md:grid-rows-[auto,1fr,100px] md:h-full">
+    <header className="fixed inset-x-0 top-6 z-30 min-w-[256px] border-b md:grid md:static md:grid-rows-[auto,1fr,100px] md:h-full">
       <div className="flex justify-between items-center border-b">
         <Link href={"/"}>
           <a className="flex items-center pl-2">

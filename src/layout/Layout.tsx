@@ -11,7 +11,7 @@ import { LayoutErrorBoundary } from "./LayoutErrorBoundary";
 export const Layout: CustomLayout = (page) => {
   return (
     <div className="">
-      <p className="fixed top-0 right-0 left-0 z-30 content-center px-2 h-[50px] font-bold text-center bg-yellow">
+      <p className="fixed inset-x-0 top-0 z-30 content-center px-2 h-[50px] font-bold text-center bg-yellow">
         テスト版のため、実際には購入できません。
       </p>
       <div className="grid grid-cols-1 mx-auto min-h-screen font-sans md:grid-cols-[auto,1fr,25%] md:px-0 md:pt-[50px]">

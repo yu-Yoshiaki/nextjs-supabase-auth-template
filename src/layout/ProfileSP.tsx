@@ -53,7 +53,7 @@ export const ProfileSP: VFC = () => {
             width={40}
             height={40}
             alt="team"
-            className="object-cover object-center flex-shrink-0 mb-4 rounded-full sm:mb-0"
+            className="object-cover object-center shrink-0 mb-4 rounded-full sm:mb-0"
             src="/bread.jpg"
           />
         </Popover.Button>
@@ -65,8 +65,8 @@ export const ProfileSP: VFC = () => {
         enterFrom="transform scale-95 opacity-0"
         enterTo="transform scale-100 opacity-100"
       >
-        <Popover.Panel className="absolute right-5 left-5 z-10 p-5 rounded-lg">
-          <div className="flex-grow pr-8 text-right">
+        <Popover.Panel className="absolute inset-x-5 z-10 p-5 rounded-lg">
+          <div className="grow pr-8 text-right">
             <h2 className="text-lg font-medium">{userInfomation ? userInfomation.name : "No User"}</h2>
             <p className="mb-4">{userInfomation?.profile}</p>
             <span className="inline-flex">
