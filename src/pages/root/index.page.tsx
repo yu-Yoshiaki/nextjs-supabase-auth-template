@@ -1,30 +1,14 @@
 import { collection, getDocs } from "firebase/firestore";
 import type { CustomNextPage, GetStaticProps } from "next";
-import { useRouter } from "next/router";
-import { useUser } from "src/hook/useUser";
-import { FixedLayout } from "src/layout";
+import { Layout } from "src/layout";
 import { firestore, ticketConverter } from "src/lib/firebase";
 import { TicketList } from "src/pages/ticket/TicketList";
 import type { Ticket } from "src/type/ticket";
 
 const Root: CustomNextPage<{ posts: Ticket[] }> = (props) => {
-  const { user } = useUser();
-  const router = useRouter();
-
-  const handleClick = () => {
-    const href = user ? "/ticket/create" : "/auth/login";
-    router.push(href);
-  };
-
   return (
     <div>
       <TicketList data={props.posts} />
-      <button
-        onClick={handleClick}
-        className="fixed right-5 bottom-12 py-4 px-8 text-xl font-bold text-white bg-blue-600 rounded-full shadow-lg md:right-0"
-      >
-        new +
-      </button>
     </div>
   );
 };
@@ -48,6 +32,6 @@ export const getStaticProps: GetStaticProps = async () => {
   };
 };
 
-Root.getLayout = FixedLayout;
+Root.getLayout = Layout;
 
 export default Root;

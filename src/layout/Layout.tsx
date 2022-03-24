@@ -8,7 +8,7 @@ import { LayoutErrorBoundary } from "./LayoutErrorBoundary";
 /**
  * @package
  */
-export const FixedLayout: CustomLayout = (page) => {
+export const Layout: CustomLayout = (page) => {
   return (
     <div>
       <p className="fixed top-0 right-0 left-0 z-30 px-2 font-bold text-center bg-yellow-400">

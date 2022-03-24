@@ -1,1 +1,1 @@
-export { FixedLayout } from "./FixedLayout";
+export { Layout } from "./Layout";
