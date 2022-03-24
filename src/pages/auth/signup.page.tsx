@@ -1,6 +1,6 @@
 import type { CustomNextPage } from "next";
 import Link from "next/link";
-import { FixedLayout } from "src/layout";
+import { Layout } from "src/layout";
 
 import { AuthForm } from "./layout/AuthForm";
 
@@ -9,12 +9,12 @@ const Signup: CustomNextPage = () => {
     <div>
       <AuthForm createNew={true} />{" "}
       <Link href="/auth/login">
-        <a className="flex justify-center items-center text-blue-600">ユーザー作成済みの方</a>
+        <a className="flex justify-center items-center">ユーザー作成済みの方</a>
       </Link>
     </div>
   );
 };
 
-Signup.getLayout = FixedLayout;
+Signup.getLayout = Layout;
 
 export default Signup;

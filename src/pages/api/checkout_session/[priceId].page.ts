@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import type Stripe from "stripe";
 
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const stripe: Stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { priceId } = req.query;
@@ -11,15 +12,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         line_items: [
           {
             // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-            price: priceId,
+            price: priceId as string,
             quantity: 1,
           },
         ],
         mode: "payment",
-        success_url: `${req.headers.origin}/ticket/checkout/?success=true`,
-        cancel_url: `${req.headers.origin}/ticket/checkout/?canceled=true`,
+        success_url: `${req.headers.origin}/ticket/checkoutFinish/?success=true&session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${req.headers.origin}/ticket/checkoutFinish/?canceled=true`,
       });
-      res.redirect(303, session.url);
+      res.redirect(303, session.url as string);
     } catch {
       res.status(500).json("error");
     }

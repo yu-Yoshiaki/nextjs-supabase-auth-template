@@ -5,32 +5,8 @@ import { BaseButtonClass } from "src/component/Button";
 import type { Ticket } from "src/type/ticket";
 
 export const DetailPageLayout: VFC<{ ticket: Ticket }> = (props) => {
-
-
-  // const [sessionUrl, setSessionUrl] = useState<string>();
-
-  // useEffect(() => {
-  //   console.log("session---", sessionUrl);
-
-  //   if (sessionUrl) {
-  //     window.location.href = sessionUrl;
-  //   }
-  // }, [sessionUrl]);
-
-  // const handleSubmit = async () => {
-  //   const res = await axios.post(`/api/checkoutSession/${props.posts.stripePriceId}`);
-
-  //   const redirect = await res.data;
-  //   console.log("-------------");
-  //   console.log("-------------", redirect);
-  //   console.log("-------------");
-
-  //   window.location.href = redirect;
-  //   return;
-  // };
-
   return (
-    <div className="pb-4 tracking-wide leading-relaxed bg-white">
+    <div className="pb-4 tracking-wide leading-relaxed">
       <div className="pt-6">
         {/* Image gallery */}
 
@@ -43,25 +19,35 @@ export const DetailPageLayout: VFC<{ ticket: Ticket }> = (props) => {
         />
 
         {/* Product info */}
-        <div className="px-4 pb-16 mx-auto space-y-10 max-w-2xl sm:px-6 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pt-16 lg:pb-24 lg:max-w-7xl">
-          <h1 className="text-2xl font-extrabold text-gray-900 sm:text-3xl">{props.ticket.name}</h1>
-
-          {/* Options */}
-          <div className="space-y-2">
-            <h2 className=" text-xl font-bold">プロジェクト内容</h2>
-            <p className="text-lg text-gray-900">{props.ticket.description}</p>
+        <div className="px-4 pb-16 mx-auto space-y-10 max-w-2xl sm:px-6 ">
+          <div>
+            <h1 className="text-2xl font-extrabold text-center">【{"props.ticket.name"}】</h1>
+            <p className="min-h-[120px] text-lg">{"props.ticket.description"}</p>
+          </div>
+          <div className="flex justify-between">
+            <p className="text-3xl">¥3000</p>
+            <form>
+              <button type="submit" role="link" className="flex justify-center items-center py-4 px-16 bg-pink">
+                Checkout
+              </button>
+            </form>
           </div>
 
-          <div className="space-y-2">
-            <h2 className="text-xl font-bold">Price</h2>
-            <div className="p-4 rounded-md border-2 border-red-200 shadow-md">
-              <p>{props.ticket.priceList.nomal.content}</p>
-              <p>{props.ticket.priceList.nomal.price} yen</p>
+          <div className="space-y-2 bg-gray">
+            <div className="flex space-x-2">
+              <p className="font-bold">開催日</p>
+              <p>8/20</p>
             </div>
-          </div>
+            <div className="flex space-x-2">
+              <p className="font-bold">開催時間</p>
+              <p>20:00~</p>
+            </div>
 
-          <div className="space-y-2">
-            <h2 className="text-xl font-bold">会場</h2>
+            <div className="flex space-x-2">
+              <p className="font-bold">開催場所</p>
+              <p>東京都渋谷区道玄坂1−234−5　渋谷センタービル2F</p>
+            </div>
+
             <iframe
               width="100%"
               height="400px"
@@ -75,21 +61,17 @@ export const DetailPageLayout: VFC<{ ticket: Ticket }> = (props) => {
           </div>
         </div>
 
-       
-          
-            {props.ticket.stripePriceId && (
-              <form
-                method={"POST"}
-                action={`/api/checkout_session/${props.ticket.stripePriceId}`}
-                className="flex justify-center items-center"
-              >
-                <button type="submit" role="link" className={BaseButtonClass}>
-                  Checkout
-                </button>
-              </form>
-            )}
-          
-        
+        {props.ticket.stripePriceId && (
+          <form
+            method={"POST"}
+            action={`/api/checkout_session/${props.ticket.stripePriceId}`}
+            className="flex justify-center items-center"
+          >
+            <button type="submit" role="link" className={BaseButtonClass}>
+              Checkout
+            </button>
+          </form>
+        )}
       </div>
     </div>
   );
