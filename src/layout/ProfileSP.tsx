@@ -58,19 +58,19 @@ export const ProfileSP: VFC = () => {
           />
         </Popover.Button>
       </div>
-      <Popover.Overlay className="fixed inset-0 bg-black opacity-50" />
+      <Popover.Overlay className="fixed inset-0 opacity-50" />
 
       <Transition
         enter="transition duration-100 ease-out"
         enterFrom="transform scale-95 opacity-0"
         enterTo="transform scale-100 opacity-100"
       >
-        <Popover.Panel className="absolute right-5 left-5 z-10 p-5 bg-white rounded-lg">
+        <Popover.Panel className="absolute right-5 left-5 z-10 p-5 rounded-lg">
           <div className="flex-grow pr-8 text-right">
-            <h2 className="text-lg font-medium text-gray-900">{userInfomation ? userInfomation.name : "No User"}</h2>
+            <h2 className="text-lg font-medium">{userInfomation ? userInfomation.name : "No User"}</h2>
             <p className="mb-4">{userInfomation?.profile}</p>
             <span className="inline-flex">
-              <a className="text-gray-500">
+              <a className="">
                 <svg
                   fill="none"
                   stroke="currentColor"
@@ -83,7 +83,7 @@ export const ProfileSP: VFC = () => {
                   <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
                 </svg>
               </a>
-              <a className="ml-2 text-gray-500">
+              <a className="ml-2">
                 <svg
                   fill="none"
                   stroke="currentColor"
@@ -96,7 +96,7 @@ export const ProfileSP: VFC = () => {
                   <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
                 </svg>
               </a>
-              <a className="ml-2 text-gray-500">
+              <a className="ml-2">
                 <svg
                   fill="none"
                   stroke="currentColor"
@@ -113,7 +113,7 @@ export const ProfileSP: VFC = () => {
           </div>
           <UserSetting />
           {user && (
-            <button className="flex justify-center py-5 mx-auto mb-5 text-blue-500" onClick={handleLogout}>
+            <button className="flex justify-center py-5 mx-auto mb-5" onClick={handleLogout}>
               ログアウト
             </button>
           )}

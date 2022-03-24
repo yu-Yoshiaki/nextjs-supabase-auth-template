@@ -59,18 +59,18 @@ export const AuthForm = (props: { createNew: boolean }) => {
   return (
     <div>
       <h2 className="text-3xl font-bold text-center">{props.createNew ? "アカウント作成" : "ログイン"}</h2>
-      <div className="flex flex-col p-8 mt-10 space-y-5 w-full bg-gray-100 rounded-lg md:mx-auto md:w-[80%]">
-        <h3 className="text-lg font-medium text-gray-900">{props.createNew ? "Sign Up." : "Login"}</h3>
+      <div className="flex flex-col p-8 mt-10 space-y-5 w-full rounded-lg md:mx-auto md:w-[80%]">
+        <h3 className="text-lg font-medium">{props.createNew ? "Sign Up." : "Login"}</h3>
 
         <form onSubmit={handleSubmit(props.createNew ? onSignup : onLogin)}>
           <div className="flex space-x-4">
             <label>
-              Email <span className="text-red-600">必須</span>
+              Email <span className="">必須</span>
             </label>
-            <div className="text-red-500">{errors?.email && <p>{errors.email.message}</p>}</div>
+            <div className="">{errors?.email && <p>{errors.email.message}</p>}</div>
           </div>
           <input
-            className="py-1 px-3 w-full text-base leading-8 text-gray-700 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-colors duration-200 ease-in-out outline-none"
+            className="py-1 px-3 w-full text-base leading-8 rounded border focus:border-blue focus:ring-2 focus:ring-blue transition-colors duration-200 ease-in-out outline-none"
             {...register("email", {
               required: { value: true, message: "" },
               pattern: {
@@ -84,15 +84,15 @@ export const AuthForm = (props: { createNew: boolean }) => {
 
           <div className="flex space-x-4">
             <label>
-              Password <span className="text-red-600">必須</span>
+              Password <span className="">必須</span>
             </label>
-            <div className="text-red-500">
+            <div className="">
               {errors?.password?.types?.required && <p>{errors?.password?.message}</p>}
               {errors?.password?.types?.pattern && <p>{errors?.password?.message}</p>}
             </div>
           </div>
           <input
-            className="py-1 px-3 w-full text-base leading-8 text-gray-700 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-colors duration-200 ease-in-out outline-none"
+            className="py-1 px-3 w-full text-base leading-8 rounded border focus:border-blue focus:ring-2 transition-colors duration-200 ease-in-out outline-none"
             {...register("password", {
               required: { value: true, message: "" },
               minLength: { value: 8, message: "8文字以上入力してください。" },
@@ -108,7 +108,7 @@ export const AuthForm = (props: { createNew: boolean }) => {
           <input
             value={props.createNew ? "アカウント作成" : "ログイン"}
             type="submit"
-            className="py-2 px-12 text-lg text-white bg-indigo-500 hover:bg-indigo-600 rounded border-0 focus:outline-none"
+            className="py-2 px-12 text-lg hover:bg-blue rounded border-0 focus:outline-none"
           />
         </form>
       </div>

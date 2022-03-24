@@ -10,7 +10,7 @@ const UserProfile: CustomNextPage = () => {
     fetchUser();
   }, [fetchUser, userInfomation]);
   return (
-    <div className="py-4 px-4 space-y-4 min-h-[200px] bg-white rounded-md shadow-lg">
+    <div className="py-4 px-4 space-y-4 min-h-[200px] rounded-md shadow-lg">
       <div className="grid grid-rows-2 justify-center items-center space-x-3 text-2xl font-semibold text-center">
         <p className="text-sm">名前</p>
         <p>{userInfomation?.name}</p>
