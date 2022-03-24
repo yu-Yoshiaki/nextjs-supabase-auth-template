@@ -138,7 +138,7 @@ export const TicketList = (props: { datas: Ticket[]; test: boolean }) => {
     );
 
   return (
-    <div className="py-4 px-4 ">
+    <div className="p-4">
       <div className="grid grid-cols-1 gap-x-6 gap-y-10 mt-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
         {props.datas.map((data) => {
           return <CardLayout ticket={data} key={data.id} />;

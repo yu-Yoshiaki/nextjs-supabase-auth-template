@@ -84,7 +84,7 @@ const TicketCreate: CustomNextPage = () => {
                         <p className="">{errors?.name?.message}</p>{" "}
                       </div>
                       <input
-                        className="py-1 px-3 w-full text-base leading-8 rounded border focus:border-blue focus:ring-2 transition-colors duration-200 ease-in-out outline-none"
+                        className="py-1 px-3 w-full text-base leading-8 rounded border focus:border-blue focus:ring-2 transition-colors duration-200 ease-in-out"
                         {...register("name", {
                           required: { value: true, message: "" },
                           maxLength: { value: 30, message: "文字数オーバーです。" },
@@ -177,7 +177,7 @@ const TicketCreate: CustomNextPage = () => {
                 <div className="py-3 px-4 text-right sm:px-6">
                   <button
                     type="submit"
-                    className="inline-flex justify-center py-2 px-4 text-sm font-medium hover:bg-blue rounded-md border focus:ring-2 focus:ring-blue focus:ring-offset-2 shadow-sm focus:outline-none"
+                    className="inline-flex justify-center py-2 px-4 text-sm font-medium hover:bg-blue rounded-md border focus:ring-2 focus:ring-blue focus:ring-offset-2 shadow-sm"
                   >
                     新規作成
                   </button>
