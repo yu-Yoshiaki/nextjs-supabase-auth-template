@@ -5,8 +5,6 @@ import { BaseButtonClass } from "src/component/Button";
 import type { Ticket } from "src/type/ticket";
 
 export const DetailPageLayout: VFC<{ ticket: Ticket }> = (props) => {
-
-
   // const [sessionUrl, setSessionUrl] = useState<string>();
 
   // useEffect(() => {
@@ -75,21 +73,17 @@ export const DetailPageLayout: VFC<{ ticket: Ticket }> = (props) => {
           </div>
         </div>
 
-       
-          
-            {props.ticket.stripePriceId && (
-              <form
-                method={"POST"}
-                action={`/api/checkout_session/${props.ticket.stripePriceId}`}
-                className="flex justify-center items-center"
-              >
-                <button type="submit" role="link" className={BaseButtonClass}>
-                  Checkout
-                </button>
-              </form>
-            )}
-          
-        
+        {props.ticket.stripePriceId && (
+          <form
+            method={"POST"}
+            action={`/api/checkout_session/${props.ticket.stripePriceId}`}
+            className="flex justify-center items-center"
+          >
+            <button type="submit" role="link" className={BaseButtonClass}>
+              Checkout
+            </button>
+          </form>
+        )}
       </div>
     </div>
   );
