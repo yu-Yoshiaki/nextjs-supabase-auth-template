@@ -8,7 +8,7 @@ import type { Ticket } from "src/type/ticket";
 const Root: CustomNextPage<{ posts: Ticket[] }> = (props) => {
   return (
     <div>
-      <TicketList data={props.posts} />
+      <TicketList datas={props.posts} test={false} />
     </div>
   );
 };
