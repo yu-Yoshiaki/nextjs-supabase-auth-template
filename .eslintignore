@@ -3,3 +3,4 @@
 **/.next/*
 /.eslintrc.js
 /cypress
+/jest.config.js
