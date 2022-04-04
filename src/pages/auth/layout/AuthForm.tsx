@@ -18,19 +18,19 @@ export const AuthForm = (props: { createNew: boolean }) => {
   } = useForm<Inputs>({ criteriaMode: "all" });
 
   const router = useRouter();
-  const { createUser } = useUser();
+  const { setUser, createUser } = useUser();
 
   const onLogin = (data: Inputs) => {
+    window.alert("スタート");
     signInWithEmailAndPassword(auth, data.email, data.password)
-      .then(() => {
+      .then((user) => {
         window.alert("ログインしました。");
+
+        setUser(user.user);
         return router.push("/");
       })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-
-        window.alert({ errorCode, errorMessage });
+      .catch(() => {
+        window.alert("ログインに失敗しました。");
         return;
       });
     // eslint-disable-next-line no-console
@@ -70,7 +70,7 @@ export const AuthForm = (props: { createNew: boolean }) => {
             <div className="">{errors?.email && <p>{errors.email.message}</p>}</div>
           </div>
           <input
-            className="py-1 px-3 w-full text-base leading-8 rounded border focus:border-blue focus:ring-2 focus:ring-blue transition-colors duration-200 ease-in-out outline-none"
+            className="py-1 px-3 w-full text-base leading-8 rounded border focus:border-blue focus:ring-2 focus:ring-blue transition-colors duration-200 ease-in-out"
             {...register("email", {
               required: { value: true, message: "" },
               pattern: {
@@ -92,7 +92,7 @@ export const AuthForm = (props: { createNew: boolean }) => {
             </div>
           </div>
           <input
-            className="py-1 px-3 w-full text-base leading-8 rounded border focus:border-blue focus:ring-2 transition-colors duration-200 ease-in-out outline-none"
+            className="py-1 px-3 w-full text-base leading-8 rounded border focus:border-blue focus:ring-2 transition-colors duration-200 ease-in-out"
             {...register("password", {
               required: { value: true, message: "" },
               minLength: { value: 8, message: "8文字以上入力してください。" },

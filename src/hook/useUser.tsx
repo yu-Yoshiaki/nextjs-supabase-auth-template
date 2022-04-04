@@ -81,5 +81,5 @@ export const useUser = () => {
     });
   }, []);
 
-  return { user, userID: user?.uid, createUser, userInfomation, fetchUser };
+  return { user, userID: user?.uid, createUser, userInfomation, fetchUser, setUser };
 };

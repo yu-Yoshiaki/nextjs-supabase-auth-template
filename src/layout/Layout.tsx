@@ -1,5 +1,4 @@
 import type { CustomLayout } from "next";
-import { Profile } from "src/layout/Profile";
 
 import { Footer } from "./Footer";
 import { Header } from "./Header";
@@ -10,23 +9,19 @@ import { LayoutErrorBoundary } from "./LayoutErrorBoundary";
  */
 export const Layout: CustomLayout = (page) => {
   return (
-    <div className="">
-      <p className="fixed top-0 right-0 left-0 z-30 content-center px-2 h-[50px] font-bold text-center bg-yellow">
+    <div>
+      <p className="fixed inset-x-0 top-0 z-30 font-bold text-center bg-yellow">
         テスト版のため、実際には購入できません。
       </p>
-      <div className="grid grid-cols-1 mx-auto min-h-screen font-sans md:grid-cols-[auto,1fr,25%] md:px-0 md:pt-[50px]">
-        <div className="h-full border-b shadow-md">
+      <div className="grid grid-cols-1 mx-auto mb-5 min-h-screen md:grid-cols-[auto,1fr] md:px-0 md:pt-[50px]">
+        <div className="h-full">
           <Header />
         </div>
-        <main className="pt-[150px] min-h-screen md:overflow-y-auto md:pt-0">
+        <main className="pt-[150px] min-h-screen md:overflow-y-auto md:pt-[60px]">
           <LayoutErrorBoundary>{page}</LayoutErrorBoundary>
         </main>
-        {/* 後でコンポーネント書き出す */}
-        <div className="border-l">
-          <Profile />
-          <Footer />
-        </div>
       </div>
+      <Footer />
     </div>
   );
 };

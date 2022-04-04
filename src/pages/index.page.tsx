@@ -3,14 +3,10 @@ import type { CustomNextPage, GetStaticProps } from "next";
 import { Layout } from "src/layout";
 import { firestore, ticketConverter } from "src/lib/firebase";
 import { TicketList } from "src/pages/ticket/TicketList";
-import type { Ticket } from "src/type/ticket";
+import type { ReadTicket } from "src/type/ticket";
 
-const Root: CustomNextPage<{ posts: Ticket[] }> = (props) => {
-  return (
-    <div>
-      <TicketList datas={props.posts} test={false} />
-    </div>
-  );
+const Root: CustomNextPage<{ posts: ReadTicket[] }> = (props) => {
+  return <TicketList datas={props.posts} test={false} />;
 };
 
 export const getStaticProps: GetStaticProps = async () => {

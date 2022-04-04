@@ -1,42 +1,47 @@
-export type Ticket = {
+export type ReadTicket = {
   id: string;
   name: string;
   description: string;
   image?: string;
   organizer: string;
-  stock: number;
+
   start: object;
   isAccept: boolean;
   priceList: {
     nomal: {
       price: string;
       content: string;
+      stock: number;
     };
   };
   address?: {
     address?: string;
     postCode?: string;
+    lat: number;
+    lng: number;
   };
   stripePriceId: string;
 };
 
-export type CreateTicket = {
+export type WriteTicket = {
   name: string;
   description: string;
   image?: string;
   organizer: string;
-  stock: number;
   start: object;
   isAccept: boolean;
   priceList: {
     nomal: {
       price: string;
       content: string;
+      stock: number;
     };
   };
   address?: {
     address?: string;
     postCode?: string;
+    lat: number;
+    lng: number;
   };
   stripePriceId: string;
 };

@@ -1,18 +1,33 @@
+import type { CustomNextPage } from "next";
 import Image from "next/image";
-import type { VFC } from "react";
-// import { useEffect, useState } from "react";
-import type { ReadTicket } from "src/type/ticket";
 
-const Checkout: VFC<{ priceList: ReadTicket["priceList"]; stripePriceId: ReadTicket["stripePriceId"] }> = (props) => {
+const Address = () => {
+  return (
+    <div className="bg-gray">
+      <div className="flex py-5  px-2 space-x-2">
+        <p className="font-bold">開催場所</p>
+        <p>東京都渋谷区道玄坂1−234−5 渋谷センタービル2F</p>
+      </div>
+
+      <iframe
+        width="100%"
+        height="400px"
+        frameBorder="0"
+        title="map"
+        marginHeight={0}
+        marginWidth={0}
+        scrolling="no"
+        src="https://maps.google.com/maps?width=100%&amp;height=600&amp;hl=en&amp;q=%C4%B0zmir+(My%20Business%20Name)&amp;ie=UTF8&amp;t=&amp;z=14&amp;iwloc=B&amp;output=embed"
+      ></iframe>
+    </div>
+  );
+};
+const Checkout = () => {
   return (
     <div className="flex justify-between items-center">
-      <p className="text-3xl font-bold ">JPY {props.priceList.nomal.price}</p>
+      <p className="text-3xl font-bold ">JPY 1000</p>
 
-      <form
-        method={"POST"}
-        action={`/api/checkout_session/${props.stripePriceId}`}
-        className="flex justify-center items-center"
-      >
+      <form method={"POST"} action={`/`} className="flex justify-center items-center">
         <button type="submit" role="link" className={"flex justify-center items-center py-4 px-16 bg-blue"}>
           Checkout
         </button>
@@ -36,11 +51,13 @@ const DateAndTime = () => {
   );
 };
 
-const Overview: VFC<{ name: ReadTicket["name"]; description: ReadTicket["description"] }> = (props) => {
+const Overview = () => {
   return (
     <div>
-      <h1 className="py-5 text-4xl font-extrabold text-left">{props.name}</h1>
-      <p className=" p-10 w-full min-h-[120px] text-lg border border-gray md:p-20">{props.description}</p>
+      <h1 className="py-5 text-4xl font-extrabold text-left">{"TICKETIA 公式イベント"}</h1>
+      <p className=" p-20 w-full min-h-[120px] text-lg border border-gray">
+        TICKETIA主催　公式イベント。豪華ゲスト出演。ここでしか聞けない貴重なトークが聞けます。人生楽しみましょう
+      </p>
     </div>
   );
 };
@@ -56,7 +73,7 @@ const Organizer = () => {
       <ul className="space-y-3">
         {datas.map((data) => {
           return (
-            <li key={data.title} className="flex space-x-10 border-b border-pink">
+            <li className="flex space-x-10 border-b border-pink" key={data.title}>
               <p className="w-[80px] text-xl text-left">{data.title}</p>
               <p className="text-xl">{data.value}</p>
             </li>
@@ -67,10 +84,12 @@ const Organizer = () => {
   );
 };
 
-export const DetailPageLayout: VFC<{ ticket: ReadTicket; test: boolean }> = (props) => {
+const Test: CustomNextPage = () => {
   return (
     <div className="pb-4 tracking-wide leading-relaxed">
       <div className="pt-6 text-center">
+        {/* Image gallery */}
+
         <Image
           width={800}
           height={480}
@@ -81,13 +100,15 @@ export const DetailPageLayout: VFC<{ ticket: ReadTicket; test: boolean }> = (pro
 
         {/* Product info */}
         <div className="px-4 pb-16 mx-auto space-y-10 max-w-2xl sm:px-6 ">
-          <Overview name={props.ticket.name} description={props.ticket.description} />
+          <Overview />
           <DateAndTime />
-          <Checkout priceList={props.ticket.priceList} stripePriceId={props.ticket.stripePriceId} />
-          {/* {props.ticket.address && <Address address={props.ticket.address} />} */}
+          <Checkout />
+          <Address />
           <Organizer />
         </div>
       </div>
     </div>
   );
 };
+
+export default Test;

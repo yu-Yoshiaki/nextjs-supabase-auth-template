@@ -52,11 +52,11 @@ export const Profile: VFC = () => {
             width={80}
             height={80}
             alt="team"
-            className="object-cover object-center flex-shrink-0 mb-4 rounded-full sm:mb-0"
+            className="object-cover object-center shrink-0 mb-4 rounded-full sm:mb-0"
             src="/bread.jpg"
           />
 
-          <div className="flex-grow sm:pl-8">
+          <div className="grow sm:pl-8">
             <h2 className="text-lg font-medium">{userInfomation ? userInfomation.name : "No User Name"}</h2>
             {userID && <p className="flex items-center p-1 font-bold rounded-md">ログイン中</p>}
             <p className="mb-4">{userInfomation?.profile}</p>

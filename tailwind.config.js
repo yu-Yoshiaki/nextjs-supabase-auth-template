@@ -1,14 +1,26 @@
 module.exports = {
   mode: "jit",
-  purge: ["./src/**/*.{ts,tsx}"],
+  content: ["./pages/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
   darkMode: false, // 'media' or 'class'
   theme: {
     colors: {
-      blue: "#e5e3d8",
-      pink: "#dddee0",
-      gray: "#dfe4ea",
-      accent: "#bfcad8",
-      yellow: "#f5c500",
+      white: "#fafafa",
+      blue: "#3b82f6",
+      pink: "#f9a8d4",
+      gray: "#d1d5db",
+      accent: "#6ee7b7",
+      yellow: "#fde047",
+    },
+    fontFamily: {
+      body: [
+        "ヒラギノ角ゴシック",
+        "Hiragino Sans",
+        "Hiragino Kaku Gothic ProN",
+        "ヒラギノ角ゴ ProN W3",
+        "メイリオ",
+        "Meiryo",
+        "sans-serif",
+      ],
     },
     extend: {},
   },
