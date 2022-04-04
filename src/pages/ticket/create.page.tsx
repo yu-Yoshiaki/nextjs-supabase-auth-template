@@ -1,12 +1,13 @@
+import { GoogleMap, LoadScript } from "@react-google-maps/api";
 import axios from "axios";
 import type { CustomNextPage } from "next";
 import { useRouter } from "next/router";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useFetchTicket } from "src/hook/useFetchTicket";
 import { useUser } from "src/hook/useUser";
 import { Layout } from "src/layout";
-import type { CreateTicket } from "src/type/ticket";
+import type { WriteTicket } from "src/type/ticket";
 
 const TicketCreate: CustomNextPage = () => {
   const router = useRouter();
@@ -21,6 +22,43 @@ const TicketCreate: CustomNextPage = () => {
   useEffect(() => {
     !user && router.push("/auth/login");
   }, [router, user]);
+
+  const [serchAddress, setSerchAddress] = useState("");
+
+  const defaultMapData = {
+    center: {
+      lat: 35.69575,
+      lng: 139.77521,
+    },
+    zoom: 9,
+  };
+
+  const [mapData, setMapData] = useState(defaultMapData);
+
+  const handleGenerateGeocode = () => {
+    if (window) {
+      const geocoder = new window.google.maps.Geocoder();
+
+      geocoder.geocode({ address: serchAddress }, (result, status) => {
+        if (status == "OK" && result) {
+          const lat = result[0].geometry.location.lat();
+          const lng = result[0].geometry.location.lng();
+
+          setMapData({
+            center: {
+              lat,
+              lng,
+            },
+            zoom: 15,
+          });
+        }
+      });
+    }
+  };
+
+  const handleChange = (e: any) => {
+    setSerchAddress(e.target.value);
+  };
 
   const onSubmit = useCallback(
     async (e) => {
@@ -38,23 +76,27 @@ const TicketCreate: CustomNextPage = () => {
             return error;
           }
         };
-
         const stripePriceId = await createProduct();
         if (stripePriceId) {
-          const Data: CreateTicket = {
+          const Data: WriteTicket = {
             name: e.name,
             description: e.description,
             organizer: user?.uid,
-            stock: e.stock,
             start: e.start,
             isAccept: true,
             priceList: {
               nomal: {
                 price: e.price,
                 content: "",
+                stock: e.stock,
               },
             },
-
+            address: {
+              address: e.address,
+              postCode: e.postCode,
+              lat: mapData.center.lat,
+              lng: mapData.center.lng,
+            },
             stripePriceId,
           };
           createDoc(Data);
@@ -62,7 +104,7 @@ const TicketCreate: CustomNextPage = () => {
       }
       return;
     },
-    [createDoc, user]
+    [createDoc, user, mapData]
   );
 
   return (
@@ -84,11 +126,13 @@ const TicketCreate: CustomNextPage = () => {
                         <p className="">{errors?.name?.message}</p>{" "}
                       </div>
                       <input
-                        className="py-1 px-3 w-full text-base leading-8 rounded border focus:border-blue focus:ring-2 transition-colors duration-200 ease-in-out"
+                        className="py-1 px-3 w-full text-base leading-8 rounded border border-gray focus:border-blue focus:ring-2 transition-colors duration-200 ease-in-out"
                         {...register("name", {
                           required: { value: true, message: "" },
                           maxLength: { value: 30, message: "文字数オーバーです。" },
                         })}
+                        type="text"
+                        autoComplete="name"
                       />
                     </div>
 
@@ -104,7 +148,7 @@ const TicketCreate: CustomNextPage = () => {
                           required: { value: true, message: "" },
                         })}
                         autoComplete="text"
-                        className="block mt-1 w-full rounded-md focus:border-blue focus:ring-blue shadow-sm sm:text-sm"
+                        className="block mt-1 w-full rounded-md border border-gray focus:border-blue focus:ring-blue shadow-sm sm:text-sm"
                       />
                     </div>
 
@@ -121,7 +165,7 @@ const TicketCreate: CustomNextPage = () => {
                           min: { value: 100, message: "100円から入力できます。" },
                           max: { value: 10000000, message: "10,000,000円まで入力できます。" },
                         })}
-                        className="block mt-1 w-full rounded-md focus:border-blue focus:ring-blue shadow-sm sm:text-sm"
+                        className="py-1 px-3 w-full text-base leading-8 rounded border border-gray focus:border-blue focus:ring-2 transition-colors duration-200 ease-in-out"
                       />
                     </div>
 
@@ -152,25 +196,46 @@ const TicketCreate: CustomNextPage = () => {
                         {...register("start", {
                           required: { value: true, message: "" },
                         })}
-                        className="block mt-1 w-full rounded-md focus:border-blue focus:ring-blue shadow-sm sm:text-sm"
+                        className="py-1 px-3 w-full text-base leading-8 rounded border border-gray focus:border-blue focus:ring-2 transition-colors duration-200 ease-in-out"
+                        type="date"
                       />
                     </div>
 
-                    <div className="col-span-6 sm:col-span-6 lg:col-span-2">
+                    <div className="col-span-6 lg:col-span-2">
                       <label className="block text-sm font-medium">郵便番号</label>
                       <input
                         {...register("postCode")}
+                        className="py-1 px-3 w-full text-base leading-8 rounded border border-gray focus:border-blue focus:ring-2 transition-colors duration-200 ease-in-out"
+                        type="text"
                         autoComplete="postal-code"
-                        className="block mt-1 w-full rounded-md focus:border-blue focus:ring-blue shadow-sm sm:text-sm"
                       />
                     </div>
 
-                    <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-                      <label className="block text-sm font-medium ">住所</label>
-                      <input
-                        {...register("address")}
-                        className="block mt-1 w-full rounded-md focus:border-blue focus:ring-blue shadow-sm sm:text-sm"
-                      />
+                    <div className="col-span-6">
+                      <label className="block text-sm font-medium ">開催場所</label>
+                      <div className="flex mb-1 space-x-1">
+                        <input
+                          {...register("address")}
+                          className="py-1 px-3 w-full text-base leading-8 rounded border focus:border-blue focus:ring-2 transition-colors duration-200 ease-in-out"
+                          type="text"
+                          onChange={handleChange}
+                        />
+
+                        <button onClick={handleGenerateGeocode} className="p-1 whitespace-nowrap border">
+                          住所検索
+                        </button>
+                      </div>
+
+                      <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API as string}>
+                        <GoogleMap
+                          mapContainerStyle={{
+                            width: "100%",
+                            height: "400px",
+                          }}
+                          center={mapData.center}
+                          zoom={mapData.zoom}
+                        ></GoogleMap>
+                      </LoadScript>
                     </div>
                   </div>
                 </div>

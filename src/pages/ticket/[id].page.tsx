@@ -3,7 +3,7 @@ import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import type { CustomNextPage, GetStaticPaths, GetStaticProps } from "next";
 import { Layout } from "src/layout";
 import { firestore, ticketConverter } from "src/lib/firebase";
-import type { Ticket } from "src/type/ticket";
+import type { ReadTicket } from "src/type/ticket";
 
 import { DetailPageLayout } from "./DetailPageLayout";
 
@@ -29,7 +29,6 @@ export const getStaticProps: GetStaticProps = async (paths) => {
 
     const posts = JSON.parse(JSON.stringify(document.data()));
     // const posts = document.data();
-
     if (document) {
       return {
         props: {
@@ -45,8 +44,8 @@ export const getStaticProps: GetStaticProps = async (paths) => {
   };
 };
 
-const Index: CustomNextPage<{ posts: Ticket }> = (props) => {
-  return <DetailPageLayout ticket={props.posts} />;
+const Index: CustomNextPage<{ posts: ReadTicket }> = (props) => {
+  return <DetailPageLayout ticket={props.posts} test={false} />;
 };
 
 Index.getLayout = Layout;
