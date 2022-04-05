@@ -3,7 +3,10 @@ import type Stripe from "stripe";
 
 const stripe: Stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const { priceId } = req.query;
   if (req.method === "POST") {
     try {

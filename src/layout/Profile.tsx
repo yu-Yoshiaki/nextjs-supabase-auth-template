@@ -57,8 +57,14 @@ export const Profile: VFC = () => {
           />
 
           <div className="grow sm:pl-8">
-            <h2 className="text-lg font-medium">{userInfomation ? userInfomation.name : "No User Name"}</h2>
-            {userID && <p className="flex items-center p-1 font-bold rounded-md">ログイン中</p>}
+            <h2 className="text-lg font-medium">
+              {userInfomation ? userInfomation.name : "No User Name"}
+            </h2>
+            {userID && (
+              <p className="flex items-center p-1 font-bold rounded-md">
+                ログイン中
+              </p>
+            )}
             <p className="mb-4">{userInfomation?.profile}</p>
             <span className="inline-flex">
               <a className="">
@@ -107,7 +113,10 @@ export const Profile: VFC = () => {
 
       <UserSetting />
       {user && (
-        <button className="flex justify-center py-5 mx-auto mb-5 " onClick={handleLogout}>
+        <button
+          className="flex justify-center py-5 mx-auto mb-5 "
+          onClick={handleLogout}
+        >
           ログアウト
         </button>
       )}

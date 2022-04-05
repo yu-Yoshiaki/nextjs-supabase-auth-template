@@ -15,5 +15,9 @@ const ErrorFallback = (props: FallbackProps) => {
  * @package
  */
 export const LayoutErrorBoundary: VFC<{ children: ReactNode }> = (props) => {
-  return <ErrorBoundary FallbackComponent={ErrorFallback}>{props.children}</ErrorBoundary>;
+  return (
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
+      {props.children}
+    </ErrorBoundary>
+  );
 };

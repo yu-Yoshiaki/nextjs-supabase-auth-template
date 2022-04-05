@@ -129,7 +129,10 @@ const TicketCreate: CustomNextPage = () => {
                         className="py-1 px-3 w-full text-base leading-8 rounded border border-gray focus:border-blue focus:ring-2 transition-colors duration-200 ease-in-out"
                         {...register("name", {
                           required: { value: true, message: "" },
-                          maxLength: { value: 30, message: "文字数オーバーです。" },
+                          maxLength: {
+                            value: 30,
+                            message: "文字数オーバーです。",
+                          },
                         })}
                         type="text"
                         autoComplete="name"
@@ -162,8 +165,14 @@ const TicketCreate: CustomNextPage = () => {
                       <input
                         {...register("price", {
                           required: { value: true, message: "" },
-                          min: { value: 100, message: "100円から入力できます。" },
-                          max: { value: 10000000, message: "10,000,000円まで入力できます。" },
+                          min: {
+                            value: 100,
+                            message: "100円から入力できます。",
+                          },
+                          max: {
+                            value: 10000000,
+                            message: "10,000,000円まで入力できます。",
+                          },
                         })}
                         className="py-1 px-3 w-full text-base leading-8 rounded border border-gray focus:border-blue focus:ring-2 transition-colors duration-200 ease-in-out"
                       />
@@ -202,7 +211,9 @@ const TicketCreate: CustomNextPage = () => {
                     </div>
 
                     <div className="col-span-6 lg:col-span-2">
-                      <label className="block text-sm font-medium">郵便番号</label>
+                      <label className="block text-sm font-medium">
+                        郵便番号
+                      </label>
                       <input
                         {...register("postCode")}
                         className="py-1 px-3 w-full text-base leading-8 rounded border border-gray focus:border-blue focus:ring-2 transition-colors duration-200 ease-in-out"
@@ -212,7 +223,9 @@ const TicketCreate: CustomNextPage = () => {
                     </div>
 
                     <div className="col-span-6">
-                      <label className="block text-sm font-medium ">開催場所</label>
+                      <label className="block text-sm font-medium ">
+                        開催場所
+                      </label>
                       <div className="flex mb-1 space-x-1">
                         <input
                           {...register("address")}
@@ -221,12 +234,19 @@ const TicketCreate: CustomNextPage = () => {
                           onChange={handleChange}
                         />
 
-                        <button onClick={handleGenerateGeocode} className="p-1 whitespace-nowrap border">
+                        <button
+                          onClick={handleGenerateGeocode}
+                          className="p-1 whitespace-nowrap border"
+                        >
                           住所検索
                         </button>
                       </div>
 
-                      <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API as string}>
+                      <LoadScript
+                        googleMapsApiKey={
+                          process.env.NEXT_PUBLIC_GOOGLE_MAPS_API as string
+                        }
+                      >
                         <GoogleMap
                           mapContainerStyle={{
                             width: "100%",

@@ -2,7 +2,12 @@
 // import { getAnalytics } from "firebase/analytics";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import type { DocumentData, FirestoreDataConverter, QueryDocumentSnapshot, SnapshotOptions } from "firebase/firestore";
+import type {
+  DocumentData,
+  FirestoreDataConverter,
+  QueryDocumentSnapshot,
+  SnapshotOptions,
+} from "firebase/firestore";
 import { serverTimestamp } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import type { ReadTicket, WriteTicket } from "src/type/ticket";
@@ -38,7 +43,10 @@ export const ticketConverter: FirestoreDataConverter<WriteTicket> = {
     };
   },
 
-  fromFirestore(snapshot: QueryDocumentSnapshot, options: SnapshotOptions): ReadTicket {
+  fromFirestore(
+    snapshot: QueryDocumentSnapshot,
+    options: SnapshotOptions
+  ): ReadTicket {
     const data = snapshot.data(options);
 
     return {

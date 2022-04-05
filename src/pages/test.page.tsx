@@ -27,8 +27,16 @@ const Checkout = () => {
     <div className="flex justify-between items-center">
       <p className="text-3xl font-bold ">JPY 1000</p>
 
-      <form method={"POST"} action={`/`} className="flex justify-center items-center">
-        <button type="submit" role="link" className={"flex justify-center items-center py-4 px-16 bg-blue"}>
+      <form
+        method={"POST"}
+        action={`/`}
+        className="flex justify-center items-center"
+      >
+        <button
+          type="submit"
+          role="link"
+          className={"flex justify-center items-center py-4 px-16 bg-blue"}
+        >
           Checkout
         </button>
       </form>
@@ -54,7 +62,9 @@ const DateAndTime = () => {
 const Overview = () => {
   return (
     <div>
-      <h1 className="py-5 text-4xl font-extrabold text-left">{"TICKETIA 公式イベント"}</h1>
+      <h1 className="py-5 text-4xl font-extrabold text-left">
+        {"TICKETIA 公式イベント"}
+      </h1>
       <p className=" p-20 w-full min-h-[120px] text-lg border border-gray">
         TICKETIA主催　公式イベント。豪華ゲスト出演。ここでしか聞けない貴重なトークが聞けます。人生楽しみましょう
       </p>
@@ -73,7 +83,10 @@ const Organizer = () => {
       <ul className="space-y-3">
         {datas.map((data) => {
           return (
-            <li className="flex space-x-10 border-b border-pink" key={data.title}>
+            <li
+              className="flex space-x-10 border-b border-pink"
+              key={data.title}
+            >
               <p className="w-[80px] text-xl text-left">{data.title}</p>
               <p className="text-xl">{data.value}</p>
             </li>
