@@ -135,7 +135,9 @@ export const TicketList = (props: { datas: ReadTicket[]; test: boolean }) => {
                     <div className="flex flex-col p-[10px] space-y-1">
                       <h2 className="text-lg font-medium">{data.name}</h2>
                       <p className="px-1">{"data.description"}</p>
-                      <p className="px-1 text-xl text-right">pay {data.price}~</p>
+                      <p className="px-1 text-xl text-right">
+                        pay {data.price}~
+                      </p>
                     </div>
                   </a>
                 </Link>
@@ -147,12 +149,10 @@ export const TicketList = (props: { datas: ReadTicket[]; test: boolean }) => {
     );
 
   return (
-    <div className="p-4">
-      <div className="grid grid-cols-1 gap-x-6 gap-y-10 mt-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
-        {props.datas.map((data) => {
-          return <CardLayout ticket={data} key={data.id} />;
-        })}
-      </div>
+    <div className="grid grid-cols-2 gap-x-2 gap-y-10 px-2 mt-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
+      {props.datas.map((data, index) => {
+        return <CardLayout ticket={data} key={data.id} index={index} />;
+      })}
     </div>
   );
 };

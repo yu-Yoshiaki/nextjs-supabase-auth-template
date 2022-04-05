@@ -34,8 +34,14 @@ export const Address: VFC<{ address: ReadTicket["address"] }> = (props) => {
         <p>{props.address?.address}</p>
       </div>
 
-      <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API as string}>
-        <GoogleMap mapContainerStyle={containerStyle} center={mapData.center} zoom={mapData.zoom}>
+      <LoadScript
+        googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API as string}
+      >
+        <GoogleMap
+          mapContainerStyle={containerStyle}
+          center={mapData.center}
+          zoom={mapData.zoom}
+        >
           <InfoWindow position={positionAkiba}>
             <div style={divStyle}>
               <h1>秋葉原オフィス</h1>

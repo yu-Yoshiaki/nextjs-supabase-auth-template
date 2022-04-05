@@ -1,11 +1,11 @@
 module.exports = {
   mode: "jit",
   content: ["./pages/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
-  darkMode: false, // 'media' or 'class'
   theme: {
     colors: {
       white: "#fafafa",
       blue: "#3b82f6",
+      skyblue: "skyblue",
       pink: "#f9a8d4",
       gray: "#d1d5db",
       accent: "#6ee7b7",

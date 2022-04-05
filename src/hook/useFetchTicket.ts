@@ -7,7 +7,9 @@ import type { ReadTicket, WriteTicket } from "src/type/ticket";
 
 export const useFetchTicket = () => {
   const createDoc = useCallback(async (ticket: WriteTicket) => {
-    const collectionRef = collection(firestore, "ticket").withConverter(ticketConverter);
+    const collectionRef = collection(firestore, "ticket").withConverter(
+      ticketConverter
+    );
 
     await addDoc(collectionRef, ticket);
     window.alert(`Create Success!`);

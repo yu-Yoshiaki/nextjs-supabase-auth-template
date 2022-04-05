@@ -37,7 +37,9 @@ const Setting: CustomNextPage = () => {
       >
         <Dialog.Overlay className="opacity-50" />
 
-        <Dialog.Title className="text-xl font-bold">本当に削除してよろしいです？</Dialog.Title>
+        <Dialog.Title className="text-xl font-bold">
+          本当に削除してよろしいです？
+        </Dialog.Title>
 
         <p>
           データベースの方から完全削除いたします。出品情報、購入履歴、ユーザー情報など、全てのお客様情報にアクセスできなくなります。

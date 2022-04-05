@@ -10,7 +10,9 @@ const Root: CustomNextPage<{ posts: ReadTicket[] }> = (props) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const collectionRef = collection(firestore, "ticket").withConverter(ticketConverter);
+  const collectionRef = collection(firestore, "ticket").withConverter(
+    ticketConverter
+  );
   const docDatas = await getDocs(collectionRef);
 
   const data = docDatas.docs.map((d) => {

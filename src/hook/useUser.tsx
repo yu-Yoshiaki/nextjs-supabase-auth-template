@@ -1,6 +1,11 @@
 import type { User } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
-import type { DocumentData, FirestoreDataConverter, QueryDocumentSnapshot, SnapshotOptions } from "firebase/firestore";
+import type {
+  DocumentData,
+  FirestoreDataConverter,
+  QueryDocumentSnapshot,
+  SnapshotOptions,
+} from "firebase/firestore";
 import { setDoc } from "firebase/firestore";
 import { serverTimestamp } from "firebase/firestore";
 import { doc, getDoc } from "firebase/firestore";
@@ -28,7 +33,10 @@ const userConverter: FirestoreDataConverter<UserInfomation> = {
     };
   },
 
-  fromFirestore(snapshot: QueryDocumentSnapshot, options: SnapshotOptions): UserInfomation {
+  fromFirestore(
+    snapshot: QueryDocumentSnapshot,
+    options: SnapshotOptions
+  ): UserInfomation {
     const data = snapshot.data(options);
 
     return {
@@ -47,9 +55,10 @@ export const useUser = () => {
     fallbackData: undefined,
   });
 
-  const { data: userInfomation, mutate: setUserInfomation } = useSWR<UserInfomation>("userInfomation", null, {
-    fallbackData: undefined,
-  });
+  const { data: userInfomation, mutate: setUserInfomation } =
+    useSWR<UserInfomation>("userInfomation", null, {
+      fallbackData: undefined,
+    });
 
   const unsubscribe = onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -63,7 +72,9 @@ export const useUser = () => {
 
   const fetchUser = useCallback(async () => {
     if (user) {
-      const colRef = doc(firestore, "userInfomation", user.uid).withConverter(userConverter);
+      const colRef = doc(firestore, "userInfomation", user.uid).withConverter(
+        userConverter
+      );
       const document = await getDoc(colRef);
       if (document.exists()) {
         setUserInfomation(document.data());
@@ -74,12 +85,21 @@ export const useUser = () => {
   }, [setUserInfomation, user]);
 
   const createUser = useCallback(async (id: string) => {
-    const colRef = doc(firestore, "userInfomation", id).withConverter(userConverter);
+    const colRef = doc(firestore, "userInfomation", id).withConverter(
+      userConverter
+    );
     await setDoc(colRef, {
       name: "",
       profile: "",
     });
   }, []);
 
-  return { user, userID: user?.uid, createUser, userInfomation, fetchUser, setUser };
+  return {
+    user,
+    userID: user?.uid,
+    createUser,
+    userInfomation,
+    fetchUser,
+    setUser,
+  };
 };

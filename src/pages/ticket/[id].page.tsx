@@ -24,7 +24,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (paths) => {
   if (paths.params) {
-    const colRef = doc(firestore, "ticket", paths.params.id as string).withConverter(ticketConverter);
+    const colRef = doc(
+      firestore,
+      "ticket",
+      paths.params.id as string
+    ).withConverter(ticketConverter);
     const document = await getDoc(colRef);
 
     const posts = JSON.parse(JSON.stringify(document.data()));
