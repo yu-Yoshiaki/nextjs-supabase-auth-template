@@ -58,16 +58,18 @@ export const ProfileSP: VFC = () => {
           />
         </Popover.Button>
       </div>
-      <Popover.Overlay className="fixed inset-0 opacity-50" />
+      <Popover.Overlay className="fixed inset-0 bg-gray opacity-50" />
 
       <Transition
         enter="transition duration-100 ease-out"
         enterFrom="transform scale-95 opacity-0"
         enterTo="transform scale-100 opacity-100"
       >
-        <Popover.Panel className="absolute inset-x-5 z-10 p-5 rounded-lg">
-          <div className="grow pr-8 text-right">
-            <h2 className="text-lg font-medium">{userInfomation ? userInfomation.name : "No User"}</h2>
+        <Popover.Panel className="absolute inset-x-5 z-10 p-5 bg-white rounded-lg">
+          <div className="grow pr-8 text-right ">
+            <h2 className="text-lg font-medium">
+              {userInfomation ? userInfomation.name : "No User"}
+            </h2>
             <p className="mb-4">{userInfomation?.profile}</p>
             <span className="inline-flex">
               <a className="">
@@ -113,7 +115,10 @@ export const ProfileSP: VFC = () => {
           </div>
           <UserSetting />
           {user && (
-            <button className="flex justify-center py-5 mx-auto mb-5" onClick={handleLogout}>
+            <button
+              className="flex justify-center py-5 mx-auto mb-5"
+              onClick={handleLogout}
+            >
               ログアウト
             </button>
           )}
