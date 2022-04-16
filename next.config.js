@@ -8,7 +8,11 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   images: {
-    domains: ["ticketia-b34da.appspot.com", "firebasestorage.googleapis.com"],
+    domains: [
+      "ticketia-b34da.appspot.com",
+      "firebasestorage.googleapis.com",
+      "files.stripe.com",
+    ],
   },
 };
 
