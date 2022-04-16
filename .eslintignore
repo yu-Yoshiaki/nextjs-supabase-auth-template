@@ -4,3 +4,4 @@
 /.eslintrc.js
 /cypress
 /jest.config.js
+/functions
