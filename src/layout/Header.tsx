@@ -16,7 +16,7 @@ export const Header: VFC = () => {
     <header className="fixed inset-x-0 top-6 z-30 pb-1 min-w-[256px] bg-white md:flex md:justify-between md:items-center md:border-b">
       <div className="flex justify-between items-center h-[60px] border-b md:border-none">
         <Link href={"/"}>
-          <a className="flex items-center pl-2 min-h-30">
+          <a className="flex items-center pl-2">
             <h1 className="text-2xl font-bold md:text-6xl ">
               TICKET<span className="">tia</span>
             </h1>
