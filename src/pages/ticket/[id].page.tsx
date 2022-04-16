@@ -5,7 +5,7 @@ import { Layout } from "src/layout";
 import { firestore, ticketConverter } from "src/lib/firebase";
 import type { ReadTicket } from "src/type/ticket";
 
-import { DetailPageLayout } from "./DetailPageLayout";
+import { DetailPageLayout } from "./layout/DetailPageLayout";
 
 loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string);
 

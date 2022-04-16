@@ -65,7 +65,7 @@ const TicketCreate: CustomNextPage = () => {
       if (user) {
         const createProduct = async () => {
           try {
-            const res = await axios.post("/api/createProduct", {
+            const res = await axios.post("/api/product/create", {
               productName: e.name,
               owner: user.uid,
               unitAmount: e.price,
