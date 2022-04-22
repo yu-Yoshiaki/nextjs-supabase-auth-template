@@ -21,41 +21,37 @@ export const AuthForm = (props: { createNew: boolean }) => {
   } = useForm<Inputs>({ criteriaMode: "all" });
 
   const router = useRouter();
-  const { setUser, createUser } = useUser();
+  const { setUser } = useUser();
 
-  const onLogin = (data: Inputs) => {
-    window.alert("スタート");
-    signInWithEmailAndPassword(auth, data.email, data.password)
-      .then((user) => {
-        window.alert("ログインしました。");
+  const onLogin = async (data: Inputs) => {
+    const user = await signInWithEmailAndPassword(
+      auth,
+      data.email,
+      data.password
+    );
+    if (user) {
+      window.alert("ログインしました。");
 
-        setUser(user.user);
-        return router.push("/");
-      })
-      .catch(() => {
-        window.alert("ログインに失敗しました。");
-        return;
-      });
-    // eslint-disable-next-line no-console
+      setUser(user.user);
+      return router.push("/");
+    }
+
+    window.alert("ログインに失敗しました。");
     return;
   };
 
   //firebase user作成
-  const onSignup = (data: Inputs) => {
-    createUserWithEmailAndPassword(auth, data.email, data.password)
-      .then(({ user }) => {
-        createUser(user.uid);
-        window.alert("ユーザー作成が完了しました。");
-        return router.push("/");
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-
-        window.alert({ errorCode, errorMessage });
-        return;
-      });
-    // eslint-disable-next-line no-console
+  const onSignup = async (data: Inputs) => {
+    const user = await createUserWithEmailAndPassword(
+      auth,
+      data.email,
+      data.password
+    );
+    if (user) {
+      window.alert("ユーザー作成が完了しました。");
+      return router.push("/");
+    }
+    window.alert("ユーザー作成に失敗しました。");
     return;
   };
 
