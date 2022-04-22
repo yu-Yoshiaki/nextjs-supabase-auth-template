@@ -1,49 +1,13 @@
 import Image from "next/image";
 import type { VFC } from "react";
-// import { useEffect, useState } from "react";
-import type { ReadTicket } from "src/type/ticket";
+import { Checkout } from "src/pages/ticket/layout/Checkout";
+import type { ReadPrice, ReadTicket } from "src/type/ticket";
 
-const Checkout: VFC<{
-  name: ReadTicket["name"];
-  priceList: ReadTicket["priceList"];
-  stripePriceId: ReadTicket["stripePriceId"];
-}> = (props) => {
-  return (
-    <div className="pb-5 space-y-5 border border-gray">
-      <p className="p-2 w-full text-left bg-skyblue">配信</p>
-      <h3 className="px-3 text-xl font-bold text-left">{props.name}</h3>
-      <div className="flex justify-between mr-1 ml-3">
-        <p className="py-1 px-2 w-[60px] text-sm bg-pink rounded-full ">
-          販売中
-        </p>
-        <p className="text-2xl font-bold text-right">
-          {props.priceList.nomal.price}円
-          <span className="text-sm">（税込）</span>
-        </p>
-      </div>
-
-      <form
-        method={"POST"}
-        action={`/api/checkout_session/${props.stripePriceId}`}
-        className="flex justify-center items-center"
-      >
-        <button
-          type="submit"
-          role="link"
-          className={
-            "flex justify-center items-center py-4 px-20  text-white bg-blue"
-          }
-        >
-          チケット購入
-        </button>
-      </form>
-    </div>
-  );
-};
+import { Address } from "./Address";
 
 const DateAndTime = () => {
   return (
-    <div className="py-5 px-2 space-y-2 bg-skyblue">
+    <div className="py-5 px-2 space-y-2 bg-gray">
       <div className="flex space-x-2">
         <p className="font-bold">開催日</p>
         <p>8/20</p>
@@ -72,41 +36,46 @@ const Overview: VFC<{
 };
 
 const Organizer = () => {
-  const datas = [
-    { title: "主催者", value: "TICKETIA" },
-    { title: "TEL", value: "090-1234-5678" },
-    { title: "住所", value: "東京都渋谷区道玄坂1−234−5" },
-  ];
+  const data = {
+    name: "TICKETIA",
+    tel: "090-1234-5678",
+    address: "東京都渋谷区道玄坂1−234−5",
+  };
+
   return (
-    <div className="w-full border border-gray">
-      <ul className="space-y-3">
-        {datas.map((data) => {
-          return (
-            <li
-              key={data.title}
-              className="flex space-x-10 border-b border-pink"
-            >
-              <p className="w-[70px] text-xl text-left">{data.title}</p>
-              <p className="text-xl text-left">{data.value}</p>
-            </li>
-          );
-        })}
-      </ul>
+    <div className="py-10 px-4 border border-gray">
+      <div className="flex justify-center items-center space-x-5 w-full">
+        <Image
+          width={120}
+          height={120}
+          src={"/noimage.jpg"}
+          alt={"test"}
+          className="rounded-full"
+        />
+
+        <div>
+          <p className="text-xl font-bold text-left">{data.name}</p>
+          <p className="text-left">{data.tel}</p>
+          <p className="text-left">{data.address}</p>
+        </div>
+      </div>
     </div>
   );
 };
 
-export const DetailPageLayout: VFC<{ ticket: ReadTicket; test: boolean }> = (
-  props
-) => {
+export const DetailPageLayout: VFC<{
+  ticket: ReadTicket;
+  test: boolean;
+  prices?: ReadPrice[];
+}> = (props) => {
   return (
     <div className="pb-4 tracking-wide leading-relaxed">
       <div className="pt-6 text-center">
         <Image
           width={800}
           height={480}
-          src={"/bread.jpg"}
-          alt={"test"}
+          src={props.ticket.images[0] ?? "/noimage.jpg"}
+          alt={props.ticket.images[0] ? props.ticket.name : "not image data"}
           className="object-cover object-center w-full h-full"
         />
 
@@ -117,12 +86,17 @@ export const DetailPageLayout: VFC<{ ticket: ReadTicket; test: boolean }> = (
             description={props.ticket.description}
           />
 
-          <Checkout
-            name={props.ticket.name}
-            priceList={props.ticket.priceList}
-            stripePriceId={props.ticket.stripePriceId}
-          />
-          {/* {props.ticket.address && <Address address={props.ticket.address} />} */}
+          {props.prices && (
+            <Checkout
+              name={props.ticket.name}
+              amount={props.prices[0].unitAmount}
+              priceId={props.prices[0].id}
+            />
+          )}
+
+          {props.ticket.metadata.address && (
+            <Address data={props.ticket.metadata} />
+          )}
           <Organizer />
         </div>
       </div>
