@@ -1,18 +1,20 @@
 import { GoogleMap, LoadScript } from "@react-google-maps/api";
-import axios from "axios";
 import type { CustomNextPage } from "next";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useFetchTicket } from "src/hook/useFetchTicket";
+import { useFirebaseProducts } from "src/hook/useFirebaseProducts";
+import { useStripeProducts } from "src/hook/useStripeProducts";
 import { useUser } from "src/hook/useUser";
 import { Layout } from "src/layout";
-import type { WriteTicket } from "src/type/ticket";
+import type { Ticket } from "src/type/ticket";
 
 const TicketCreate: CustomNextPage = () => {
   const router = useRouter();
   const { user } = useUser();
-  const { createDoc } = useFetchTicket();
+  const [isLoding, setIsLoding] = useState(false);
+  const { createDoc, addTicketSubCollection } = useFirebaseProducts();
+  const { createPrice, createProduct } = useStripeProducts();
   const {
     register,
     handleSubmit,
@@ -62,53 +64,76 @@ const TicketCreate: CustomNextPage = () => {
 
   const onSubmit = useCallback(
     async (e) => {
+      setIsLoding(true);
       if (user) {
-        const createProduct = async () => {
-          try {
-            const res = await axios.post("/api/product/create", {
-              productName: e.name,
-              owner: user.uid,
-              unitAmount: e.price,
-            });
-            const result = await res.data;
-            return result;
-          } catch (error) {
-            return error;
-          }
-        };
-        const stripePriceId = await createProduct();
-        if (stripePriceId) {
-          const Data: WriteTicket = {
+        try {
+          const product = await createProduct({
             name: e.name,
             description: e.description,
-            organizer: user?.uid,
-            start: e.start,
-            isAccept: true,
-            priceList: {
-              nomal: {
-                price: e.price,
-                content: "",
-                stock: e.stock,
-              },
-            },
-            address: {
+            metadata: {
+              organizer: "test",
+              startDay: e.startDay,
               address: e.address,
               postCode: e.postCode,
               lat: mapData.center.lat,
               lng: mapData.center.lng,
             },
-            stripePriceId,
+            images: e.images,
+          });
+
+          const Data: Ticket = {
+            name: product.name,
+            description: product.description || "",
+            active: product.active,
+            metadata: {
+              organizer: "test",
+              startDay: product.metadata.startDay,
+              address: product.metadata.address,
+              postCode: product.metadata.postCode,
+              lat: mapData.center.lat,
+              lng: mapData.center.lng,
+            },
+            images: product.images,
+            taxCode: null,
+            role: null,
           };
-          createDoc(Data);
+          await createDoc(Data, product.id).then(async () => {
+            return await createPrice({
+              product: product.id,
+              currency: "jpy",
+              unit_amount: e.price,
+            }).then(async (price) => {
+              await addTicketSubCollection(price, product.id, price.id);
+            });
+          });
+
+          // const price = await createPrice({
+          //   product: product.id,
+          //   currency: "jpy",
+          //   unit_amount: e.price,
+          // });
+        } catch (e: any) {
+          window.alert(e.message);
         }
       }
+
+      setIsLoding(false);
       return;
     },
-    [createDoc, user, mapData]
+    [
+      createDoc,
+      user,
+      mapData,
+      addTicketSubCollection,
+      createPrice,
+      createProduct,
+    ]
   );
 
   return (
     <div>
+      {isLoding && <div className="w-full h-full opacity-10">作成中。。。</div>}
+
       {user && (
         <div className="justify-center md:grid md:grid-cols-3 md:gap-6">
           <div className="mt-5 md:col-span-2 md:mt-0">
@@ -178,7 +203,7 @@ const TicketCreate: CustomNextPage = () => {
                       />
                     </div>
 
-                    <div className="col-span-6 sm:col-span-4">
+                    {/* <div className="col-span-6 sm:col-span-4">
                       <div className="flex space-x-4">
                         <label>
                           販売数 <span className="">必須</span>
@@ -192,7 +217,7 @@ const TicketCreate: CustomNextPage = () => {
                         type="number"
                         className="block mt-1 w-full rounded-md focus:border-blue focus:ring-blue shadow-sm sm:text-sm"
                       />
-                    </div>
+                    </div> */}
 
                     <div className="col-span-6">
                       <div className="flex space-x-4">
@@ -202,7 +227,7 @@ const TicketCreate: CustomNextPage = () => {
                         <p className="">{errors?.start?.message}</p>{" "}
                       </div>
                       <input
-                        {...register("start", {
+                        {...register("startDay", {
                           required: { value: true, message: "" },
                         })}
                         className="py-1 px-3 w-full text-base leading-8 rounded border border-gray focus:border-blue focus:ring-2 transition-colors duration-200 ease-in-out"
@@ -235,6 +260,7 @@ const TicketCreate: CustomNextPage = () => {
                         />
 
                         <button
+                          type="button"
                           onClick={handleGenerateGeocode}
                           className="p-1 whitespace-nowrap border"
                         >
