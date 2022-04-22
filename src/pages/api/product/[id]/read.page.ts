@@ -12,7 +12,7 @@ export default async function handler(
     try {
       const product = await stripe.products.retrieve(id);
       res.status(200).json(product);
-    } catch (e) {
+    } catch (e: any) {
       res.status(500).json(e.message);
     }
   } else {

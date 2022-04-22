@@ -13,7 +13,7 @@ export default async function handler(
       const account = await stripe.accounts.retrieve(id);
 
       res.status(200).json({ account });
-    } catch (e) {
+    } catch (e: any) {
       res.status(500).json(e.message);
     }
   } else {

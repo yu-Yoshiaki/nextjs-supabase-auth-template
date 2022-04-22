@@ -13,7 +13,7 @@ export default async function handler(
       const session = await stripe.checkout.sessions.retrieve(id);
 
       res.status(200).json(session);
-    } catch (e) {
+    } catch (e: any) {
       res.status(500).json(e.message);
     }
   } else {

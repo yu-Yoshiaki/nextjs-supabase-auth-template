@@ -14,7 +14,7 @@ export default async function handler(
       const deleted = await stripe.accounts.del(id);
 
       res.status(200).json({ result: deleted.deleted });
-    } catch (e) {
+    } catch (e: any) {
       res.status(500).json(e.message);
     }
   } else {

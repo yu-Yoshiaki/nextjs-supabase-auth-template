@@ -20,7 +20,7 @@ export default async function handler(
       // res.redirect(303, accountLink.url);
       res.json(accountLink.url);
       // res.json("https://google.com")
-    } catch (e) {
+    } catch (e: any) {
       res.status(500).json(e.message);
     }
   } else {

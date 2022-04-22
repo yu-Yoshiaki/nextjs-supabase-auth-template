@@ -11,7 +11,7 @@ const createProduct = async (req: NextApiRequest, res: NextApiResponse) => {
       const price = await stripe.prices.create(params);
 
       res.status(200).json(price.id);
-    } catch (e) {
+    } catch (e: any) {
       res.status(500).json(e.message);
     }
   }

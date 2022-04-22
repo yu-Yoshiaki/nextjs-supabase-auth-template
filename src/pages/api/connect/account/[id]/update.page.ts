@@ -15,7 +15,7 @@ export default async function handler(
       });
 
       res.status(200).json(account.metadata);
-    } catch (e) {
+    } catch (e: any) {
       res.status(500).json(e.message);
     }
   } else {

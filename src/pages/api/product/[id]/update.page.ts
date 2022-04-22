@@ -15,7 +15,7 @@ export default async function handler(
       const product = await stripe.products.update(id, params);
 
       res.status(200).json(product);
-    } catch (e) {
+    } catch (e: any) {
       res.status(500).json(e.message);
     }
   } else {
