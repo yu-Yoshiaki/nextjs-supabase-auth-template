@@ -10,8 +10,8 @@ const createProduct = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const product = await stripe.products.create(params);
 
-      res.status(200).json(product.id);
-    } catch (e) {
+      res.status(200).json(product);
+    } catch (e: any) {
       res.status(500).json(e.message);
     }
   }
