@@ -8,7 +8,6 @@ const createCheckoutSession = async (
   res: NextApiResponse
 ) => {
   const params: {
-    mode: Stripe.Checkout.SessionCreateParams.Mode;
     lineItems: Stripe.Checkout.SessionCreateParams.LineItem[];
   } = req.body;
 
@@ -17,12 +16,15 @@ const createCheckoutSession = async (
       const session = await stripe.checkout.sessions.create({
         success_url: `${req.headers.origin}/ticket/checkoutFinish/?success=true&session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${req.headers.origin}/ticket/checkoutFinish/?canceled=true`,
-        mode: params.mode,
+        mode: "payment",
         line_items: params.lineItems,
       });
 
-      res.redirect(303, session.url as string);
-    } catch (e) {
+      // res.redirect(303, session.url as string);
+      // できればサーバー側でリダイレクトしたい（sessionUrlをフロントで表示していいのか？）
+      // フロントでfetchやaxiosを使うとリダイレクトできない・・・
+      res.status(200).json({ sessionUrl: session.url as string });
+    } catch (e: any) {
       res.status(500).json(e.message);
     }
   }
