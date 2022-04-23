@@ -4,8 +4,8 @@ import { NavLink } from "src/component/Button";
 
 export const items = [
   { href: "/", label: "チケット一覧" },
-  { href: "#", label: "プライバシーポリシー" },
-  { href: "#", label: "利用規約" },
+  // { href: "#", label: "プライバシーポリシー" },
+  // { href: "#", label: "利用規約" },
 ];
 
 /**
