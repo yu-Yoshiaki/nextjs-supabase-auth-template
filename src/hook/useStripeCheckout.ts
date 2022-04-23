@@ -1,9 +1,18 @@
 import axios from "axios";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import type { Stripe } from "stripe";
 
 export const useStripeCheckout = () => {
   const productEndPoint = "/api/checkout/";
+  const [checkoutUrl, setCheckoutUrl] = useState<string | undefined>();
+
+  useEffect(() => {
+    if (checkoutUrl) {
+      window.location.href = checkoutUrl;
+    }
+    setCheckoutUrl(undefined);
+    return;
+  }, [checkoutUrl]);
 
   const createCheckoutSession = useCallback(
     async (params: {
@@ -11,12 +20,12 @@ export const useStripeCheckout = () => {
       lineItems: Stripe.Checkout.SessionCreateParams.LineItem[];
     }) => {
       const res = await axios.post(productEndPoint + "createSession", params);
-      const data: { sessionUrl: string } = await res.data;
-      window.location.href = data.sessionUrl;
+      const url: string = await res.data;
+      setCheckoutUrl(url);
       return;
     },
     []
   );
 
-  return { createCheckoutSession };
+  return { createCheckoutSession, checkoutUrl };
 };
