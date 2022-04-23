@@ -61,7 +61,8 @@ const Index: CustomNextPage<{ data: ReadTicket }> = (props) => {
 
   useEffect(() => {
     fetchPrices();
-  }, [fetchPrices]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return <DetailPageLayout ticket={props.data} test={false} prices={prices} />;
 };
