@@ -1,4 +1,4 @@
-import { GoogleMap, InfoWindow, LoadScript } from "@react-google-maps/api";
+import { GoogleMap, LoadScript } from "@react-google-maps/api";
 import type { VFC } from "react";
 import type { ReadTicket } from "src/type/ticket";
 
@@ -7,31 +7,20 @@ const containerStyle = {
   height: "400px",
 };
 
-const positionAkiba = {
-  lat: 35.69731,
-  lng: 139.7747,
-};
-
-const divStyle = {
-  background: "white",
-  fontSize: 7.5,
-};
-
-// マップの初期情報
-const mapData = {
-  center: {
-    lat: 35.69575,
-    lng: 139.77521,
-  },
-  zoom: 9,
-};
-
-export const Address: VFC<{ address: ReadTicket["address"] }> = (props) => {
+export const Address: VFC<{ data: ReadTicket["metadata"] }> = (props) => {
+  // マップの初期情報
+  const mapData = {
+    center: {
+      lat: props.data.lat ?? 0,
+      lng: props.data.lng ?? 0,
+    },
+    zoom: 9,
+  };
   return (
     <div className="bg-gray">
       <div className="flex py-5  px-2 space-x-2">
         <p className="font-bold">開催場所</p>
-        <p>{props.address?.address}</p>
+        <p>{props.data.address}</p>
       </div>
 
       <LoadScript
@@ -41,13 +30,7 @@ export const Address: VFC<{ address: ReadTicket["address"] }> = (props) => {
           mapContainerStyle={containerStyle}
           center={mapData.center}
           zoom={mapData.zoom}
-        >
-          <InfoWindow position={positionAkiba}>
-            <div style={divStyle}>
-              <h1>秋葉原オフィス</h1>
-            </div>
-          </InfoWindow>
-        </GoogleMap>
+        ></GoogleMap>
       </LoadScript>
     </div>
   );
