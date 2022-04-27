@@ -1,7 +1,6 @@
 // Import the functions you need from the SDKs you need
 // import { getAnalytics } from "firebase/analytics";
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
 import type {
   DocumentData,
   FirestoreDataConverter,
@@ -9,7 +8,6 @@ import type {
   SnapshotOptions,
 } from "firebase/firestore";
 import { serverTimestamp } from "firebase/firestore";
-import { getFirestore } from "firebase/firestore";
 import type { Price, ReadPrice, ReadTicket, Ticket } from "src/type/ticket";
 
 const firebaseConfig = {
@@ -22,10 +20,9 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASURE as string,
 };
 
-const app = initializeApp(firebaseConfig, "front");
+export const app = initializeApp(firebaseConfig);
+
 // export const analytics = getAnalytics(app);
-export const auth = getAuth(app);
-export const firestore = getFirestore(app);
 
 export const ticketConverter: FirestoreDataConverter<Ticket> = {
   toFirestore(ticket: Ticket): DocumentData {

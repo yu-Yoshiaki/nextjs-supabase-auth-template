@@ -1,6 +1,8 @@
 import { Popover, Transition } from "@headlessui/react";
 import { signOut } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
 import Image from "next/image";
 import type { VFC } from "react";
 import { useState } from "react";
@@ -8,7 +10,9 @@ import { useEffect } from "react";
 import { useCallback } from "react";
 import { useUser } from "src/hook/useUser";
 import { UserSetting } from "src/layout/UserSetting";
-import { auth, firestore } from "src/lib/firebase";
+
+const auth = getAuth();
+const firestore = getFirestore();
 
 type UserInfo = {
   name: string;

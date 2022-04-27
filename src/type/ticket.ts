@@ -9,7 +9,7 @@ export type Ticket = {
   images: string[];
   metadata: {
     organizer: string;
-    startDay: string;
+    startDay?: string;
     address?: string;
     postCode?: string;
     lat?: number;

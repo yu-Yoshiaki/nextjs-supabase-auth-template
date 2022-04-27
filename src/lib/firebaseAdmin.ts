@@ -1,5 +1,7 @@
 import type { ServiceAccount } from "firebase-admin";
 import * as admin from "firebase-admin";
+import { getAuth } from "firebase-admin/auth";
+import { getFirestore } from "firebase-admin/firestore";
 
 const cert: ServiceAccount = {
   privateKey: process.env.FIREBASE_KEY?.replace(/\\n/g, "\n"),
@@ -12,3 +14,6 @@ if (admin.apps.length === 0) {
     credential: admin.credential.cert(cert),
   });
 }
+
+export const auth = getAuth();
+export const firestore = getFirestore();
