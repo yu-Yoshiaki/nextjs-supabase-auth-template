@@ -2,15 +2,6 @@ module.exports = {
   mode: "jit",
   content: ["./pages/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
   theme: {
-    colors: {
-      white: "#fafafa",
-      blue: "#3b82f6",
-      skyblue: "skyblue",
-      pink: "#f9a8d4",
-      gray: "#d1d5db",
-      accent: "#6ee7b7",
-      yellow: "#fde047",
-    },
     fontFamily: {
       body: [
         "ヒラギノ角ゴシック",
@@ -22,7 +13,16 @@ module.exports = {
         "sans-serif",
       ],
     },
-    extend: {},
+    extend: {
+      colors: {
+        blue: "#3b82f6",
+        skyblue: "skyblue",
+        pink: "#f9a8d4",
+        gray: "#d1d5db",
+        accent: "#6ee7b7",
+        yellow: "#fde047",
+      },
+    },
   },
   variants: { extend: {} },
   plugins: [
