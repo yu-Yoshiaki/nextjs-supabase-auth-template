@@ -2,17 +2,21 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { useRouter } from "next/router";
+import type { VFC } from "react";
 import { useForm } from "react-hook-form";
 import { useUser } from "src/hook/useUser";
-import { auth } from "src/lib/firebase";
+import { app } from "src/lib/firebase";
+
+const auth = getAuth(app);
 
 type Inputs = {
   email: string;
   password: string;
 };
 
-export const AuthForm = (props: { createNew: boolean }) => {
+export const AuthForm: VFC<{ createNew: boolean }> = (props) => {
   //react-hook-form 初期化
   const {
     register,
@@ -21,14 +25,10 @@ export const AuthForm = (props: { createNew: boolean }) => {
   } = useForm<Inputs>({ criteriaMode: "all" });
 
   const router = useRouter();
-  const { setUser } = useUser();
+  const { setUser, user } = useUser();
 
-  const onLogin = async (data: Inputs) => {
-    const user = await signInWithEmailAndPassword(
-      auth,
-      data.email,
-      data.password
-    );
+  const onLogin = async ({ email, password }: Inputs) => {
+    const user = await signInWithEmailAndPassword(auth, email, password);
     if (user) {
       window.alert("ログインしました。");
 
@@ -41,12 +41,8 @@ export const AuthForm = (props: { createNew: boolean }) => {
   };
 
   //firebase user作成
-  const onSignup = async (data: Inputs) => {
-    const user = await createUserWithEmailAndPassword(
-      auth,
-      data.email,
-      data.password
-    );
+  const onSignup = async ({ email, password }: Inputs) => {
+    const user = await createUserWithEmailAndPassword(auth, email, password);
     if (user) {
       window.alert("ユーザー作成が完了しました。");
       return router.push("/");
@@ -123,6 +119,7 @@ export const AuthForm = (props: { createNew: boolean }) => {
           />
         </form>
       </div>
+      {user ?? "nouser"}
     </div>
   );
 };

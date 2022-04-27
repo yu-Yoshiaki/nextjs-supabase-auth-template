@@ -1,9 +1,5 @@
-import "src/lib/firebaseAdmin";
-
-import { getFirestore } from "firebase-admin/firestore";
 import type { NextApiRequest, NextApiResponse } from "next";
-
-const firestore = getFirestore();
+import { firestore } from "src/lib/firebaseAdmin";
 
 const get = async (req: NextApiRequest, res: NextApiResponse) => {
   const { id } = req.query;

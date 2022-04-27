@@ -1,32 +1,21 @@
 import { GoogleMap, LoadScript } from "@react-google-maps/api";
 import type { CustomNextPage } from "next";
-import { useRouter } from "next/router";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useFirebaseProducts } from "src/hook/useFirebaseProducts";
+import { useAuth } from "src/hook/useAuth";
 import { useStripeProducts } from "src/hook/useStripeProducts";
-import { useUser } from "src/hook/useUser";
 import { Layout } from "src/layout";
-import type { Ticket } from "src/type/ticket";
 
 const TicketCreate: CustomNextPage = () => {
-  const router = useRouter();
-  const { user } = useUser();
+  const { user } = useAuth();
   const [isLoding, setIsLoding] = useState(false);
-  const { createDoc, addTicketSubCollection } = useFirebaseProducts();
   const { createPrice, createProduct } = useStripeProducts();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-
-  useEffect(() => {
-    !user && router.push("/auth/login");
-  }, [router, user]);
-
   const [serchAddress, setSerchAddress] = useState("");
-
   const defaultMapData = {
     center: {
       lat: 35.69575,
@@ -34,11 +23,10 @@ const TicketCreate: CustomNextPage = () => {
     },
     zoom: 9,
   };
-
   const [mapData, setMapData] = useState(defaultMapData);
 
   const handleGenerateGeocode = () => {
-    if (window) {
+    if (typeof window != "undefined") {
       const geocoder = new window.google.maps.Geocoder();
 
       geocoder.geocode({ address: serchAddress }, (result, status) => {
@@ -67,51 +55,30 @@ const TicketCreate: CustomNextPage = () => {
       setIsLoding(true);
       if (user) {
         try {
-          const product = await createProduct({
+          const stripeProduct = await createProduct({
             name: e.name,
             description: e.description,
             metadata: {
-              organizer: "test",
-              startDay: e.startDay,
-              address: e.address,
-              postCode: e.postCode,
-              lat: mapData.center.lat,
-              lng: mapData.center.lng,
+              organizer: user,
+              // startDay: e.metadata.startDay ?? undefined,
+              // address: e.metadata.address ?? undefined,
+              // postCode: e.metadata.postCode ?? undefined,
+              // lat: mapData.center.lat ?? undefined,
+              // lng: mapData.center.lng ?? undefined,
             },
-            images: e.images,
-          });
-
-          const Data: Ticket = {
-            name: product.name,
-            description: product.description || "",
-            active: product.active,
-            metadata: {
-              organizer: "test",
-              startDay: product.metadata.startDay,
-              address: product.metadata.address,
-              postCode: product.metadata.postCode,
-              lat: mapData.center.lat,
-              lng: mapData.center.lng,
-            },
-            images: product.images,
+            images: [],
+            active: true,
             taxCode: null,
             role: null,
-          };
-          await createDoc(Data, product.id).then(async () => {
-            return await createPrice({
-              product: product.id,
-              currency: "jpy",
-              unit_amount: e.price,
-            }).then(async (price) => {
-              await addTicketSubCollection(price, product.id, price.id);
-            });
           });
 
-          // const price = await createPrice({
-          //   product: product.id,
-          //   currency: "jpy",
-          //   unit_amount: e.price,
-          // });
+          await createPrice({
+            product: stripeProduct.id,
+            currency: "jpy",
+            unit_amount: e.price,
+          });
+
+          window.alert("Sucess!!");
         } catch (e: any) {
           window.alert(e.message);
         }
@@ -120,14 +87,7 @@ const TicketCreate: CustomNextPage = () => {
       setIsLoding(false);
       return;
     },
-    [
-      createDoc,
-      user,
-      mapData,
-      addTicketSubCollection,
-      createPrice,
-      createProduct,
-    ]
+    [user, createPrice, createProduct]
   );
 
   return (
@@ -290,11 +250,17 @@ const TicketCreate: CustomNextPage = () => {
                     type="submit"
                     className="inline-flex justify-center py-2 px-4 text-sm font-medium hover:bg-blue rounded-md border focus:ring-2 focus:ring-blue focus:ring-offset-2 shadow-sm"
                   >
-                    新規作成
+                    Stripe登録
                   </button>
                 </div>
               </div>
             </form>
+            <button
+              type="submit"
+              className="inline-flex justify-center py-2 px-4 text-sm font-medium hover:bg-blue rounded-md border focus:ring-2 focus:ring-blue focus:ring-offset-2 shadow-sm"
+            >
+              Firebase登録
+            </button>
           </div>
         </div>
       )}

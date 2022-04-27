@@ -1,5 +1,6 @@
 import type { User } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import type {
   DocumentData,
   FirestoreDataConverter,
@@ -9,9 +10,13 @@ import type {
 import { setDoc } from "firebase/firestore";
 import { serverTimestamp } from "firebase/firestore";
 import { doc, getDoc } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
 import { useCallback } from "react";
-import { auth, firestore } from "src/lib/firebase";
+import { app } from "src/lib/firebase";
 import useSWR from "swr";
+
+const auth = getAuth(app);
+const firestore = getFirestore(app);
 
 type UserInfomation = {
   name: string;

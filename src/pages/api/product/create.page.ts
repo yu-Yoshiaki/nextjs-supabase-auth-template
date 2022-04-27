@@ -1,14 +1,23 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import type { Ticket } from "src/type/ticket";
 import type Stripe from "stripe";
 
 const stripe: Stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const createProduct = async (req: NextApiRequest, res: NextApiResponse) => {
-  const params: Stripe.ProductCreateParams = req.body;
+  const params: Ticket = req.body;
 
   if (req.method === "POST") {
     try {
-      const product = await stripe.products.create(params);
+      const product = await stripe.products.create({
+        active: params.active,
+        name: params.name,
+        description: params.description,
+        metadata: {
+          organizer: params.metadata.organizer,
+        },
+        images: params.images,
+      });
 
       res.status(200).json(product);
     } catch (e: any) {

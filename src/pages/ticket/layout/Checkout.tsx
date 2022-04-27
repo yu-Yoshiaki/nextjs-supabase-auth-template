@@ -1,18 +1,13 @@
 import type { VFC } from "react";
-import { useStripeCheckout } from "src/hook/useStripeCheckout";
 import type { ReadPrice } from "src/type/ticket";
 
-export const Checkout: VFC<{
+type Checkout = {
   name: string;
   amount: ReadPrice["unitAmount"];
   priceId: ReadPrice["id"];
-}> = (props) => {
-  const { createCheckoutSession } = useStripeCheckout();
-  const handleSubmit = async () => {
-    await createCheckoutSession({
-      lineItems: [{ price: props.priceId, quantity: 1 }],
-    });
-  };
+};
+
+export const Checkout: VFC<Checkout> = (props) => {
   return (
     <div className="pb-5 border border-gray">
       <p className="p-2 mb-5 w-full text-left bg-skyblue">配信</p>
@@ -27,7 +22,9 @@ export const Checkout: VFC<{
       </div>
 
       <form
-        onSubmit={handleSubmit}
+        action={`/api/checkout/${props.priceId}`}
+        method="POST"
+        // onSubmit={handleSubmit}
         className="flex justify-center items-center"
       >
         <button

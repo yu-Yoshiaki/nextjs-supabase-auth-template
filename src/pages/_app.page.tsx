@@ -14,7 +14,7 @@ const App = (props: CustomAppProps) => {
   return (
     <>
       <Head>
-        <title>Ticket now</title>
+        <title>チケットマーケット</title>
       </Head>
       {getLayout(<props.Component {...props.pageProps} />)}
     </>

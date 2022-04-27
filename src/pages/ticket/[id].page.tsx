@@ -1,15 +1,17 @@
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
 import type { CustomNextPage, GetStaticPaths, GetStaticProps } from "next";
 import { useCallback, useEffect, useState } from "react";
 import { Layout } from "src/layout";
-import { firestore, ticketConverter } from "src/lib/firebase";
+import { app, ticketConverter } from "src/lib/firebase";
 import type { ReadPrice, ReadTicket } from "src/type/ticket";
 
 import { DetailPageLayout } from "./layout/DetailPageLayout";
 
 loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string);
+const firestore = getFirestore(app);
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const colRef = collection(firestore, "ticket").withConverter(ticketConverter);
