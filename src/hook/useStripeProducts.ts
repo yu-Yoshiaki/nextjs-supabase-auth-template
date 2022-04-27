@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useCallback, useState } from "react";
+import type { Ticket } from "src/type/ticket";
 import type { Stripe } from "stripe";
 import type stripe from "stripe";
 
@@ -7,14 +8,11 @@ export const useStripeProducts = () => {
   const [productId, setProducId] = useState<string | undefined>();
   const productEndPoint = "/api/product/";
 
-  const createProduct = useCallback(
-    async (params: stripe.ProductCreateParams) => {
-      const res = await axios.post(productEndPoint + "create", params);
-      const data: stripe.Product = await res.data;
-      return data;
-    },
-    []
-  );
+  const createProduct = useCallback(async (params: Ticket) => {
+    const res = await axios.post(productEndPoint + "create", params);
+    const data: stripe.Product = await res.data;
+    return data;
+  }, []);
 
   const retrieveProduct = useCallback(async (productId: string) => {
     const res = await axios.get(productEndPoint + `${productId}` + "/read");
