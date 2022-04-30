@@ -6,11 +6,10 @@ const createCheckoutSession = async (
   res: NextApiResponse
 ) => {
   const { price } = req.query;
-
   if (req.method === "POST") {
     try {
       const session = await stripe.checkout.sessions.create({
-        success_url: `${req.headers.origin}/ticket/checkoutFinish/?success=true&session_id={CHECKOUT_SESSION_ID}`,
+        success_url: `${req.headers.origin}/api/checkout/success/?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${req.headers.origin}/ticket/checkoutFinish/?canceled=true`,
         mode: "payment",
         line_items: [
