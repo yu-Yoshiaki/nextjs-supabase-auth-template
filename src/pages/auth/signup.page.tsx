@@ -2,6 +2,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { getAuth } from "firebase/auth";
 import type { CustomNextPage } from "next";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { Layout } from "src/layout";
 import { app } from "src/lib/firebase";
@@ -13,6 +14,7 @@ type Inputs = {
 };
 
 const Signup: CustomNextPage = () => {
+  const router = useRouter();
   //react-hook-form 初期化
   const {
     register,
@@ -25,7 +27,8 @@ const Signup: CustomNextPage = () => {
     try {
       const user = await createUserWithEmailAndPassword(auth, email, password);
       if (user) {
-        return window.alert("ユーザー作成が完了しました。");
+        window.alert("ユーザー作成が完了しました。");
+        return router.push("/");
       }
     } catch (e: any) {
       window.alert("ユーザー作成に失敗しました。");

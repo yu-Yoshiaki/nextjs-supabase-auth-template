@@ -8,7 +8,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "GET") {
-    const { id } = req.query as { id: string };
+    const { id } = req.body as { id: string };
     try {
       const session = await stripe.checkout.sessions.retrieve(id);
 
