@@ -1,12 +1,10 @@
 import { loadStripe } from "@stripe/stripe-js";
-import axios from "axios";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import type { CustomNextPage, GetStaticPaths, GetStaticProps } from "next";
-import { useCallback, useEffect, useState } from "react";
 import { Layout } from "src/layout";
 import { app, ticketConverter } from "src/lib/firebase";
-import type { ReadPrice, ReadTicket } from "src/type/ticket";
+import type { ReadTicket } from "src/type/ticket";
 
 import { DetailPageLayout } from "./layout/DetailPageLayout";
 
@@ -52,21 +50,7 @@ export const getStaticProps: GetStaticProps = async (paths) => {
 };
 
 const Index: CustomNextPage<{ data: ReadTicket }> = (props) => {
-  // console.log("front", props.prices);
-  const [prices, setPrices] = useState<ReadPrice[]>();
-
-  const fetchPrices = useCallback(async () => {
-    const res = await axios.get(`/api/fb/price/${props.data.id}/get`);
-    const prices: ReadPrice[] = await res.data;
-    setPrices(prices);
-  }, [props.data.id]);
-
-  useEffect(() => {
-    fetchPrices();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  return <DetailPageLayout ticket={props.data} test={false} prices={prices} />;
+  return <DetailPageLayout ticket={props.data} test={false} />;
 };
 
 Index.getLayout = Layout;
