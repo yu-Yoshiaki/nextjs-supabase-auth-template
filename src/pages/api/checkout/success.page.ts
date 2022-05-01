@@ -4,7 +4,6 @@ import type Stripe from "stripe";
 
 const Success = async (req: NextApiRequest, res: NextApiResponse) => {
   const sessionId = req.query.session_id;
-
   if (req.method === "GET") {
     try {
       const session = await stripe.checkout.sessions.retrieve(
@@ -13,7 +12,7 @@ const Success = async (req: NextApiRequest, res: NextApiResponse) => {
       const customer = (await stripe.customers.retrieve(
         session.customer as string
       )) as Stripe.Response<Stripe.Customer>;
-      const redirectUrl = `http://yumotoyoshiakinomacbook-pro.local:3000/ticket/checkoutFinish/?success=true&name=${customer.name}`;
+      const redirectUrl = `/ticket/checkoutFinish/?success=true&name=${customer.name}`;
 
       res.redirect(303, redirectUrl);
     } catch (e: any) {
