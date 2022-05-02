@@ -7,7 +7,7 @@ import useSWR from "swr";
 
 const Loading = () => {
   return (
-    <div className={`pb-5 border border-gray w-[391px] mx-auto`}>
+    <div className={`pb-5 border border-gray w-full max-w-[391px] mx-auto`}>
       <div className="p-2 mb-5 w-full h-[42px] bg-gray animate-pulse"></div>
       <div className="pl-3 mb-10 h-[40px]">
         <div className="w-[180px] h-[25px] bg-gray animate-pulse"></div>
@@ -41,7 +41,7 @@ export const Checkout: VFC = () => {
   if (!prices) return <Loading />;
 
   return (
-    <div className={`pb-5 border border-gray w-[391px] mx-auto`}>
+    <div className={`pb-5 border border-gray w-full max-w-[391px] mx-auto`}>
       <p className={`p-2 mb-5 w-full text-left bg-skyblue`}>配信</p>
       <h3 className={`px-3 mb-10 text-xl w-full h-10 font-bold text-left`}>
         {ticket?.name}
