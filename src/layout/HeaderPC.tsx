@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { VFC } from "react";
-import { LoginButton, NavLink } from "src/component/Button";
+import { LoginButton } from "src/component";
+import { NavLink } from "src/component/Button";
 
 export const items = [
   { href: "/", label: "チケット一覧" },
