@@ -1,2 +1,2 @@
 export { Address } from "./Address";
-export { CardLayout } from "./CardLayout";
+export { ProductList } from "./ProductList";

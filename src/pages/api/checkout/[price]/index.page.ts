@@ -6,6 +6,7 @@ const createCheckoutSession = async (
   res: NextApiResponse
 ) => {
   const { price } = req.query;
+
   if (req.method === "POST") {
     try {
       const session = await stripe.checkout.sessions.create({

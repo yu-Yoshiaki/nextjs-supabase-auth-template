@@ -8,16 +8,14 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "GET") {
-    const { id } = req.body as { id: string };
     try {
-      const session = await stripe.checkout.sessions.retrieve(id);
+      const session = await stripe.checkout.sessions.list();
 
       res.status(200).json(session);
     } catch (e: any) {
       res.status(500).json(e.message);
     }
   } else {
-    res.setHeader("Allow", "POST");
     res.status(405).end("Method Not Allowed");
   }
 }

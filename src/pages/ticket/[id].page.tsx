@@ -1,16 +1,20 @@
-import { loadStripe } from "@stripe/stripe-js";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import type { CustomNextPage, GetStaticPaths, GetStaticProps } from "next";
 import { Layout } from "src/layout";
 import { app, ticketConverter } from "src/lib/firebase";
 import type { ReadTicket } from "src/type/ticket";
+import { SWRConfig } from "swr";
 
 import { DetailPageLayout } from "./layout/DetailPageLayout";
 
-loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string);
 const firestore = getFirestore(app);
-
+const fetchDocument = async (id: string) => {
+  const docRef = doc(firestore, "ticket", id).withConverter(ticketConverter);
+  const document = await getDoc(docRef);
+  const data = JSON.parse(JSON.stringify(document.data()));
+  return data;
+};
 export const getStaticPaths: GetStaticPaths = async () => {
   const colRef = collection(firestore, "ticket").withConverter(ticketConverter);
   const documents = await getDocs(colRef);
@@ -50,7 +54,19 @@ export const getStaticProps: GetStaticProps = async (paths) => {
 };
 
 const Index: CustomNextPage<{ data: ReadTicket }> = (props) => {
-  return <DetailPageLayout ticket={props.data} test={false} />;
+  return (
+    <SWRConfig
+      value={{
+        fallback: props.data,
+        revalidateIfStale: false,
+        revalidateOnFocus: false,
+        revalidateOnReconnect: false,
+        fetcher: fetchDocument,
+      }}
+    >
+      <DetailPageLayout />
+    </SWRConfig>
+  );
 };
 
 Index.getLayout = Layout;
