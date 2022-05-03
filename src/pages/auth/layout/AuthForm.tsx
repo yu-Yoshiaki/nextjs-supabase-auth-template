@@ -6,7 +6,7 @@ import { getAuth } from "firebase/auth";
 import { useRouter } from "next/router";
 import type { VFC } from "react";
 import { useForm } from "react-hook-form";
-import { useUser } from "src/hook/useUser";
+import { useAuth } from "src/hook/useAuth";
 import { app } from "src/lib/firebase";
 
 const auth = getAuth(app);
@@ -25,7 +25,7 @@ export const AuthForm: VFC<{ createNew: boolean }> = (props) => {
   } = useForm<Inputs>({ criteriaMode: "all" });
 
   const router = useRouter();
-  const { setUser, user } = useUser();
+  const { setUser, user } = useAuth();
 
   const onLogin = async ({ email, password }: Inputs) => {
     const user = await signInWithEmailAndPassword(auth, email, password);

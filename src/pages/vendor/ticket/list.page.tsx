@@ -7,9 +7,9 @@ import {
 } from "firebase/firestore";
 import type { CustomNextPage } from "next";
 import Link from "next/link";
-import { useAuth } from "src/hook/useAuth";
+import { useUser } from "src/hook/useUser";
 import { Layout } from "src/layout";
-import { ticketConverter } from "src/lib/firebase";
+import { ticketConverter } from "src/lib/firebase/converter";
 import type { ReadTicket } from "src/type/ticket";
 import useSWR from "swr";
 
@@ -29,13 +29,13 @@ const fetchDocs = async (fieldPath: string, value: string) => {
 };
 
 const List: CustomNextPage = () => {
-  const { user } = useAuth();
+  const { user } = useUser();
   const { data: list, error } = useSWR<ReadTicket[]>(
-    user ? ["metadata.organizer", user] : null,
+    user ? ["metadata.organizer", user.uid] : null,
     fetchDocs
   );
 
-  if (error) return <div>failed to load</div>;
+  if (error) return <div>Failed to load</div>;
   if (!list) return <div>Loading...</div>;
 
   return (

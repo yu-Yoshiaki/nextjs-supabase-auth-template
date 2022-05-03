@@ -6,16 +6,16 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import type { VFC } from "react";
 import { Fragment } from "react";
-import { useAuth } from "src/hook/useAuth";
+import { useUser } from "src/hook/useUser";
 
 const data = [
-  { href: "", text: "ホーム" },
+  { href: "/", text: "ホーム" },
   { href: "/vendor/ticket/list", text: "チケット一覧" },
   { href: "", text: "購入履歴" },
   { href: "", text: "設定" },
 ];
 export const SPMenu: VFC = () => {
-  const { user } = useAuth();
+  const { user } = useUser();
   const auth = getAuth();
   const router = useRouter();
 
@@ -45,9 +45,9 @@ export const SPMenu: VFC = () => {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-5 mt-2 w-[80%] bg-white rounded-md divide-y focus:outline-none ring-1 ring-black shadow-lg origin-top-right">
+          <Menu.Items className="absolute right-5 mt-2 w-[80%] max-w-[480px] bg-white rounded-md divide-y focus:outline-none ring-1 ring-black shadow-lg origin-top-right">
             <div className="p-1 ">
-              {user && <div>ID:{user}</div>}
+              {user && <div>ID:{user.uid}</div>}
               {data.map(({ text, href }) => {
                 return (
                   <Menu.Item key={text}>
@@ -73,20 +73,39 @@ export const SPMenu: VFC = () => {
 
             <div className="p-1">
               {user ? (
-                <Menu.Item>
-                  {({ active }) => {
-                    return (
-                      <button
-                        onClick={handleLogout}
-                        className={`${
-                          active ? "bg-violet-500 text-white" : "text-gray-900"
-                        } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                      >
-                        ログアウト
-                      </button>
-                    );
-                  }}
-                </Menu.Item>
+                <div>
+                  <Menu.Item>
+                    {({ active }) => {
+                      return (
+                        <button
+                          onClick={handleLogout}
+                          className={`${
+                            active ? "bg-violet-500 text-white" : "text-blue"
+                          } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                        >
+                          ログアウト
+                        </button>
+                      );
+                    }}
+                  </Menu.Item>
+                  <Menu.Item>
+                    {({ active }) => {
+                      return (
+                        <Link href={"/auth/delete"}>
+                          <a
+                            className={`${
+                              active
+                                ? "bg-violet-500 text-white"
+                                : "text-red-500"
+                            } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                          >
+                            退会
+                          </a>
+                        </Link>
+                      );
+                    }}
+                  </Menu.Item>
+                </div>
               ) : (
                 <Menu.Item>
                   {({ active }) => {
