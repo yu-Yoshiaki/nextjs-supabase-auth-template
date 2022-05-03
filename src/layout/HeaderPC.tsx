@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { VFC } from "react";
-import { LoginButton } from "src/component";
+import { SPMenu } from "src/component/Button";
 import { NavLink } from "src/component/Button";
 
 export const items = [
@@ -35,7 +35,7 @@ export const HeaderPC: VFC = () => {
             );
           })}
         </nav>
-        <LoginButton />
+        <SPMenu />
       </div>
     </header>
   );
