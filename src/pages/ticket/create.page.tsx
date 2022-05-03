@@ -2,12 +2,26 @@ import { GoogleMap, LoadScript } from "@react-google-maps/api";
 import type { CustomNextPage } from "next";
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useAuth } from "src/hook/useAuth";
 import { useStripeProducts } from "src/hook/useStripeProducts";
+import { useUser } from "src/hook/useUser";
 import { Layout } from "src/layout";
 
+const Atention = () => {
+  return (
+    <div className="p-8 w-full max-w-[700px] rounded-lg border border-gray">
+      <h3>ご確認</h3>
+      <ul className="pl-4 list-disc">
+        <li>下記申請フォームをご入力の上、申請ボタンより申請してください。</li>
+        <li>申請をした段階で「利用規約」に同意したこととします。</li>
+        <li>厳正な審査の結果、チケット作成が完了いたします。</li>
+        <li>審査は~2週間ほどかかります。</li>
+      </ul>
+    </div>
+  );
+};
+
 const TicketCreate: CustomNextPage = () => {
-  const { user } = useAuth();
+  const { user } = useUser();
   const [isLoding, setIsLoding] = useState(false);
   const { createPrice, createProduct } = useStripeProducts();
   const {
@@ -59,7 +73,7 @@ const TicketCreate: CustomNextPage = () => {
             name: e.name,
             description: e.description,
             metadata: {
-              organizer: user,
+              organizer: user.uid,
               // startDay: e.metadata.startDay ?? undefined,
               // address: e.metadata.address ?? undefined,
               // postCode: e.metadata.postCode ?? undefined,
@@ -95,12 +109,14 @@ const TicketCreate: CustomNextPage = () => {
       {isLoding && <div className="w-full h-full opacity-10">作成中。。。</div>}
 
       {user && (
-        <div className="justify-center md:grid md:grid-cols-3 md:gap-6">
-          <div className="mt-5 md:col-span-2 md:mt-0">
-            <h3 className="text-lg font-medium leading-6">チケット新規作成</h3>
-
+        <div className="mx-auto max-w-[700px]">
+          <div className="space-y-5">
+            <h3 className="text-2xl font-bold leading-6 text-center">
+              チケット新規作成
+            </h3>
+            <Atention />
             <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="shadow sm:overflow-hidden sm:rounded-md">
+              <div className="sm:overflow-hidden sm:rounded-md">
                 <div className="py-5 px-4 space-y-6 sm:p-6">
                   <div className="grid grid-cols-6 gap-6">
                     <div className="col-span-6 sm:col-span-3">
@@ -248,9 +264,9 @@ const TicketCreate: CustomNextPage = () => {
                 <div className="py-3 px-4 text-right sm:px-6">
                   <button
                     type="submit"
-                    className="inline-flex justify-center py-2 px-4 text-sm font-medium hover:bg-blue rounded-md border focus:ring-2 focus:ring-blue focus:ring-offset-2 shadow-sm"
+                    className="inline-flex justify-center py-2 px-4 text-sm font-medium hover:text-white hover:bg-blue rounded-md border focus:ring-2 focus:ring-blue focus:ring-offset-2 shadow-sm"
                   >
-                    Stripe登録
+                    チケット作成を申請する
                   </button>
                 </div>
               </div>
