@@ -2,7 +2,8 @@ import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import type { CustomNextPage, GetStaticPaths, GetStaticProps } from "next";
 import { Layout } from "src/layout";
-import { app, ticketConverter } from "src/lib/firebase";
+import { app } from "src/lib/firebase";
+import { ticketConverter } from "src/lib/firebase/converter";
 import type { ReadTicket } from "src/type/ticket";
 import { SWRConfig } from "swr";
 
