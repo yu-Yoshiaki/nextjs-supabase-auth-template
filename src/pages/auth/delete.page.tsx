@@ -1,7 +1,9 @@
 /* eslint-disable react/jsx-handler-names */
 import { Dialog } from "@headlessui/react";
 import axios from "axios";
+import { getAuth } from "firebase/auth";
 import type { CustomNextPage } from "next";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { useUser } from "src/hook/useUser";
 import { Layout } from "src/layout";
@@ -9,6 +11,8 @@ import { Layout } from "src/layout";
 const Setting: CustomNextPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user } = useUser();
+  const router = useRouter();
+  const auth = getAuth();
 
   const handleIsOpen = () => {
     setIsOpen(!isOpen);
@@ -21,6 +25,8 @@ const Setting: CustomNextPage = () => {
       });
       const data = await res.data;
       window.alert(data);
+      await auth.signOut();
+      return router.push("/");
     }
   };
 
