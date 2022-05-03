@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { auth } from "src/lib/firebaseAdmin";
 
 const deleteUser = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { id } = req.query;
+  const { id } = req.body;
   if (req.method === "POST") {
     try {
       await auth.deleteUser(id as string);
