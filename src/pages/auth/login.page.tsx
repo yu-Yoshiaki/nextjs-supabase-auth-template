@@ -40,12 +40,10 @@ const Login: CustomNextPage = () => {
     return;
   };
   return (
-    <div>
+    <div className="mx-auto max-w-[700px]">
       <div>
-        <h2 className="text-3xl font-bold text-center">ログイン</h2>
+        <h2 className="text-xl font-bold text-center">ログイン</h2>
         <div className="flex flex-col p-8 mt-10 space-y-5 w-full rounded-lg md:mx-auto md:w-[80%]">
-          <h3 className="text-lg font-medium">Login</h3>
-
           <form onSubmit={handleSubmit(onLogin)}>
             <div className="flex space-x-4">
               <label>
@@ -65,7 +63,7 @@ const Login: CustomNextPage = () => {
                   message: "メールアドレスの形式が不正です",
                 },
               })}
-              defaultValue="yo44ch@gmail.com"
+              defaultValue="test@example.com"
             />
             <p className="mb-5">例: sato12345@gmail.com</p>
 
@@ -93,15 +91,17 @@ const Login: CustomNextPage = () => {
                     "大文字、小文字、数字をそれぞれ1つ以上含めてください。",
                 },
               })}
-              defaultValue="Yoshiaki44Ch"
+              defaultValue="Test1234"
             />
             <p className="mb-5">例: Sato12345</p>
 
-            <input
-              value="ログイン"
-              type="submit"
-              className="py-2 px-12 text-lg hover:bg-blue rounded border-0 focus:outline-none"
-            />
+            <div className="text-center">
+              <input
+                value="ログイン"
+                type="submit"
+                className="py-2 px-12 text-lg text-white bg-blue rounded border-0 hover:ring"
+              />
+            </div>
           </form>
         </div>
       </div>

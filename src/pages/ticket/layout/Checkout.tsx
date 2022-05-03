@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import type { VFC } from "react";
-import { useAuth } from "src/hook/useAuth";
 import type { ReadPrice, ReadTicket } from "src/type/ticket";
 import useSWR from "swr";
 
@@ -30,7 +29,6 @@ const fetcher = async (url: string) => {
 };
 
 export const Checkout: VFC = () => {
-  const { user } = useAuth();
   const router = useRouter();
   const { id } = router.query;
 
@@ -57,7 +55,7 @@ export const Checkout: VFC = () => {
       </div>
 
       <form
-        action={`/api/checkout/${prices[0].id}/${user ?? ""}`}
+        action={`/api/checkout/${prices[0].id}`}
         method="POST"
         className="flex justify-center items-center"
       >

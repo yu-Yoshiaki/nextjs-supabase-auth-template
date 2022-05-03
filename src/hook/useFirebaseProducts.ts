@@ -3,7 +3,11 @@ import { setDoc } from "firebase/firestore";
 import { collection, doc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import { useCallback } from "react";
-import { app, ticketConverter, ticketPriceConverter } from "src/lib/firebase";
+import { app } from "src/lib/firebase";
+import {
+  ticketConverter,
+  ticketPriceConverter,
+} from "src/lib/firebase/converter";
 import type { ReadTicket, Ticket } from "src/type/ticket";
 
 const firestore = getFirestore(app);

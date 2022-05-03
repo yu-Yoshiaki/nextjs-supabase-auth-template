@@ -2,7 +2,8 @@ import { collection, getDocs, getFirestore } from "firebase/firestore";
 import Image from "next/image";
 import type { VFC } from "react";
 import { Card } from "src/component";
-import { app, ticketConverter } from "src/lib/firebase";
+import { app } from "src/lib/firebase";
+import { ticketConverter } from "src/lib/firebase/converter";
 import type { ReadTicket } from "src/type/ticket";
 import useSWR from "swr";
 

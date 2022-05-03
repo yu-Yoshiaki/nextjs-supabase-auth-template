@@ -2,9 +2,6 @@
 // import { getAnalytics } from "firebase/analytics";
 import { initializeApp } from "firebase/app";
 
-export { ticketConverter } from "./TicketConverter";
-export { ticketPriceConverter } from "./TicketPriceConverter";
-
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_KEY as string,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_DOMAIN as string,
