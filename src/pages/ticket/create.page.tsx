@@ -271,12 +271,6 @@ const TicketCreate: CustomNextPage = () => {
                 </div>
               </div>
             </form>
-            <button
-              type="submit"
-              className="inline-flex justify-center py-2 px-4 text-sm font-medium hover:bg-blue rounded-md border focus:ring-2 focus:ring-blue focus:ring-offset-2 shadow-sm"
-            >
-              Firebase登録
-            </button>
           </div>
         </div>
       )}
