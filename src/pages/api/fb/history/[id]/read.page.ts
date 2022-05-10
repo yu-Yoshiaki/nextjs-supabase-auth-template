@@ -2,24 +2,21 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { firestore } from "src/lib/firebaseAdmin";
 
 const history = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { email, productId, sessionId } = req.body;
+  const { id } = req.query;
 
-  if (req.method === "POST") {
+  if (req.method === "GET") {
     try {
       const collectionRef = firestore
         .collection("history")
-        .doc(email as string)
-        .collection("sessions")
-        .doc(sessionId as string);
+        .doc(id as string)
+        .collection("sessions");
 
-      await collectionRef.set(
-        {
-          product: productId,
-        },
-        { merge: true }
-      );
+      const snapshot = await collectionRef.get();
+      const history: string[] = snapshot.docs.map((doc) => {
+        return doc.data().id;
+      });
 
-      res.status(200).json("success");
+      res.status(200).json(history);
     } catch (err: any) {
       res.status(err.statusCode || 500).json(err.message);
     }

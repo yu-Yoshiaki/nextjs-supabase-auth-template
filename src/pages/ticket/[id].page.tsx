@@ -10,6 +10,7 @@ import { SWRConfig } from "swr";
 import { DetailPageLayout } from "./layout/DetailPageLayout";
 
 const firestore = getFirestore(app);
+
 const fetchDocument = async (id: string) => {
   const docRef = doc(firestore, "ticket", id).withConverter(ticketConverter);
   const document = await getDoc(docRef);
