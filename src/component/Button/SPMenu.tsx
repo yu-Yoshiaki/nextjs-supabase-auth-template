@@ -23,7 +23,7 @@ const data = [
     icon: <ViewGridIcon className="w-5 h-5" />,
   },
   {
-    href: "",
+    href: "/ticket/history",
     text: "購入履歴",
     icon: <ShoppingCartIcon className="w-5 h-5" />,
   },

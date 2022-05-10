@@ -19,6 +19,9 @@ const createCheckoutSession = async (
             quantity: 1,
           },
         ],
+        metadata: {
+          priceId: price as string,
+        },
       });
 
       res.redirect(303, session.url as string);
