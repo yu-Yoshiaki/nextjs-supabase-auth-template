@@ -57,7 +57,7 @@ const List: CustomNextPage = () => {
           })}
         </ul>
         <div>
-          <Link href={"/ticket/create"}>
+          <Link href={"/ticket/createNewTicket"}>
             <a className="py-2 px-4 text-white bg-blue">チケット作成</a>
           </Link>
         </div>
