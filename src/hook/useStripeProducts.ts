@@ -4,57 +4,80 @@ import type { Ticket } from "src/type/ticket";
 import type { Stripe } from "stripe";
 import type stripe from "stripe";
 
+type StripeProduct = {
+  create: (params: Ticket) => Promise<void>;
+  retrieve: (productId: string) => Promise<stripe.Product>;
+  update: (
+    productId: string,
+    params: stripe.ProductUpdateParams
+  ) => Promise<stripe.Product>;
+};
+
+type StripePrice = {
+  create: (params: stripe.PriceCreateParams) => Promise<void>;
+  retrieve: (priceId: string) => Promise<stripe.Price>;
+  update: (
+    productId: string,
+    params: stripe.PriceUpdateParams
+  ) => Promise<stripe.Price>;
+};
+
 export const useStripeProducts = () => {
   const [productId, setProducId] = useState<string | undefined>();
   const productEndPoint = "/api/product/";
 
-  const createProduct = useCallback(async (params: Ticket) => {
+  const createProduct: StripeProduct["create"] = useCallback(async (params) => {
     const res = await axios.post(productEndPoint + "create", params);
     const data: stripe.Product = await res.data;
-    return data;
+    return setProducId(data.id);
   }, []);
 
-  const retrieveProduct = useCallback(async (productId: string) => {
-    const res = await axios.get(productEndPoint + `${productId}` + "/read");
-    const data: stripe.Product = await res.data;
-    return data;
-  }, []);
+  const retrieveProduct: StripeProduct["retrieve"] = useCallback(
+    async (productId) => {
+      const res = await axios.get(productEndPoint + `${productId}` + "/read");
+      const data = await res.data;
+      return data as stripe.Product;
+    },
+    []
+  );
 
-  const updateProduct = useCallback(
-    async (productId: string, params: stripe.ProductUpdateParams) => {
+  const updateProduct: StripeProduct["update"] = useCallback(
+    async (productId, params) => {
       const res = await axios.post(
         productEndPoint + `${productId}` + "/update",
         params
       );
-      const data: stripe.Product = await res.data;
-      return data;
+      const data = await res.data;
+      return data as stripe.Product;
     },
     []
   );
 
   const priceEndPoint = "/api/price/";
 
-  const createPrice = useCallback(async (params: stripe.PriceCreateParams) => {
-    const res = await axios.post(priceEndPoint + "create", params);
-    const data: stripe.Price = await res.data;
-    return data;
+  const createPrice: StripePrice["create"] = useCallback(async (params) => {
+    await axios.post(priceEndPoint + "create", params);
+    return;
   }, []);
 
-  const retrievePrice = useCallback(async (priceId: string) => {
-    const res = await axios.get(priceEndPoint + `${priceId}` + "/read");
-    const data: Stripe.Price = await res.data;
-    setProducId(data.product as string);
-    return data;
-  }, []);
+  const retrievePrice: StripePrice["retrieve"] = useCallback(
+    async (priceId) => {
+      const res = await axios.get(priceEndPoint + `${priceId}` + "/read");
+      const data: Stripe.Price = await res.data;
+      setProducId(data.product as string);
+      return data;
+    },
+    []
+  );
 
-  const updatePrice = useCallback(
-    async (priceId: string, params: stripe.PriceUpdateParams) => {
+  const updatePrice: StripePrice["update"] = useCallback(
+    async (priceId, params) => {
       const res = await axios.post(
         priceEndPoint + `${priceId}` + "/update",
         params
       );
-      const data: stripe.Price = await res.data;
-      return data;
+      const data = await res.data;
+      return data as stripe.Price;
     },
     []
   );

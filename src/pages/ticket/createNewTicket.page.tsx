@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { useStripeProducts } from "src/hook/useStripeProducts";
 import { useUser } from "src/hook/useUser";
 import { Layout } from "src/layout";
+import type { Ticket } from "src/type/ticket";
 
 const Atention = () => {
   return (
@@ -23,7 +24,7 @@ const Atention = () => {
 const TicketCreate: CustomNextPage = () => {
   const { user } = useUser();
   const [isLoding, setIsLoding] = useState(false);
-  const { createPrice, createProduct } = useStripeProducts();
+  const { productId, createPrice, createProduct } = useStripeProducts();
   const {
     register,
     handleSubmit,
@@ -38,7 +39,6 @@ const TicketCreate: CustomNextPage = () => {
     zoom: 9,
   };
   const [mapData, setMapData] = useState(defaultMapData);
-
   const handleGenerateGeocode = () => {
     if (typeof window != "undefined") {
       const geocoder = new window.google.maps.Geocoder();
@@ -69,25 +69,26 @@ const TicketCreate: CustomNextPage = () => {
       setIsLoding(true);
       if (user) {
         try {
-          const stripeProduct = await createProduct({
+          const params: Ticket = {
             name: e.name,
             description: e.description,
             metadata: {
               organizer: user.uid,
-              // startDay: e.metadata.startDay ?? undefined,
-              // address: e.metadata.address ?? undefined,
-              // postCode: e.metadata.postCode ?? undefined,
-              // lat: mapData.center.lat ?? undefined,
-              // lng: mapData.center.lng ?? undefined,
+              startDay: e.metadata.startDay ?? null,
+              address: e.metadata.address ?? null,
+              postCode: e.metadata.postCode ?? null,
+              lat: mapData.center.lat ?? null,
+              lng: mapData.center.lng ?? null,
             },
             images: [],
             active: true,
             taxCode: null,
             role: null,
-          });
+          };
 
+          await createProduct(params);
           await createPrice({
-            product: stripeProduct.id,
+            product: productId,
             currency: "jpy",
             unit_amount: e.price,
           });
@@ -101,7 +102,14 @@ const TicketCreate: CustomNextPage = () => {
       setIsLoding(false);
       return;
     },
-    [user, createPrice, createProduct]
+    [
+      user,
+      createPrice,
+      createProduct,
+      mapData.center.lat,
+      mapData.center.lng,
+      productId,
+    ]
   );
 
   return (
