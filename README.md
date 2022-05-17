@@ -20,3 +20,8 @@
 - Supabase
 - Stripe
 - Vercel
+
+## 処理の流れ
+
+プロダクト操作、料金操作
+Stripe → webhook → Firebase

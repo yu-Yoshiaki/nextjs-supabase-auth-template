@@ -29,7 +29,11 @@ export const DetailPageLayout: VFC = () => {
 
           {/* Product info */}
           <div className="px-4 pb-16 mx-auto space-y-10 max-w-2xl sm:px-6 ">
-            <Overview name={ticket.name} description={ticket.description} />
+            <Overview
+              name={ticket.name}
+              description={ticket.description}
+              startDay={ticket.metadata.startDay}
+            />
 
             <Checkout />
 

@@ -1,4 +1,4 @@
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import type { CustomNextPage, GetStaticProps } from "next";
 import { Layout } from "src/layout";
@@ -30,7 +30,8 @@ export const getStaticProps: GetStaticProps = async () => {
   const collectionRef = collection(firestore, "ticket").withConverter(
     ticketConverter
   );
-  const docDatas = await getDocs(collectionRef);
+  const q = query(collectionRef, where("active", "==", true));
+  const docDatas = await getDocs(q);
 
   const data = docDatas.docs.map((d) => {
     return d.data();

@@ -1,9 +1,9 @@
-export const DateTime = () => {
+export const DateTime = (props: { startDay: string | null }) => {
   return (
     <div className="py-5 px-2 space-y-2 bg-gray">
       <div className="flex space-x-2">
         <p className="font-bold">開催日</p>
-        <p>8/20</p>
+        <p>{props.startDay ?? ""}</p>
       </div>
       <div className="flex space-x-2">
         <p className="font-bold">開催時間</p>

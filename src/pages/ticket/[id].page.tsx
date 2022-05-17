@@ -1,4 +1,11 @@
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import type { CustomNextPage, GetStaticPaths, GetStaticProps } from "next";
 import { Layout } from "src/layout";
@@ -19,7 +26,8 @@ const fetchDocument = async (id: string) => {
 };
 export const getStaticPaths: GetStaticPaths = async () => {
   const colRef = collection(firestore, "ticket").withConverter(ticketConverter);
-  const documents = await getDocs(colRef);
+  const q = query(colRef, where("active", "==", true));
+  const documents = await getDocs(q);
 
   const paths = documents.docs.map((data) => {
     return { params: { id: data.id } };
