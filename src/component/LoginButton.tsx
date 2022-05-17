@@ -1,9 +1,9 @@
 import Link from "next/link";
 import type { VFC } from "react";
-import { useUser } from "src/hook/useUser";
+import { useUserStatus } from "src/hook/useUserStatus";
 
 export const LoginButton: VFC = () => {
-  const { user } = useUser();
+  const { user } = useUserStatus();
 
   return (
     <div>

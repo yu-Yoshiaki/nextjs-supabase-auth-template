@@ -1,6 +1,6 @@
 import axios from "axios";
 import type { VFC } from "react";
-import { useUser } from "src/hook/useUser";
+import { useUserStatus } from "src/hook/useUserStatus";
 import useSWR from "swr";
 
 const fetchHistory: (url: string) => Promise<any> = async (url) => {
@@ -10,7 +10,7 @@ const fetchHistory: (url: string) => Promise<any> = async (url) => {
 };
 
 export const IsLogin: VFC = () => {
-  const { user } = useUser();
+  const { user } = useUserStatus();
 
   const { data: list, error } = useSWR<string[]>(
     `/api/fb/history/${user?.email}/read`,

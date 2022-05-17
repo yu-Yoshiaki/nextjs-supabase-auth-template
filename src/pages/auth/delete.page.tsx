@@ -5,12 +5,12 @@ import { getAuth } from "firebase/auth";
 import type { CustomNextPage } from "next";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useUser } from "src/hook/useUser";
+import { useUserStatus } from "src/hook/useUserStatus";
 import { Layout } from "src/layout";
 
 const Setting: CustomNextPage = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user } = useUser();
+  const { user } = useUserStatus();
   const router = useRouter();
   const auth = getAuth();
 

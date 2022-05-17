@@ -1,5 +1,5 @@
 import type { CustomLayout } from "next";
-import { useGetWindowSize } from "src/hook/useGetWindowSizze";
+import { useGetWindowSize } from "src/hook/useGetWindowSize";
 
 import { Footer } from "./Footer";
 import { HeaderPC } from "./HeaderPC";
@@ -20,7 +20,7 @@ export const Layout: CustomLayout = (page) => {
         <div className="h-full">
           {windowSize.width > 480 ? <HeaderPC /> : <HeaderSP />}
         </div>
-        <main className="pt-[150px] min-h-screen md:overflow-y-auto md:pt-[60px]">
+        <main className="pt-[100px] min-h-screen md:overflow-y-auto md:pt-[60px]">
           <LayoutErrorBoundary>{page}</LayoutErrorBoundary>
         </main>
       </div>
