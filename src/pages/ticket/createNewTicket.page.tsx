@@ -1,11 +1,16 @@
-import { GoogleMap, LoadScript } from "@react-google-maps/api";
 import type { CustomNextPage } from "next";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
+import type { UseFormRegisterReturn } from "react-hook-form";
 import { useForm } from "react-hook-form";
-import { useStripeProducts } from "src/hook/useStripeProducts";
-import { useUser } from "src/hook/useUser";
+import { Loading } from "src/component/Loading";
+import { useManagePrice } from "src/hook/price/useManagePrice";
+import { useManageProduct } from "src/hook/product/useManageProduct";
+import { useUserStatus } from "src/hook/useUserStatus";
 import { Layout } from "src/layout";
 import type { Ticket } from "src/type/ticket";
+
+import { Input } from "./layout/Input";
+import { Map } from "./layout/Map";
 
 const Atention = () => {
   return (
@@ -21,52 +26,30 @@ const Atention = () => {
   );
 };
 
+type Input = {
+  label: string;
+  required: boolean;
+  className: string;
+  type?: string;
+  autoComplete?: string;
+  register: UseFormRegisterReturn;
+  errorMessage: any;
+};
+
 const TicketCreate: CustomNextPage = () => {
-  const { user } = useUser();
-  const [isLoding, setIsLoding] = useState(false);
-  const { productId, createPrice, createProduct } = useStripeProducts();
+  const { user } = useUserStatus();
+  const { createProduct, isLoading, setIsLoading } = useManageProduct();
+  const { createPrice } = useManagePrice();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [serchAddress, setSerchAddress] = useState("");
-  const defaultMapData = {
-    center: {
-      lat: 35.69575,
-      lng: 139.77521,
-    },
-    zoom: 9,
-  };
-  const [mapData, setMapData] = useState(defaultMapData);
-  const handleGenerateGeocode = () => {
-    if (typeof window != "undefined") {
-      const geocoder = new window.google.maps.Geocoder();
-
-      geocoder.geocode({ address: serchAddress }, (result, status) => {
-        if (status == "OK" && result) {
-          const lat = result[0].geometry.location.lat();
-          const lng = result[0].geometry.location.lng();
-
-          setMapData({
-            center: {
-              lat,
-              lng,
-            },
-            zoom: 15,
-          });
-        }
-      });
-    }
-  };
-
-  const handleChange = (e: any) => {
-    setSerchAddress(e.target.value);
-  };
 
   const onSubmit = useCallback(
     async (e) => {
-      setIsLoding(true);
+      setIsLoading(true);
       if (user) {
         try {
           const params: Ticket = {
@@ -74,21 +57,22 @@ const TicketCreate: CustomNextPage = () => {
             description: e.description,
             metadata: {
               organizer: user.uid,
-              startDay: e.metadata.startDay ?? null,
-              address: e.metadata.address ?? null,
-              postCode: e.metadata.postCode ?? null,
-              lat: mapData.center.lat ?? null,
-              lng: mapData.center.lng ?? null,
+              startDay: e.startDay ?? null,
+              address: e.address ?? null,
+              postCode: e.postCode ?? null,
+              lat: e.lat ?? null,
+              lng: e.lng ?? null,
             },
-            images: [],
+            images: [e.image],
             active: true,
             taxCode: null,
             role: null,
           };
 
-          await createProduct(params);
+          const { id } = await createProduct(params);
+
           await createPrice({
-            product: productId,
+            product: id,
             currency: "jpy",
             unit_amount: e.price,
           });
@@ -99,185 +83,129 @@ const TicketCreate: CustomNextPage = () => {
         }
       }
 
-      setIsLoding(false);
+      setIsLoading(false);
       return;
     },
-    [
-      user,
-      createPrice,
-      createProduct,
-      mapData.center.lat,
-      mapData.center.lng,
-      productId,
-    ]
+    [user, createProduct, createPrice, setIsLoading]
   );
+
+  const InputList: Input[] = [
+    {
+      label: "画像",
+      required: false,
+
+      className:
+        "py-1 px-3 w-full text-base leading-8 rounded border border-gray focus:border-blue focus:ring-2 transition-colors duration-200 ease-in-out",
+      register: register("image"),
+      type: "file",
+      errorMessage: errors?.name?.message,
+    },
+    {
+      label: "チケット名",
+      required: true,
+      className:
+        "py-1 px-3 w-full text-base leading-8 rounded border border-gray focus:border-blue focus:ring-2 transition-colors duration-200 ease-in-out",
+      type: "text",
+      autoComplete: "name",
+      register: register("name", {
+        required: { value: true, message: "" },
+        maxLength: {
+          value: 30,
+          message: "文字数オーバーです。",
+        },
+      }),
+      errorMessage: errors?.name?.message,
+    },
+    {
+      label: "内容",
+      required: true,
+      className:
+        "block mt-1 w-full rounded-md border border-gray focus:border-blue focus:ring-blue shadow-sm sm:text-sm",
+      type: "text",
+      autoComplete: "text",
+      register: register("description", {
+        required: { value: true, message: "" },
+      }),
+      errorMessage: errors?.name?.message,
+    },
+    {
+      label: "料金",
+      required: true,
+      className:
+        "py-1 px-3 w-full text-base leading-8 rounded border border-gray focus:border-blue focus:ring-2 transition-colors duration-200 ease-in-out",
+      type: "number",
+      register: register("price", {
+        required: { value: true, message: "" },
+        min: {
+          value: 100,
+          message: "100円から入力できます。",
+        },
+        max: {
+          value: 10000000,
+          message: "10,000,000円まで入力できます。",
+        },
+      }),
+      errorMessage: errors?.name?.message,
+    },
+    {
+      label: "開催日",
+      required: true,
+      className:
+        "py-1 px-3 w-full text-base leading-8 rounded border border-gray focus:border-blue focus:ring-2 transition-colors duration-200 ease-in-out",
+      type: "date",
+      register: register("startDay", {
+        required: { value: true, message: "" },
+      }),
+      errorMessage: errors?.name?.message,
+    },
+    {
+      label: "郵便番号",
+      required: false,
+
+      className:
+        "py-1 px-3 w-full text-base leading-8 rounded border border-gray focus:border-blue focus:ring-2 transition-colors duration-200 ease-in-out",
+      register: register("postCode"),
+      type: "text",
+      autoComplete: "postal-code",
+      errorMessage: errors?.name?.message,
+    },
+  ];
+
+  if (isLoading) return <Loading text={"作成中..."} />;
 
   return (
     <div>
-      {isLoding && <div className="w-full h-full opacity-10">作成中。。。</div>}
-
       {user && (
-        <div className="mx-auto max-w-[700px]">
+        <div className="py-14 px-5 mx-auto max-w-[700px] md:p-0">
           <div className="space-y-5">
             <h3 className="text-2xl font-bold leading-6 text-center">
               チケット新規作成
             </h3>
             <Atention />
             <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="sm:overflow-hidden sm:rounded-md">
-                <div className="py-5 px-4 space-y-6 sm:p-6">
-                  <div className="grid grid-cols-6 gap-6">
-                    <div className="col-span-6 sm:col-span-3">
-                      <div className="flex space-x-4">
-                        <label>
-                          チケット名 <span className="">必須</span>
-                        </label>
-                        <p className="">{errors?.name?.message}</p>{" "}
-                      </div>
-                      <input
-                        className="py-1 px-3 w-full text-base leading-8 rounded border border-gray focus:border-blue focus:ring-2 transition-colors duration-200 ease-in-out"
-                        {...register("name", {
-                          required: { value: true, message: "" },
-                          maxLength: {
-                            value: 30,
-                            message: "文字数オーバーです。",
-                          },
-                        })}
-                        type="text"
-                        autoComplete="name"
-                      />
-                    </div>
+              {InputList.map((data) => {
+                return (
+                  <Input
+                    key={data.label}
+                    label={data.label}
+                    required={data.required}
+                    errorMessage={data.errorMessage}
+                    className={data.className}
+                    register={data.register}
+                    type={data.type ?? undefined}
+                    autoComplete={data.autoComplete ?? undefined}
+                  />
+                );
+              })}
 
-                    <div className="col-span-6 sm:col-span-4">
-                      <div className="flex space-x-4">
-                        <label>
-                          内容 <span className="">必須</span>
-                        </label>
-                        <p className="">{errors?.description?.message}</p>{" "}
-                      </div>
-                      <textarea
-                        {...register("description", {
-                          required: { value: true, message: "" },
-                        })}
-                        autoComplete="text"
-                        className="block mt-1 w-full rounded-md border border-gray focus:border-blue focus:ring-blue shadow-sm sm:text-sm"
-                      />
-                    </div>
+              <Map register={register} />
 
-                    <div className="col-span-6 sm:col-span-4">
-                      <div className="flex space-x-4">
-                        <label>
-                          金額 <span className="">必須</span>
-                        </label>
-                        <p className="">{errors?.price?.message}</p>
-                      </div>
-                      <input
-                        {...register("price", {
-                          required: { value: true, message: "" },
-                          min: {
-                            value: 100,
-                            message: "100円から入力できます。",
-                          },
-                          max: {
-                            value: 10000000,
-                            message: "10,000,000円まで入力できます。",
-                          },
-                        })}
-                        className="py-1 px-3 w-full text-base leading-8 rounded border border-gray focus:border-blue focus:ring-2 transition-colors duration-200 ease-in-out"
-                      />
-                    </div>
-
-                    {/* <div className="col-span-6 sm:col-span-4">
-                      <div className="flex space-x-4">
-                        <label>
-                          販売数 <span className="">必須</span>
-                        </label>
-                        <p className="">{errors?.stock?.message}</p>
-                      </div>
-                      <input
-                        {...register("stock", {
-                          required: { value: true, message: "" },
-                        })}
-                        type="number"
-                        className="block mt-1 w-full rounded-md focus:border-blue focus:ring-blue shadow-sm sm:text-sm"
-                      />
-                    </div> */}
-
-                    <div className="col-span-6">
-                      <div className="flex space-x-4">
-                        <label>
-                          開催日 <span className="">必須</span>
-                        </label>
-                        <p className="">{errors?.start?.message}</p>{" "}
-                      </div>
-                      <input
-                        {...register("startDay", {
-                          required: { value: true, message: "" },
-                        })}
-                        className="py-1 px-3 w-full text-base leading-8 rounded border border-gray focus:border-blue focus:ring-2 transition-colors duration-200 ease-in-out"
-                        type="date"
-                      />
-                    </div>
-
-                    <div className="col-span-6 lg:col-span-2">
-                      <label className="block text-sm font-medium">
-                        郵便番号
-                      </label>
-                      <input
-                        {...register("postCode")}
-                        className="py-1 px-3 w-full text-base leading-8 rounded border border-gray focus:border-blue focus:ring-2 transition-colors duration-200 ease-in-out"
-                        type="text"
-                        autoComplete="postal-code"
-                      />
-                    </div>
-
-                    <div className="col-span-6">
-                      <label className="block text-sm font-medium ">
-                        開催場所
-                      </label>
-                      <div className="flex mb-1 space-x-1">
-                        <input
-                          {...register("address")}
-                          className="py-1 px-3 w-full text-base leading-8 rounded border focus:border-blue focus:ring-2 transition-colors duration-200 ease-in-out"
-                          type="text"
-                          onChange={handleChange}
-                        />
-
-                        <button
-                          type="button"
-                          onClick={handleGenerateGeocode}
-                          className="p-1 whitespace-nowrap border"
-                        >
-                          住所検索
-                        </button>
-                      </div>
-
-                      <LoadScript
-                        googleMapsApiKey={
-                          process.env.NEXT_PUBLIC_GOOGLE_MAPS_API as string
-                        }
-                      >
-                        <GoogleMap
-                          mapContainerStyle={{
-                            width: "100%",
-                            height: "400px",
-                          }}
-                          center={mapData.center}
-                          zoom={mapData.zoom}
-                        ></GoogleMap>
-                      </LoadScript>
-                    </div>
-                  </div>
-                </div>
-                <div className="py-3 px-4 text-right sm:px-6">
-                  <button
-                    type="submit"
-                    className="inline-flex justify-center py-2 px-4 text-sm font-medium hover:text-white hover:bg-blue rounded-md border focus:ring-2 focus:ring-blue focus:ring-offset-2 shadow-sm"
-                  >
-                    チケット作成を申請する
-                  </button>
-                </div>
-              </div>
+              <button
+                type="submit"
+                className="inline-flex justify-center py-2 px-4 mt-5 text-sm font-medium text-white hover:text-blue bg-blue hover:bg-white rounded-md hover:ring-2 hover:ring-blue hover:ring-offset-2 shadow-sm"
+              >
+                チケット作成を申請する
+              </button>
             </form>
           </div>
         </div>
