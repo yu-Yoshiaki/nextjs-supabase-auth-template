@@ -7,8 +7,10 @@ import {
 } from "firebase/firestore";
 import type { CustomNextPage } from "next";
 import Link from "next/link";
-import { useUser } from "src/hook/useUser";
+import { ProductDelete } from "src/component/Button/";
+import { useUserStatus } from "src/hook/useUserStatus";
 import { Layout } from "src/layout";
+import { NotUser } from "src/layout/NotUser";
 import { ticketConverter } from "src/lib/firebase/converter";
 import type { ReadTicket } from "src/type/ticket";
 import useSWR from "swr";
@@ -19,7 +21,11 @@ const fetchDocs = async (fieldPath: string, value: string) => {
   const collectionRef = collection(firestore, "ticket").withConverter(
     ticketConverter
   );
-  const q = query(collectionRef, where(fieldPath, "==", value));
+  const q = query(
+    collectionRef,
+    where(fieldPath, "==", value),
+    where("active", "==", true)
+  );
   const data = await getDocs(q);
   const datas = data.docs.map((doc) => {
     return doc.data();
@@ -29,12 +35,14 @@ const fetchDocs = async (fieldPath: string, value: string) => {
 };
 
 const List: CustomNextPage = () => {
-  const { user } = useUser();
+  const { user } = useUserStatus();
+
   const { data: list, error } = useSWR<ReadTicket[]>(
     user ? ["metadata.organizer", user.uid] : null,
     fetchDocs
   );
 
+  if (!user) return <NotUser />;
   if (error) return <div>Failed to load</div>;
   if (!list) return <div>Loading...</div>;
 
@@ -43,22 +51,25 @@ const List: CustomNextPage = () => {
       <div className="space-y-5">
         <h2 className="text-xl text-center">作成したチケット一覧</h2>
         <ul className="px-3 w-full border-t">
-          {list.map(({ name, description }) => {
+          {list.map(({ name, description, id }) => {
             return (
               <div className="py-4 px-1 border-b" key={name}>
                 <h3 className="text-xl truncate">{name}</h3>
                 <p className="text-lg truncate">{description}</p>
                 <div className="space-x-2">
                   <button className="text-sm text-blue">編集する</button>
-                  <button className="text-sm text-blue">削除する</button>
+                  <ProductDelete productId={id} />
                 </div>
               </div>
             );
           })}
         </ul>
-        <div>
+
+        <div className="flex justify-end px-6">
           <Link href={"/ticket/createNewTicket"}>
-            <a className="py-2 px-4 text-white bg-blue">チケット作成</a>
+            <a className="flex justify-center items-center w-14 h-14 text-3xl text-white bg-blue rounded-full shadow-xl">
+              +
+            </a>
           </Link>
         </div>
       </div>
