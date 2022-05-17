@@ -105,7 +105,7 @@ const Login: CustomNextPage = () => {
           </form>
         </div>
       </div>
-      <Link href="/auth/signup">
+      <Link href="/customer/auth/signup">
         <a className="flex justify-center items-center">
           ユーザー作成がまだの方
         </a>

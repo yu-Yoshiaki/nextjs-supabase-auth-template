@@ -42,7 +42,7 @@ export const ProductList: VFC = () => {
                 index === 0 ? "col-span-2 mx-5 md:mx-0 h-[380px]" : "h-[250px]"
               }`}
             >
-              <Card href={`/ticket/${ticket.id}`}>
+              <Card href={`/customer/ticket/${ticket.id}`}>
                 <div>
                   <div className="rounded-xl">
                     <Image

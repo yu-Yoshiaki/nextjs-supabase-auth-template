@@ -13,7 +13,7 @@ export const NotUser: VFC = () => {
         return (
           <div className="h-auto" key={href}>
             {!hasCreated && <p>※ ユーザー作成がまだの方</p>}
-            <Link href={`/auth${href}`} key={href}>
+            <Link href={`/customer/auth${href}`} key={href}>
               <a
                 className={`inline-block py-4 w-32 justify-center rounded-lg flex  mx-auto ${
                   hasCreated ? "bg-blue text-white" : "bg-green-300"
