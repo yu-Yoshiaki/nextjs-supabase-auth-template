@@ -7,7 +7,7 @@ import { ticketConverter } from "src/lib/firebase/converter";
 import type { ReadTicket } from "src/type/ticket";
 import { SWRConfig } from "swr";
 
-import { ProductList } from "./ticket/layout";
+import { ProductList } from "./customer/ticket/component";
 
 const firestore = getFirestore(app);
 

@@ -20,7 +20,6 @@ module.exports = {
         pink: "#f9a8d4",
         gray: "#d1d5db",
         accent: "#6ee7b7",
-        yellow: "#fde047",
       },
     },
   },

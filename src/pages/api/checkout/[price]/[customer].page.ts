@@ -11,7 +11,7 @@ const createCheckoutSession = async (
     try {
       const session = await stripe.checkout.sessions.create({
         success_url: `${req.headers.origin}/api/checkout/success/?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${req.headers.origin}/ticket/checkoutFinish/?canceled=true`,
+        cancel_url: `${req.headers.origin}/customer/ticket/checkoutFinish/?canceled=true`,
         mode: "payment",
         line_items: [
           {
