@@ -32,39 +32,31 @@ export const ProductList: VFC = () => {
   const { data: ticketList } = useSWR<ReadTicket[]>("ticket", fetchProducts);
 
   return (
-    <div className="grid grid-cols-2 gap-x-2 gap-y-10 px-2 mt-6 lg:grid-cols-3 xl:gap-x-8">
+    <div className="grid grid-cols-2 gap-x-2 gap-y-10 place-content-around place-items-center px-2 mt-6 lg:grid-cols-3">
       {ticketList &&
         ticketList.map((ticket, index) => {
           return (
             <div
               key={ticket.id}
-              className={`group relative shadow-lg rounded-xl ${
-                index === 0
-                  ? "col-span-2 h-[380px] mx-5 md:col-span-1 md:mx-0 md:h-[400px] "
-                  : "min-h-[250px] md:h-[400px] "
+              className={`relative shadow-lg rounded-xl md:h-[400px] md:col-span-1 md:max-w-[400px] ${
+                index === 0 ? "col-span-2 mx-5 md:mx-0 h-[380px]" : "h-[250px]"
               }`}
             >
               <Card href={`/ticket/${ticket.id}`}>
                 <div>
-                  <div
-                    className={`${
-                      index === 0 && "relative p-2 h-[240px] md:p-0"
-                    } w-full rounded-xl`}
-                  >
+                  <div className="rounded-xl">
                     <Image
                       src={ticket.images[0] ?? "/mobile.jpg"}
-                      alt={""}
-                      width={1000}
-                      height={800}
-                      layout={index === 0 ? "fill" : "responsive"}
-                      className="block object-cover object-center rounded-t-xl"
+                      alt={"product image"}
+                      width={4}
+                      height={3}
+                      layout={"responsive"}
+                      className="rounded-t-xl"
                     />
                   </div>
                   <p
-                    className={`absolute text-lg px-2 rounded-xl ${
-                      index === 0
-                        ? "top-3 left-3 bg-pink"
-                        : "top-1 left-1 bg-accent"
+                    className={`absolute px-2 rounded-lg top-2 left-2 ${
+                      index === 0 ? "bg-pink" : "bg-accent"
                     }`}
                   >
                     {index === 0
@@ -73,7 +65,7 @@ export const ProductList: VFC = () => {
                   </p>
                   <div className="flex flex-col p-[10px] space-y-1">
                     <h2
-                      className={`font-bold ${
+                      className={`font-bold md:text-xl ${
                         index === 0 ? "text-lg " : "text-sm "
                       }`}
                     >
