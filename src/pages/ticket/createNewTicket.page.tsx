@@ -9,8 +9,8 @@ import { useUserStatus } from "src/hook/useUserStatus";
 import { Layout } from "src/layout";
 import type { Ticket } from "src/type/ticket";
 
-import { Input } from "./layout/Input";
-import { Map } from "./layout/Map";
+import { Input } from "./component/Input";
+import { Map } from "./component/Map";
 
 const Atention = () => {
   return (

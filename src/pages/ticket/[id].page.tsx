@@ -14,7 +14,7 @@ import { ticketConverter } from "src/lib/firebase/converter";
 import type { ReadTicket } from "src/type/ticket";
 import { SWRConfig } from "swr";
 
-import { DetailPageLayout } from "./layout/DetailPageLayout";
+import { DetailPageLayout } from "./component/DetailPageLayout";
 
 const firestore = getFirestore(app);
 
