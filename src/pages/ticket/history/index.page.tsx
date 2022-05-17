@@ -1,31 +1,14 @@
 import type { CustomNextPage } from "next";
-import Link from "next/link";
-import { useUser } from "src/hook/useUser";
+import { useUserStatus } from "src/hook/useUserStatus";
 import { Layout } from "src/layout";
+import { NotUser } from "src/layout/NotUser";
 
 import { IsLogin } from "./IsLogin";
 
 const History: CustomNextPage = () => {
-  const { user } = useUser();
+  const { user } = useUserStatus();
 
-  return (
-    <div>
-      {user ? (
-        <IsLogin />
-      ) : (
-        <div>
-          <h2>こちらは会員限定の機能になります。</h2>
-          <Link href={"/auth/login"}>
-            <a>ログイン</a>
-          </Link>
-          <p>※ ユーザー作成がまだの方</p>
-          <Link href={"/auth/signup"}>
-            <a>ユーザー登録</a>
-          </Link>
-        </div>
-      )}
-    </div>
-  );
+  return <div>{user ? <IsLogin /> : <NotUser />}</div>;
 };
 
 History.getLayout = Layout;

@@ -9,7 +9,7 @@ import { app } from "src/lib/firebase";
 
 const auth = getAuth(app);
 
-export const useUser = () => {
+export const useUserStatus = () => {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {

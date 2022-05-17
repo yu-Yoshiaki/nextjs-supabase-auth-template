@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import type { VFC } from "react";
-import type { ReadPrice, ReadTicket } from "src/type/ticket";
+import type { ReadPrice } from "src/type/ticket";
 import useSWR from "swr";
 
 const Loading = () => {
@@ -32,41 +32,24 @@ export const Checkout: VFC = () => {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data: ticket } = useSWR<ReadTicket>(id as string);
   const { data: prices, error } = useSWR(`/api/fb/price/${id}/get`, fetcher);
 
   if (error) return <div>failed to load</div>;
   if (!prices) return <Loading />;
 
   return (
-    <div className={`pb-5 border border-gray w-full max-w-[391px] mx-auto`}>
-      <p className={`p-2 mb-5 w-full text-left bg-skyblue`}>配信</p>
-      <h3 className={`px-3 mb-10 text-xl w-full h-10 font-bold text-left`}>
-        {ticket?.name}
-      </h3>
-      <div className={`flex justify-between mr-1 mb-16 ml-3`}>
-        <p className={`py-1 px-2 w-[60px] text-sm bg-pink rounded-full `}>
-          販売中
-        </p>
-        <p className={`text-2xl font-bold text-right`}>
-          {prices[0].unitAmount?.toLocaleString()}円
-          <span className={`text-sm`}>（税込）</span>
-        </p>
-      </div>
-
+    <div className="py-20 space-y-5">
       <form
         action={`/api/checkout/${prices[0].id}`}
         method="POST"
         className="flex justify-center items-center"
       >
-        <button
-          type="submit"
-          role="link"
-          className={
-            "flex justify-center items-center py-4 px-20  text-white bg-blue"
-          }
-        >
-          チケット購入
+        <button type="submit" role="link" className="space-y-5">
+          <p className={`text-5xl font-bold text-right`}>
+            <span className={`text-sm`}>（税込）</span>
+            {prices[0].unitAmount?.toLocaleString()}円
+          </p>
+          <p className="text-xl text-blue">チケット購入</p>
         </button>
       </form>
     </div>

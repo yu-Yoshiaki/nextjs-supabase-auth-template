@@ -9,11 +9,11 @@ export type Ticket = {
   images: string[];
   metadata: {
     organizer: string;
-    startDay?: string;
-    address?: string;
-    postCode?: string;
-    lat?: number;
-    lng?: number;
+    startDay: string | null;
+    address: string | null;
+    postCode: string | null;
+    lat: number | null;
+    lng: number | null;
   };
   role: null;
   taxCode: null;
