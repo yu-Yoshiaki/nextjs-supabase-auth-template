@@ -2,11 +2,7 @@ import Link from "next/link";
 import type { VFC } from "react";
 import { SPMenu } from "src/component/Button";
 
-export const items = [
-  { href: "/", label: "チケット一覧" },
-  // { href: "#", label: "プライバシーポリシー" },
-  // { href: "#", label: "利用規約" },
-];
+export const items = [{ href: "/", label: "チケット一覧" }];
 
 /**
  * @package
