@@ -1,16 +1,20 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
+import type Stripe from "stripe";
 
 export const useManageAccount = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const createAccount = useCallback(async () => {
-    const res = await axios.post("/api/vendor/account/create");
-    const id: string = await res.data;
-    return { id };
-  }, []);
+  const createAccount = useCallback(
+    async (params: Stripe.AccountCreateParams) => {
+      const res = await axios.post("/api/vendor/account/create", params);
+      const id: string = await res.data;
+      return { id };
+    },
+    []
+  );
 
   const createAccountLink = useCallback(
     async (id: string) => {
