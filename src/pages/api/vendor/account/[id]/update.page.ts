@@ -10,11 +10,11 @@ export default async function handler(
   if (req.method === "POST") {
     try {
       const { id } = req.query as { id: string };
-      const params: Stripe.ProductUpdateParams = req.body;
+      const params: Stripe.AccountUpdateParams = req.body;
 
-      const product = await stripe.products.update(id, params);
+      const account = await stripe.accounts.update(id, params);
 
-      res.status(200).json(product);
+      res.status(200).json(account.charges_enabled);
     } catch (e: any) {
       res.status(500).json(e.message);
     }

@@ -33,7 +33,7 @@ type Input = {
   type?: string;
   autoComplete?: string;
   register: UseFormRegisterReturn;
-  errorMessage: any;
+  errorMessage?: any;
 };
 
 const TicketCreate: CustomNextPage = () => {
@@ -126,7 +126,7 @@ const TicketCreate: CustomNextPage = () => {
       register: register("description", {
         required: { value: true, message: "" },
       }),
-      errorMessage: errors?.name?.message,
+      errorMessage: errors?.description?.message,
     },
     {
       label: "料金",
@@ -145,7 +145,7 @@ const TicketCreate: CustomNextPage = () => {
           message: "10,000,000円まで入力できます。",
         },
       }),
-      errorMessage: errors?.name?.message,
+      errorMessage: errors?.price?.message,
     },
     {
       label: "開催日",
@@ -156,7 +156,7 @@ const TicketCreate: CustomNextPage = () => {
       register: register("startDay", {
         required: { value: true, message: "" },
       }),
-      errorMessage: errors?.name?.message,
+      errorMessage: errors?.startDay?.message,
     },
     {
       label: "郵便番号",
@@ -167,7 +167,7 @@ const TicketCreate: CustomNextPage = () => {
       register: register("postCode"),
       type: "text",
       autoComplete: "postal-code",
-      errorMessage: errors?.name?.message,
+      errorMessage: errors?.postCode?.message,
     },
   ];
 
