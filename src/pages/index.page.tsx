@@ -1,15 +1,10 @@
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { getFirestore } from "firebase/firestore";
 import type { CustomNextPage, GetStaticProps } from "next";
 import { Layout } from "src/layout";
-import { app } from "src/lib/firebase";
-import { ticketConverter } from "src/lib/firebase/converter";
+import { fetchCollection } from "src/lib/fetchCollection";
 import type { ReadTicket } from "src/type/ticket";
 import { SWRConfig } from "swr";
 
 import { ProductList } from "./customer/ticket/component";
-
-const firestore = getFirestore(app);
 
 const Root: CustomNextPage<{ posts: ReadTicket[] }> = (props) => {
   return (
@@ -27,19 +22,7 @@ const Root: CustomNextPage<{ posts: ReadTicket[] }> = (props) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const collectionRef = collection(firestore, "ticket").withConverter(
-    ticketConverter
-  );
-  const q = query(collectionRef, where("active", "==", true));
-  const docDatas = await getDocs(q);
-
-  const data = docDatas.docs.map((d) => {
-    return d.data();
-  });
-
-  // DateTime型のデータをそのまま読み込もうとするとエラーが起こるっぽい
-  // JSONにシリアライズ可能なデータ型のみを返す
-  const posts = JSON.parse(JSON.stringify(data));
+  const posts = await fetchCollection();
 
   return {
     props: {
