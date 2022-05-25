@@ -4,6 +4,7 @@ import { LoginIcon, LogoutIcon } from "@heroicons/react/outline";
 import {
   CogIcon,
   HomeIcon,
+  LoginIcon as SolidLoginIcon,
   ShoppingCartIcon,
   UserCircleIcon,
 } from "@heroicons/react/solid";
@@ -21,6 +22,11 @@ const data = [
     icon: <ShoppingCartIcon className="w-5 h-5" />,
   },
   { href: "", text: "設定", icon: <CogIcon className="w-5 h-5" /> },
+  {
+    href: "/vendor/auth/create",
+    text: "オーナーアカウントの作成",
+    icon: <SolidLoginIcon className="w-5 h-5" />,
+  },
 ];
 
 type Button = {
@@ -59,7 +65,7 @@ export const SPMenu: VFC = () => {
         className={props.className}
       >
         {props.icon}
-        {props.text}
+        <p className="ml-2">{props.text}</p>
       </button>
     );
   };
@@ -101,7 +107,7 @@ export const SPMenu: VFC = () => {
                         text={text}
                         icon={icon}
                         clickFunction={"move"}
-                        className={`text-gray-900 group flex rounded-md items-center w-full px-2 py-2 text-sm space-x-2`}
+                        className={`text-gray-900 group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                       />
                     );
                   })}
