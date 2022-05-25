@@ -19,6 +19,7 @@ type Props = {
     | TypeUrl
     | TypeTextarea;
   children: ReactChild;
+  errorMessage: any;
 };
 
 export const InputLayout = (props: Props) => {
@@ -30,7 +31,9 @@ export const InputLayout = (props: Props) => {
             {props.item.label}
             <span className="text-red-500">※</span>
           </label>
-          <p className="text-red-500">{props.item.errorMessage}</p>
+          <p className="text-red-500">
+            {props.errorMessage[props.item.id]?.message}
+          </p>
         </div>
         {props.children}
       </div>

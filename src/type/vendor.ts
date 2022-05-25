@@ -1,7 +1,6 @@
 export type BaseInputField = {
   id: string;
   label: string;
-  errorMessage: any;
   placeholder?: string;
 };
 
