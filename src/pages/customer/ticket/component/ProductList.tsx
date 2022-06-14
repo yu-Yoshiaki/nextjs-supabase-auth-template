@@ -41,24 +41,23 @@ const Card: VFC<{ ticket: ReadTicket }> = (props) => {
   return (
     <div
       key={props.ticket.id}
-      className="relative w-full h-full rounded-xl shadow-lg md:col-span-1 md:max-w-[400px] lg:h-[400px]"
+      className="w-[350px] rounded-xl shadow-lg md:col-span-1 lg:h-[400px]"
     >
       <Link href={`/customer/ticket/${props.ticket.id}`}>
-        <a>
+        <a className="inline-block relative w-[350px] h-[250px]">
           <Image
             src={props.ticket.images[0] ?? "/mobile.jpg"}
             alt={"product image"}
-            width={4}
-            height={3}
-            layout={"responsive"}
-            className="rounded-t-xl"
+            objectFit={"cover"}
+            layout={"fill"}
+            className="top-0 rounded-t-xl"
           />
 
-          <p className="absolute top-2 left-2 px-2 bg-accent rounded-lg">
+          <p className="absolute top-2 left-2 px-2 rounded-lg">
             {props.ticket.metadata.startDay ?? undefined}
           </p>
 
-          <h2 className="p-[10px] text-sm font-bold md:text-xl">
+          <h2 className="p-[10px] mt-[300px] text-sm font-bold md:text-xl">
             {props.ticket.name}
           </h2>
         </a>
@@ -71,11 +70,9 @@ export const ProductList: VFC = () => {
   //　SWRConfigで、共通処理になっている。
   const { data: ticketList } = useSWR<ReadTicket[]>("ticket", fetchCollection);
 
-  if (!ticketList) return <div>Loading...</div>;
-
   return (
-    <div className="grid grid-cols-2 gap-x-2 gap-y-10 place-content-around place-items-center px-2 mt-6 lg:grid-cols-3">
-      {ticketList.map((ticket) => {
+    <div className="grid grid-cols-2 gap-y-10 justify-items-center px-2 mt-6 lg:grid-cols-3">
+      {ticketList?.map((ticket) => {
         return <Card ticket={ticket} key={ticket.id} />;
       })}
     </div>

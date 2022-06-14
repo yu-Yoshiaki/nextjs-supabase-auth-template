@@ -202,7 +202,7 @@ const TicketCreate: CustomNextPage = () => {
 
               <button
                 type="submit"
-                className="inline-flex justify-center py-2 px-4 mt-5 text-sm font-medium text-white hover:text-blue bg-blue hover:bg-white rounded-md hover:ring-2 hover:ring-blue hover:ring-offset-2 shadow-sm"
+                className="inline-flex justify-center py-2 px-4 mt-5 text-sm font-medium text-white hover:bg-white rounded-md hover:ring-2 hover:ring-offset-2 shadow-sm hover:text-blue bg-blue hover:ring-blue"
               >
                 チケット作成を申請する
               </button>

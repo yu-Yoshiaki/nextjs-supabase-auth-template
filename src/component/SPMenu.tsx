@@ -107,7 +107,7 @@ export const SPMenu: VFC = () => {
                         text={text}
                         icon={icon}
                         clickFunction={"move"}
-                        className={`text-gray-900 group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                        className={`text-gray-900 group flex rounded-md items-center w-full px-2 py-2 text-sm hover:shadow-md`}
                       />
                     );
                   })}
@@ -122,7 +122,7 @@ export const SPMenu: VFC = () => {
                         icon={<LogoutIcon className="w-5 h-5" />}
                         clickFunction={"logout"}
                         className={
-                          "group flex items-center p-2 space-x-2 w-full text-sm text-blue rounded-md"
+                          "group flex items-center p-2 space-x-2 w-full text-sm rounded-md text-blue"
                         }
                       />
 
@@ -131,7 +131,7 @@ export const SPMenu: VFC = () => {
                         text={"退会"}
                         clickFunction={"move"}
                         className={
-                          "group flex items-center p-2 w-full text-sm text-red-500 rounded-md"
+                          "group flex items-center p-2 w-full text-sm text-red-500 rounded-md hover:shadow-md"
                         }
                       />
                     </div>
@@ -142,7 +142,7 @@ export const SPMenu: VFC = () => {
                       icon={<LoginIcon className="w-5 h-5" />}
                       clickFunction={"login"}
                       className={
-                        "group flex items-center p-2 space-x-2 w-full text-sm text-blue rounded-md"
+                        "group flex items-center p-2 space-x-2 w-full text-sm rounded-md hover:shadow-md text-blue"
                       }
                     />
                   )}
