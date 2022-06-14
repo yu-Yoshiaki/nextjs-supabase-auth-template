@@ -106,7 +106,7 @@ const Create: CustomNextPage = () => {
       <div className="space-y-3">
         <h2>チケットオーナーアカウント作成</h2>
         <Attention />
-        <div className="p-10 rounded-lg border border-gray">
+        <div className="p-10 rounded-lg border border-gray-100">
           <form onSubmit={handleSubmit(onSubmit)} className="text-center">
             {inputItems.map((item) => {
               return (
@@ -119,7 +119,7 @@ const Create: CustomNextPage = () => {
               <input type="submit" value="送信" />
               {isLoading && (
                 <div className="flex absolute inset-0 justify-center bg-white">
-                  <div className="w-5 h-5 rounded-full border-4 border-blue border-t-transparent animate-spin"></div>
+                  <div className="w-5 h-5 rounded-full border-4 border-blue-100 border-t-transparent animate-spin"></div>
                 </div>
               )}
             </div>

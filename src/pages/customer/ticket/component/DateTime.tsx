@@ -1,6 +1,6 @@
 export const DateTime = (props: { startDay: string | null }) => {
   return (
-    <div className="py-5 px-2 space-y-2 bg-gray rounded-lg">
+    <div className="py-5 px-2 space-y-2 bg-gray-200 rounded-lg shadow-md">
       <div className="flex space-x-2">
         <p className="font-bold">開催日</p>
         <p>{props.startDay ?? ""}</p>

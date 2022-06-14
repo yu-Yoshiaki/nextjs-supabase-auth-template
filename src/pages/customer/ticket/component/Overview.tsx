@@ -11,12 +11,12 @@ type Overview = {
 
 export const Overview: VFC<Overview> = (props) => {
   return (
-    <div>
-      <h1 className="py-10 text-3xl font-extrabold text-left md:text-4xl">
+    <div className="">
+      <h1 className="p-10 text-3xl font-extrabold text-left bg-white rounded-md shadow-md md:text-3xl">
         {props.name}
       </h1>
       <DateTime startDay={props.startDay} />
-      <p className=" p-10 mt-5 w-full min-h-[120px] text-2xl md:p-20">
+      <p className=" p-10 mt-5 w-full min-h-[120px] text-2xl bg-white rounded-md shadow-md md:p-20">
         {props.description}
       </p>
     </div>
