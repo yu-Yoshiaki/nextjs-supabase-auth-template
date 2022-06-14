@@ -67,7 +67,7 @@ const List: CustomNextPage = () => {
 
         <div className="flex justify-end px-6">
           <Link href={"/ticket/createNewTicket"}>
-            <a className="flex justify-center items-center w-14 h-14 text-3xl text-white bg-blue rounded-full shadow-xl">
+            <a className="flex justify-center items-center w-14 h-14 text-3xl text-white rounded-full shadow-xl bg-blue">
               +
             </a>
           </Link>
