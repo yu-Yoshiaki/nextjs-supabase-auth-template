@@ -14,7 +14,7 @@ export const UserSetting: VFC = () => {
         {items.map(({ href, label }) => {
           return (
             <NavLink key={href} href={href} activeClassName="text-red-500">
-              <a className="block p-4 border-b hover:bg-blue">{label}</a>
+              <a className="block p-4 hover:bg-blue-400 border-b">{label}</a>
             </NavLink>
           );
         })}

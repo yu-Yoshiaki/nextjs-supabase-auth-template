@@ -54,7 +54,7 @@ const Login: CustomNextPage = () => {
               </div>
             </div>
             <input
-              className="py-1 px-3 w-full text-base leading-8 rounded border focus:ring-2 transition-colors duration-200 ease-in-out focus:border-blue focus:ring-blue"
+              className="py-1 px-3 w-full text-base leading-8 rounded border focus:border-blue-200 focus:ring-2 transition-colors duration-200 ease-in-out"
               {...register("email", {
                 required: { value: true, message: "" },
                 pattern: {
@@ -81,7 +81,7 @@ const Login: CustomNextPage = () => {
               </div>
             </div>
             <input
-              className="py-1 px-3 w-full text-base leading-8 rounded border focus:ring-2 transition-colors duration-200 ease-in-out focus:border-blue"
+              className="py-1 px-3 w-full text-base leading-8 rounded border focus:border-blue-100 focus:ring-2 transition-colors duration-200 ease-in-out"
               {...register("password", {
                 required: { value: true, message: "" },
                 minLength: { value: 8, message: "8文字以上入力してください。" },
@@ -99,7 +99,7 @@ const Login: CustomNextPage = () => {
               <input
                 value="ログイン"
                 type="submit"
-                className="py-2 px-12 text-lg text-white rounded border-0 hover:ring bg-blue"
+                className="py-2 px-12 text-lg text-white bg-blue-400 rounded border-0 hover:ring"
               />
             </div>
           </form>

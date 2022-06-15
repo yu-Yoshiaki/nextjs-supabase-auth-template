@@ -52,7 +52,7 @@ const Signup: CustomNextPage = () => {
               </div>
             </div>
             <input
-              className="py-1 px-3 w-full text-base leading-8 rounded border focus:ring-2 transition-colors duration-200 ease-in-out focus:border-blue focus:ring-blue"
+              className="py-1 px-3 w-full text-base leading-8 rounded border focus:border-blue-400 focus:ring-2 focus:ring-blue-400 transition-colors duration-200 ease-in-out"
               {...register("email", {
                 required: { value: true, message: "" },
                 pattern: {
@@ -78,7 +78,7 @@ const Signup: CustomNextPage = () => {
               </div>
             </div>
             <input
-              className="py-1 px-3 w-full text-base leading-8 rounded border focus:ring-2 transition-colors duration-200 ease-in-out focus:border-blue"
+              className="py-1 px-3 w-full text-base leading-8 rounded border focus:border-blue-400 focus:ring-2 transition-colors duration-200 ease-in-out"
               {...register("password", {
                 required: { value: true, message: "" },
                 minLength: { value: 8, message: "8文字以上入力してください。" },

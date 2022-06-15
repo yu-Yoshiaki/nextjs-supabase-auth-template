@@ -26,7 +26,7 @@ export const useUserStatus = () => {
     return () => {
       return unsubscribe();
     };
-  }, []);
+  }, [router]);
 
   return { user };
 };

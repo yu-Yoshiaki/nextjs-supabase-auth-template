@@ -8,7 +8,7 @@ type Props = {
 
 export const Radio = (props: Props) => {
   return (
-    <div className="w-[300px] text-left rounded-md border-gray">
+    <div className="w-[300px] text-left rounded-md border-gray-100">
       {props.item.radioItem?.map((item) => {
         return (
           <div key={item.id}>

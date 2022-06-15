@@ -9,7 +9,7 @@ export const LoginButton: VFC = () => {
     <div>
       {user ? (
         <div className="flex items-center space-x-2">
-          <p className="py-1 px-2 rounded-md bg-pink">ログイン中</p>
+          <p className="py-1 px-2 bg-red-200 rounded-md">ログイン中</p>
           <p>ID: {user.uid}</p>
         </div>
       ) : (

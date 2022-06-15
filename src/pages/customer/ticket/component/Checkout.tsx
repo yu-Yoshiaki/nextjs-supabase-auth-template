@@ -38,7 +38,7 @@ export const Checkout: VFC = () => {
   if (!prices) return <Loading />;
 
   return (
-    <div className="py-20 space-y-5 bg-white rounded-md shadow-md">
+    <div className="py-20 space-y-5 bg-white rounded-md border border-gray-200">
       <form
         action={`/api/checkout/${prices[0].id}`}
         method="POST"

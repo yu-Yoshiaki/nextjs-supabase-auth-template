@@ -26,7 +26,9 @@ export const HeaderPC: VFC = () => {
           {items.map(({ href, label }) => {
             return (
               <NavLink key={href} href={href} activeClassName="text-red-500">
-                <a className="inline-block py-2 px-4 hover:bg-blue">{label}</a>
+                <a className="inline-block py-2 px-4 hover:bg-blue-400">
+                  {label}
+                </a>
               </NavLink>
             );
           })}

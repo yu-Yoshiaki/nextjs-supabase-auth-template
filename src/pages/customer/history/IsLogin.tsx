@@ -35,8 +35,8 @@ export const IsLogin: VFC = () => {
               <h3 className="text-xl truncate">{data}</h3>
               <p className="text-lg truncate">{""}</p>
               <div className="space-x-2">
-                <button className="text-sm text-blue">編集する</button>
-                <button className="text-sm text-blue">削除する</button>
+                <button className="text-sm text-blue-400">編集する</button>
+                <button className="text-sm text-blue-400">削除する</button>
               </div>
             </div>
           );
