@@ -14,7 +14,7 @@ import { Map } from "./component/Map";
 
 const Atention = () => {
   return (
-    <div className="p-8 w-full max-w-[700px] rounded-lg border border-gray">
+    <div className="p-8 w-full max-w-[700px] rounded-lg border border-gray-100">
       <h3>ご確認</h3>
       <ul className="pl-4 list-disc">
         <li>下記申請フォームをご入力の上、申請ボタンより申請してください。</li>
@@ -95,7 +95,7 @@ const TicketCreate: CustomNextPage = () => {
       required: false,
 
       className:
-        "py-1 px-3 w-full text-base leading-8 rounded border border-gray focus:border-blue focus:ring-2 transition-colors duration-200 ease-in-out",
+        "py-1 px-3 w-full text-base leading-8 rounded border border-gray focus:border-blue-400 focus:ring-2 transition-colors duration-200 ease-in-out",
       register: register("image"),
       type: "file",
       errorMessage: errors?.name?.message,
@@ -104,7 +104,7 @@ const TicketCreate: CustomNextPage = () => {
       label: "チケット名",
       required: true,
       className:
-        "py-1 px-3 w-full text-base leading-8 rounded border border-gray focus:border-blue focus:ring-2 transition-colors duration-200 ease-in-out",
+        "py-1 px-3 w-full text-base leading-8 rounded border border-gray focus:border-blue-400 focus:ring-2 transition-colors duration-200 ease-in-out",
       type: "text",
       autoComplete: "name",
       register: register("name", {
@@ -120,7 +120,7 @@ const TicketCreate: CustomNextPage = () => {
       label: "内容",
       required: true,
       className:
-        "block mt-1 w-full rounded-md border border-gray focus:border-blue focus:ring-blue shadow-sm sm:text-sm",
+        "block mt-1 w-full rounded-md border border-gray focus:border-blue-400 focus:ring-blue-400 shadow-sm sm:text-sm",
       type: "text",
       autoComplete: "text",
       register: register("description", {
@@ -132,7 +132,7 @@ const TicketCreate: CustomNextPage = () => {
       label: "料金",
       required: true,
       className:
-        "py-1 px-3 w-full text-base leading-8 rounded border border-gray focus:border-blue focus:ring-2 transition-colors duration-200 ease-in-out",
+        "py-1 px-3 w-full text-base leading-8 rounded border border-gray focus:border-blue-400 focus:ring-2 transition-colors duration-200 ease-in-out",
       type: "number",
       register: register("price", {
         required: { value: true, message: "" },
@@ -151,7 +151,7 @@ const TicketCreate: CustomNextPage = () => {
       label: "開催日",
       required: true,
       className:
-        "py-1 px-3 w-full text-base leading-8 rounded border border-gray focus:border-blue focus:ring-2 transition-colors duration-200 ease-in-out",
+        "py-1 px-3 w-full text-base leading-8 rounded border border-gray focus:border-blue-400 focus:ring-2 transition-colors duration-200 ease-in-out",
       type: "date",
       register: register("startDay", {
         required: { value: true, message: "" },
@@ -163,7 +163,7 @@ const TicketCreate: CustomNextPage = () => {
       required: false,
 
       className:
-        "py-1 px-3 w-full text-base leading-8 rounded border border-gray focus:border-blue focus:ring-2 transition-colors duration-200 ease-in-out",
+        "py-1 px-3 w-full text-base leading-8 rounded border border-gray focus:border-blue-400 focus:ring-2 transition-colors duration-200 ease-in-out",
       register: register("postCode"),
       type: "text",
       autoComplete: "postal-code",
@@ -202,7 +202,7 @@ const TicketCreate: CustomNextPage = () => {
 
               <button
                 type="submit"
-                className="inline-flex justify-center py-2 px-4 mt-5 text-sm font-medium text-white hover:bg-white rounded-md hover:ring-2 hover:ring-offset-2 shadow-sm hover:text-blue bg-blue hover:ring-blue"
+                className="inline-flex justify-center py-2 px-4 mt-5 text-sm font-medium text-white hover:text-blue-400 bg-blue-400 hover:bg-white rounded-md hover:ring-2 hover:ring-blue-400 hover:ring-offset-2 shadow-sm"
               >
                 チケット作成を申請する
               </button>

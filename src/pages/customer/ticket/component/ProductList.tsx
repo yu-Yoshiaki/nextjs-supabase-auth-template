@@ -39,12 +39,9 @@ import useSWR from "swr";
 
 const Card: VFC<{ ticket: ReadTicket }> = (props) => {
   return (
-    <div
-      key={props.ticket.id}
-      className="w-[350px] rounded-xl shadow-lg md:col-span-1 lg:h-[400px]"
-    >
-      <Link href={`/customer/ticket/${props.ticket.id}`}>
-        <a className="inline-block relative w-[350px] h-[250px]">
+    <Link href={`/customer/ticket/${props.ticket.id}`} key={props.ticket.id}>
+      <a className="relative w-[180px] h-[240px] rounded-xl shadow-lg md:w-[350px] lg:h-[360px]">
+        <div className="relative w-[100%] h-[140px] md:h-[250px]">
           <Image
             src={props.ticket.images[0] ?? "/mobile.jpg"}
             alt={"product image"}
@@ -52,17 +49,17 @@ const Card: VFC<{ ticket: ReadTicket }> = (props) => {
             layout={"fill"}
             className="top-0 rounded-t-xl"
           />
+        </div>
 
-          <p className="absolute top-2 left-2 px-2 rounded-lg">
-            {props.ticket.metadata.startDay ?? undefined}
-          </p>
+        <p className="absolute top-2 left-2 px-2 text-sm bg-green-300 rounded-lg md:text-lg">
+          {props.ticket.metadata.startDay ?? undefined}
+        </p>
 
-          <h2 className="p-[10px] mt-[300px] text-sm font-bold md:text-xl">
-            {props.ticket.name}
-          </h2>
-        </a>
-      </Link>
-    </div>
+        <h2 className="p-[10px] text-sm font-bold md:text-xl">
+          {props.ticket.name}
+        </h2>
+      </a>
+    </Link>
   );
 };
 

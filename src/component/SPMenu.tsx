@@ -122,7 +122,7 @@ export const SPMenu: VFC = () => {
                         icon={<LogoutIcon className="w-5 h-5" />}
                         clickFunction={"logout"}
                         className={
-                          "group flex items-center p-2 space-x-2 w-full text-sm rounded-md text-blue"
+                          "group flex items-center p-2 space-x-2 w-full text-sm text-blue-400 rounded-md"
                         }
                       />
 
@@ -142,7 +142,7 @@ export const SPMenu: VFC = () => {
                       icon={<LoginIcon className="w-5 h-5" />}
                       clickFunction={"login"}
                       className={
-                        "group flex items-center p-2 space-x-2 w-full text-sm rounded-md hover:shadow-md text-blue"
+                        "group flex items-center p-2 space-x-2 w-full text-sm text-blue-400 rounded-md hover:shadow-md"
                       }
                     />
                   )}

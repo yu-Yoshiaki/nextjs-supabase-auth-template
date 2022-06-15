@@ -50,7 +50,7 @@ const Setting: CustomNextPage = () => {
         }}
         className="flex fixed inset-0 z-30 justify-center items-center min-h-[400px]"
       >
-        <Dialog.Overlay className="relative w-full h-full opacity-50 bg-gray"></Dialog.Overlay>
+        <Dialog.Overlay className="relative w-full h-full bg-gray-100 opacity-50"></Dialog.Overlay>
         <Dialog.Panel className="overflow-hidden absolute p-6 space-y-10 w-[90%] max-w-md text-center align-middle bg-white rounded-2xl shadow-xl transition-all">
           <Dialog.Title as="h3" className="text-lg font-bold leading-6">
             本当に削除してよろしいですか？

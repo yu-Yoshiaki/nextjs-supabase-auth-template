@@ -57,7 +57,7 @@ const List: CustomNextPage = () => {
                 <h3 className="text-xl truncate">{name}</h3>
                 <p className="text-lg truncate">{description}</p>
                 <div className="space-x-2">
-                  <button className="text-sm text-blue">編集する</button>
+                  <button className="text-sm text-blue-400">編集する</button>
                   <ProductDelete productId={id} />
                 </div>
               </div>
@@ -67,7 +67,7 @@ const List: CustomNextPage = () => {
 
         <div className="flex justify-end px-6">
           <Link href={"/ticket/createNewTicket"}>
-            <a className="flex justify-center items-center w-14 h-14 text-3xl text-white rounded-full shadow-xl bg-blue">
+            <a className="flex justify-center items-center w-14 h-14 text-3xl text-white bg-blue-400 rounded-full shadow-xl">
               +
             </a>
           </Link>

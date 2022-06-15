@@ -65,7 +65,7 @@ export const Map: VFC<Map> = (props) => {
 
         <input
           {...props.register("Address")}
-          className="py-1 px-3 w-full text-base leading-8 rounded border focus:ring-2 transition-colors duration-200 ease-in-out focus:border-blue"
+          className="py-1 px-3 w-full text-base leading-8 rounded border focus:border-blue-400 focus:ring-2 transition-colors duration-200 ease-in-out"
           type="text"
           onChange={handleChange}
         />

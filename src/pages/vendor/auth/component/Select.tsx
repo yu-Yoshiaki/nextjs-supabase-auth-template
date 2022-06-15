@@ -13,7 +13,7 @@ export const Select = (props: Props) => {
         required: { value: true, message: "入力してください。" },
       })}
       id={props.item.id}
-      className="w-[300px] rounded-md border-gray"
+      className="w-[300px] rounded-md border-gray-100"
     >
       {props.item.selectItem?.map((item) => {
         return (

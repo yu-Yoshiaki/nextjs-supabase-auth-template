@@ -6,8 +6,10 @@ import useSWR from "swr";
 
 import { Address } from "./Address";
 import { Checkout } from "./Checkout";
+import { DateTime } from "./DateTime";
+import { Description } from "./Description";
 import { Organizer } from "./Organizer";
-import { Overview } from "./Overview";
+import { TicketName } from "./TicketName";
 
 export const DetailPageLayout: VFC = () => {
   const router = useRouter();
@@ -16,10 +18,10 @@ export const DetailPageLayout: VFC = () => {
   const { data: ticket } = useSWR<ReadTicket>(id as string);
 
   return (
-    <div className="pb-4 tracking-wide leading-relaxed bg-blue-50">
+    <div className="py-6 tracking-wide leading-relaxed ">
       {ticket && (
-        <div className="px-4 pt-6 text-center">
-          <div className="relative mx-auto w-[400px] h-[300px] md:w-[700px] md:h-[400px]">
+        <div className="px-4 mx-auto space-y-4 md:px-0 md:w-[700px]">
+          <div className="relative h-[210px] rounded-lg shadow-lg md:w-[700px] md:h-[400px]">
             <Image
               width={800}
               height={600}
@@ -30,20 +32,12 @@ export const DetailPageLayout: VFC = () => {
               objectFit={"cover"}
             />
           </div>
-
-          {/* Product info */}
-          <div className="pb-16 mx-auto space-y-10 max-w-2xl sm:px-6 ">
-            <Overview
-              name={ticket.name}
-              description={ticket.description}
-              startDay={ticket.metadata.startDay}
-            />
-
-            <Checkout />
-
-            {ticket.metadata.address && <Address data={ticket.metadata} />}
-            <Organizer />
-          </div>
+          <TicketName name={ticket.name} />
+          <DateTime startDay={ticket.metadata.startDay} />
+          <Description description={ticket.description} />
+          <Checkout />
+          {ticket.metadata.address && <Address data={ticket.metadata} />}
+          <Organizer />
         </div>
       )}
     </div>

@@ -8,7 +8,7 @@ export const Organizer = () => {
   };
 
   return (
-    <div className="py-10 px-4 bg-white rounded-lg border border-gray-200 shadow-md">
+    <div className="py-10 px-4 bg-white rounded-lg border border-gray-200">
       <div className="flex justify-center items-center space-x-5 w-full">
         <Image
           width={120}

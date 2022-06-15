@@ -13,7 +13,7 @@ export const Textarea = (props: Props) => {
         required: { value: true, message: "入力してください。" },
       })}
       id={props.item.id}
-      className="w-[300px] h-[200px] rounded-md border-gray"
+      className="w-[300px] h-[200px] rounded-md border-gray-100"
     />
   );
 };
