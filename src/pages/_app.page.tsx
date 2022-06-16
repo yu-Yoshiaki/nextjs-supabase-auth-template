@@ -1,10 +1,9 @@
 import "tailwindcss/tailwind.css";
 
-import type { CustomAppProps } from "next/app";
+import type { CustomAppPage } from "next/app";
 import Head from "next/head";
-import { memo } from "react";
 
-const App = (props: CustomAppProps) => {
+const App: CustomAppPage = (props) => {
   const getLayout =
     props.Component.getLayout ||
     ((page) => {
@@ -33,4 +32,4 @@ const App = (props: CustomAppProps) => {
   );
 };
 
-export default memo(App);
+export default App;

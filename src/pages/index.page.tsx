@@ -11,6 +11,7 @@ const Root: CustomNextPage<{ posts: ReadTicket[] }> = (props) => {
     <SWRConfig
       value={{
         fallback: props.posts,
+        fallbackData: props.posts,
         revalidateIfStale: false,
         revalidateOnFocus: false,
         revalidateOnReconnect: false,

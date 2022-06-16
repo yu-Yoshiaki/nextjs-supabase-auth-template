@@ -6,8 +6,8 @@ import type { ReadTicket } from "src/type/ticket";
 
 const firestore = getFirestore(app);
 
-export const fetchCollection = async (url?: string) => {
-  const collectionRef = collection(firestore, url ?? "ticket").withConverter(
+export const fetchCollection = async () => {
+  const collectionRef = collection(firestore, "ticket").withConverter(
     ticketConverter
   );
   const q = query(collectionRef, where("active", "==", true));
