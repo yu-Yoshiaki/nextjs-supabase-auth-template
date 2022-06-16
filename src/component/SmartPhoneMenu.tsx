@@ -8,11 +8,11 @@ import {
   ShoppingCartIcon,
   UserCircleIcon,
 } from "@heroicons/react/solid";
-import { getAuth } from "firebase/auth";
 import { useRouter } from "next/router";
-import type { VFC } from "react";
+import { memo } from "react";
 import { Fragment } from "react";
 import { useUserStatus } from "src/hook/useUserStatus";
+import { auth } from "src/lib/firebase";
 
 const data = [
   { href: "/", text: "ホーム", icon: <HomeIcon className="w-5 h-5" /> },
@@ -37,39 +37,34 @@ type Button = {
   clickFunction?: "login" | "logout" | "move";
 };
 
-export const SPMenu: VFC = () => {
-  const { user } = useUserStatus();
-  const auth = getAuth();
+const Button = (props: Button) => {
   const router = useRouter();
-
-  const Button = (props: Button) => {
-    const handleClick = async () => {
-      switch (props.clickFunction) {
-        case "logout": {
-          await auth.signOut();
-          return router.push("/");
-        }
-        case "login": {
-          return router.push("/customer/auth/login");
-        }
-        case "move": {
-          return router.push(props.href);
-        }
+  const handleClick = async () => {
+    switch (props.clickFunction) {
+      case "logout": {
+        await auth.signOut();
+        return router.push("/");
       }
-    };
-
-    return (
-      <button
-        key={props.text}
-        onClick={handleClick}
-        className={props.className}
-      >
-        {props.icon}
-        <p className="ml-2">{props.text}</p>
-      </button>
-    );
+      case "login": {
+        return router.push("/customer/auth/login");
+      }
+      case "move": {
+        return router.push(props.href);
+      }
+    }
   };
 
+  return (
+    <button key={props.text} onClick={handleClick} className={props.className}>
+      {props.icon}
+      <p className="ml-2">{props.text}</p>
+    </button>
+  );
+};
+
+// eslint-disable-next-line react/display-name
+export const SmartPhoneMenu = memo(() => {
+  const { user } = useUserStatus();
   return (
     <Popover>
       <div>
@@ -112,7 +107,6 @@ export const SPMenu: VFC = () => {
                     );
                   })}
                 </div>
-
                 <div className="p-1">
                   {user ? (
                     <div>
@@ -154,4 +148,4 @@ export const SPMenu: VFC = () => {
       </div>
     </Popover>
   );
-};
+});

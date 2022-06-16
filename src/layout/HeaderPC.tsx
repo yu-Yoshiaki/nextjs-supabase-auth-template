@@ -1,6 +1,6 @@
 import Link from "next/link";
-import type { VFC } from "react";
-import { SPMenu } from "src/component/Button";
+import { memo } from "react";
+import { SmartPhoneMenu } from "src/component";
 import { NavLink } from "src/component/Button";
 
 export const items = [{ href: "/", label: "チケット一覧" }];
@@ -8,7 +8,9 @@ export const items = [{ href: "/", label: "チケット一覧" }];
 /**
  * @package
  */
-export const HeaderPC: VFC = () => {
+
+// eslint-disable-next-line react/display-name
+export const HeaderPC = memo(() => {
   return (
     <header className="fixed inset-x-0 top-6 z-30 pb-1 min-w-[256px] md:flex md:justify-between md:items-center">
       <div className="flex justify-between items-center h-[90px]">
@@ -33,8 +35,8 @@ export const HeaderPC: VFC = () => {
             );
           })}
         </nav>
-        <SPMenu />
+        <SmartPhoneMenu />
       </div>
     </header>
   );
-};
+});

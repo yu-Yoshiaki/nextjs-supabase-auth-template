@@ -13,7 +13,7 @@ export const Text = (props: Props) => {
       {...props.register(props.item.id, {
         required: { value: true, message: "入力してください。" },
       })}
-      className="w-[300px] rounded-md border-gray"
+      className="w-[300px] rounded-md border-gray-100"
     />
   );
 };
