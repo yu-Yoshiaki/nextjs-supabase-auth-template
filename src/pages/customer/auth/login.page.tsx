@@ -1,13 +1,10 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { getAuth } from "firebase/auth";
 import type { CustomNextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { Layout } from "src/layout";
-import { app } from "src/lib/firebase";
-
-const auth = getAuth(app);
+import { auth } from "src/lib/firebase";
 
 type Inputs = {
   email: string;
@@ -39,6 +36,7 @@ const Login: CustomNextPage = () => {
 
     return;
   };
+
   return (
     <div className="mx-auto max-w-[700px]">
       <div>
