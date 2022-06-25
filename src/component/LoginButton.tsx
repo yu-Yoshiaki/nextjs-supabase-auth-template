@@ -13,7 +13,7 @@ export const LoginButton: VFC = () => {
           <p>ID: {user.uid}</p>
         </div>
       ) : (
-        <Link href={"/customer/auth/login"}>
+        <Link href={"/consumer/auth/login"}>
           <a>ログイン</a>
         </Link>
       )}
