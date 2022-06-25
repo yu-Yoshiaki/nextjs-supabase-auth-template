@@ -1,26 +1,15 @@
 import { LocationMarkerIcon } from "@heroicons/react/solid";
 import Image from "next/image";
 import Link from "next/link";
+import type { ReadTicket } from "src/type/ticket";
 
-type Props = {
-  id: string;
-  image?: {
-    src: string;
-  };
-  name: string;
-  day?: string;
-  time?: string;
-  location?: string;
-  price?: number;
-};
-
-export const Card = (props: Props) => {
+export const Card = (props: ReadTicket) => {
   return (
     <div className="p-4 h-[300px] bg-white rounded-xl border-2 border-gray-200 lg:w-[750px]">
       <a className="grid grid-cols-2">
         <div className="relative w-[calc(100%-30px)] h-[calc(300px-40px)]">
           <Image
-            src={"/mobile.jpg"}
+            src={props.images[0] ?? "/mobile.jpg"}
             alt={""}
             objectFit={"cover"}
             layout={"fill"}
@@ -36,22 +25,22 @@ export const Card = (props: Props) => {
           <div className="py-2 px-4 space-y-2 text-sm bg-gray-200 rounded-lg">
             <div className="flex space-x-2">
               <p className="font-bold ">開催日</p>
-              <p>{props.day}</p>
+              <p>{props.metadata.startDay}</p>
             </div>
             <div className="flex space-x-2">
               <p className="font-bold">開催時間</p>
-              <p>{props.time}</p>
+              <p>{props.metadata.startTime}</p>
             </div>
           </div>
 
           <div className="flex items-center mt-2 space-x-1 text-xs">
             <LocationMarkerIcon height={20} width={20} />
-            <p>{props.location}</p>
+            <p>{props.metadata.location}</p>
           </div>
 
           <div className="flex absolute bottom-0 justify-between items-center pr-4 w-full">
             <p className=" text-2xl font-bold">
-              {"10000".toLocaleString()}円〜
+              {/* {"10000".toLocaleString()}円〜 */}
             </p>
             <Link href={`/consumer/ticket/${props.id}`} passHref>
               <a className="py-2 px-4 text-white bg-blue-300 hover:bg-blue-200 rounded-full">

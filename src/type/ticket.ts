@@ -10,7 +10,8 @@ export type Ticket = {
   metadata: {
     organizer: string;
     startDay: string | null;
-    address: string | null;
+    startTime: string | null;
+    location: string | null;
     postCode: string | null;
     lat: number | null;
     lng: number | null;

@@ -51,7 +51,7 @@ export const TicketDetail = (props: { data: ReadTicket }) => {
               <TicketName name={ticket.name} />
               <DateTime startDay={ticket.metadata.startDay} />
               <Description description={ticket.description} />{" "}
-              {ticket.metadata.address && <Address data={ticket.metadata} />}
+              {ticket.metadata.location && <Address data={ticket.metadata} />}
               <Organizer />
             </div>
             <div>
