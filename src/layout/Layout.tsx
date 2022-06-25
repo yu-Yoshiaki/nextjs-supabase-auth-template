@@ -1,4 +1,5 @@
 import type { CustomLayout } from "next";
+import { DontPurchaseAlert } from "src/component";
 import { useGetWindowSize } from "src/hook/useGetWindowSize";
 
 import { Footer } from "./Footer";
@@ -10,6 +11,7 @@ export const Layout: CustomLayout = (page) => {
   const { windowSize } = useGetWindowSize();
   return (
     <div>
+      <DontPurchaseAlert />
       {windowSize.width > 480 ? <HeaderPC /> : <HeaderSP />}
       <main className="mt-[80px] min-h-[calc(100vh-160px)] bg-blue-50">
         <LayoutErrorBoundary>{page}</LayoutErrorBoundary>
