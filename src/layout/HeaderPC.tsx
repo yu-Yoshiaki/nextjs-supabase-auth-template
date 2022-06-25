@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { memo } from "react";
-import { SmartPhoneMenu } from "src/component";
+import { DontPurchaseAlert, SmartPhoneMenu } from "src/component";
 import { useUserStatus } from "src/hook/useUserStatus";
 /**
  * @package
@@ -21,6 +21,7 @@ export const HeaderPC = memo(() => {
             </a>
           </Link>
         </div>
+        <DontPurchaseAlert />
 
         <div className="flex items-center">
           {!user ? (

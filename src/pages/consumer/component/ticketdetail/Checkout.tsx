@@ -18,7 +18,7 @@ export const Checkout = () => {
   if (error) return <div>failed to load</div>;
 
   return (
-    <div className="p-10 text-center bg-white rounded-md border border-gray-200">
+    <div className="p-10 w-full text-center bg-white rounded-md border border-gray-200">
       <form
         action={prices && `/api/payment/checkout/${prices[0].id}`}
         method="POST"

@@ -46,7 +46,7 @@ export const TicketDetail = (props: { data: ReadTicket }) => {
               objectFit={"cover"}
             />
           </div>
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid gap-4 md:grid-cols-3">
             <div className="col-span-2 space-y-4">
               <TicketName name={ticket.name} />
               <DateTime startDay={ticket.metadata.startDay} />
@@ -54,7 +54,7 @@ export const TicketDetail = (props: { data: ReadTicket }) => {
               {ticket.metadata.location && <Address data={ticket.metadata} />}
               <Organizer />
             </div>
-            <div>
+            <div className="w-full">
               <Checkout />
               {/* <Loading /> */}
               <Attention />
