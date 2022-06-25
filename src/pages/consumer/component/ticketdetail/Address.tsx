@@ -20,7 +20,7 @@ export const Address: VFC<{ data: ReadTicket["metadata"] }> = (props) => {
     <div className="bg-gray-100">
       <div className="flex py-5  px-2 space-x-2">
         <p className="font-bold">開催場所</p>
-        <p>{props.data.address}</p>
+        <p>{props.data.location}</p>
       </div>
 
       <LoadScript

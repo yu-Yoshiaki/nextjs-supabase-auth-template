@@ -57,8 +57,9 @@ const TicketCreate: CustomNextPage = () => {
             description: e.description,
             metadata: {
               organizer: user.uid,
+              startTime: e.startTime ?? null,
               startDay: e.startDay ?? null,
-              address: e.address ?? null,
+              location: e.location ?? null,
               postCode: e.postCode ?? null,
               lat: e.lat ?? null,
               lng: e.lng ?? null,

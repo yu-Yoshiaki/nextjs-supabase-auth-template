@@ -16,7 +16,7 @@ const createProduct = async (req: NextApiRequest, res: NextApiResponse) => {
         metadata: {
           organizer: params.metadata.organizer,
           startDay: params.metadata.startDay ?? null,
-          address: params.metadata.address ?? null,
+          location: params.metadata.location ?? null,
           lat: params.metadata.lat ?? null,
           lng: params.metadata.lng ?? null,
         },
