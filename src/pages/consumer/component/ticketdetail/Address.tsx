@@ -8,6 +8,14 @@ const containerStyle = {
 };
 
 export const Address: VFC<{ data: ReadTicket["metadata"] }> = (props) => {
+  if (!props.data.lat || !props.data.lng) {
+    return (
+      <div className="flex py-5  px-2 space-x-2 bg-gray-200 rounded-lg">
+        <p className="font-bold">開催場所</p>
+        <p>{props.data.location}</p>
+      </div>
+    );
+  }
   // マップの初期情報
   const mapData = {
     center: {

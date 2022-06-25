@@ -5,9 +5,9 @@ import type { ReadTicket } from "src/type/ticket";
 
 export const Card = (props: ReadTicket) => {
   return (
-    <div className="p-4 h-[300px] bg-white rounded-xl border-2 border-gray-200 lg:w-[750px]">
-      <a className="grid grid-cols-2">
-        <div className="relative w-[calc(100%-30px)] h-[calc(300px-40px)]">
+    <div className="p-4 bg-white rounded-xl border-2 border-gray-200 md:h-[300px] lg:w-[750px]">
+      <a className="grid md:grid-cols-2">
+        <div className="relative h-[calc(300px-40px)] md:w-[calc(100%-30px)]">
           <Image
             src={props.images[0] ?? "/mobile.jpg"}
             alt={""}
@@ -17,7 +17,7 @@ export const Card = (props: ReadTicket) => {
           />
         </div>
 
-        <div className="relative">
+        <div className="relative space-y-2">
           <h2 className="p-[10px] text-sm font-bold md:text-lg">
             {props.name}
           </h2>
@@ -38,7 +38,7 @@ export const Card = (props: ReadTicket) => {
             <p>{props.metadata.location}</p>
           </div>
 
-          <div className="flex absolute bottom-0 justify-between items-center pr-4 w-full">
+          <div className="flex bottom-0 justify-between items-center pr-4 mt-6 w-full h-10 md:absolute">
             <p className=" text-2xl font-bold">
               {/* {"10000".toLocaleString()}円〜 */}
             </p>
