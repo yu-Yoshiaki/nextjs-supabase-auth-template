@@ -6,9 +6,9 @@ import {
 } from "@stripe/react-stripe-js";
 import { useState } from "react";
 import { usePaymentIntent } from "src/hook/usePaymentIntent";
-import { ElementProvider } from "src/pages/consumer/component/component/ElementProvider";
 
 import { Loading } from "../Loading";
+import { ElementProvider } from "./ElementProvider";
 
 const Form = () => {
   const stripe = useStripe();

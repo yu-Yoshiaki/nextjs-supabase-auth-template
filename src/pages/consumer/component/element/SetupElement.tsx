@@ -5,7 +5,8 @@ import {
 } from "@stripe/react-stripe-js";
 import { useState } from "react";
 import { useSetupIntent } from "src/hook/useSetupIntent";
-import { ElementProvider } from "src/pages/consumer/component/component/ElementProvider";
+
+import { ElementProvider } from "./ElementProvider";
 
 const Form = () => {
   const stripe = useStripe();
