@@ -7,7 +7,7 @@ import {
   Attention,
   InputLayout,
   InputType,
-} from "src/pages/vendor/auth/component";
+} from "src/pages/business/auth/component";
 import type {
   TypeEmail,
   TypeRadio,

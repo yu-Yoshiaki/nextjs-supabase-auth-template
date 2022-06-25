@@ -33,7 +33,6 @@ const Login: CustomNextPage = () => {
     } catch (e: any) {
       window.alert("ログインに失敗しました。");
     }
-
     return;
   };
 
@@ -103,7 +102,7 @@ const Login: CustomNextPage = () => {
           </form>
         </div>
       </div>
-      <Link href="/customer/auth/signup">
+      <Link href="/consumer/auth/signup">
         <a className="flex justify-center items-center">
           ユーザー作成がまだの方
         </a>

@@ -17,7 +17,7 @@ import { auth } from "src/lib/firebase";
 const data = [
   { href: "/", text: "ホーム", icon: <HomeIcon className="w-5 h-5" /> },
   {
-    href: "/customer/history",
+    href: "/consumer/history",
     text: "購入履歴",
     icon: <ShoppingCartIcon className="w-5 h-5" />,
   },
@@ -46,7 +46,7 @@ const Button = (props: Button) => {
         return router.push("/");
       }
       case "login": {
-        return router.push("/customer/auth/login");
+        return router.push("/consumer/auth/login");
       }
       case "move": {
         return router.push(props.href);
@@ -72,7 +72,7 @@ export const SmartPhoneMenu = memo(() => {
           <UserCircleIcon className="w-8 h-8" aria-hidden="true" />
         </Popover.Button>
         <div>
-          <Popover.Overlay className="fixed inset-0 bg-black opacity-30" />
+          <Popover.Overlay className="fixed inset-0 z-20 bg-black opacity-30" />
 
           <Transition
             as={Fragment}
@@ -83,7 +83,7 @@ export const SmartPhoneMenu = memo(() => {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Popover.Panel className="absolute right-5 p-5 mt-2 w-[80%] max-w-[480px] bg-white rounded-md divide-y focus:outline-none shadow-lg origin-top-right">
+            <Popover.Panel className="absolute right-5 z-30 p-5 mt-2 w-[80%] max-w-[480px] bg-white rounded-md divide-y focus:outline-none shadow-lg origin-top-right">
               <div>
                 <div className="p-1">
                   {user && (
@@ -121,7 +121,7 @@ export const SmartPhoneMenu = memo(() => {
                       />
 
                       <Button
-                        href={"/customer/auth/delete"}
+                        href={"/consumer/auth/delete"}
                         text={"退会"}
                         clickFunction={"move"}
                         className={

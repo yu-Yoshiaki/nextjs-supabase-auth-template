@@ -14,16 +14,10 @@ import { ticketConverter } from "src/lib/firebase/converter";
 import type { ReadTicket } from "src/type/ticket";
 import { SWRConfig } from "swr";
 
-import { DetailPageLayout } from "./component/DetailPageLayout";
+import { TicketDetail } from "../component/ticketdetail";
 
 const firestore = getFirestore(app);
 
-const fetchDocument = async (id: string) => {
-  const docRef = doc(firestore, "ticket", id).withConverter(ticketConverter);
-  const document = await getDoc(docRef);
-  const data = JSON.parse(JSON.stringify(document.data()));
-  return data;
-};
 export const getStaticPaths: GetStaticPaths = async () => {
   const colRef = collection(firestore, "ticket").withConverter(ticketConverter);
   const q = query(colRef, where("active", "==", true));
@@ -67,14 +61,12 @@ const Index: CustomNextPage<{ data: ReadTicket }> = (props) => {
   return (
     <SWRConfig
       value={{
-        fallback: props.data,
         revalidateIfStale: false,
         revalidateOnFocus: false,
         revalidateOnReconnect: false,
-        fetcher: fetchDocument,
       }}
     >
-      <DetailPageLayout />
+      <TicketDetail {...props} />
     </SWRConfig>
   );
 };

@@ -101,7 +101,7 @@ const Signup: CustomNextPage = () => {
           </form>
         </div>
       </div>
-      <Link href="/customer/auth/login">
+      <Link href="/consumer/auth/login">
         <a className="flex justify-center items-center">ユーザー作成済みの方</a>
       </Link>
     </div>

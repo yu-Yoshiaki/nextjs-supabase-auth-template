@@ -1,38 +1,14 @@
-import type { CustomNextPage, GetStaticProps } from "next";
-import { Layout } from "src/layout";
-import { fetchCollection } from "src/lib/fetchCollection";
-import type { ReadTicket } from "src/type/ticket";
-import { SWRConfig } from "swr";
+import type { CustomNextPage } from "next";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
-import { ProductList } from "./customer/ticket/component";
+const Root: CustomNextPage = () => {
+  const router = useRouter();
+  useEffect(() => {
+    router.push("/consumer");
+  }, [router]);
 
-const Root: CustomNextPage<{ posts: ReadTicket[] }> = (props) => {
-  return (
-    <SWRConfig
-      value={{
-        fallback: props.posts,
-        fallbackData: props.posts,
-        revalidateIfStale: false,
-        revalidateOnFocus: false,
-        revalidateOnReconnect: false,
-      }}
-    >
-      <ProductList />
-    </SWRConfig>
-  );
+  return <div></div>;
 };
-
-export const getStaticProps: GetStaticProps = async () => {
-  const posts = await fetchCollection();
-
-  return {
-    props: {
-      posts,
-    },
-    revalidate: 5,
-  };
-};
-
-Root.getLayout = Layout;
 
 export default Root;

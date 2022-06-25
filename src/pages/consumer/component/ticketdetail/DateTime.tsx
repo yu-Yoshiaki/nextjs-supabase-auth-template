@@ -5,7 +5,7 @@ export const DateTime = (props: { startDay: string | null }) => {
   ];
 
   return (
-    <div className="py-5 px-8 space-y-2 bg-gray-200 rounded-lg shadow-md">
+    <div className="py-5 px-8 space-y-2 bg-gray-200 rounded-lg">
       {data.map((data) => {
         return (
           <div key={data.name} className="flex space-x-2">
