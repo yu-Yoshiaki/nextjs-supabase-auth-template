@@ -9,7 +9,7 @@ export const Ticketlist = () => {
   const { data: ticketList } = useSWR<ReadTicket[]>("ticket", fetchCollection);
 
   return (
-    <div className="grid gap-4 py-5 mx-auto w-[80%] md:grid-cols-3">
+    <div className="grid gap-4 py-5 mx-auto w-[90%] md:grid-cols-3 md:w-[80%]">
       <div className="hidden w-full md:block">
         <p>絞り込み</p>
         <div className="h-[300px] bg-gray-100 rounded-xl"></div>
