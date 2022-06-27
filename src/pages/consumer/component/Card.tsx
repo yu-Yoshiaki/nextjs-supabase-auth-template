@@ -6,8 +6,8 @@ import type { ReadTicket } from "src/type/ticket";
 export const Card = (props: ReadTicket) => {
   return (
     <div className="p-4 bg-white rounded-xl border-2 border-gray-200 md:h-[300px] lg:w-[750px]">
-      <a className="grid md:grid-cols-2">
-        <div className="relative h-[calc(300px-40px)] md:w-[calc(100%-30px)]">
+      <div className="grid gap-2 md:grid-cols-2">
+        <div className="relative h-[200px] md:w-[calc(100%-30px)] md:h-[260px]">
           <Image
             src={props.images[0] ?? "/mobile.jpg"}
             alt={""}
@@ -18,9 +18,7 @@ export const Card = (props: ReadTicket) => {
         </div>
 
         <div className="relative space-y-2">
-          <h2 className="p-[10px] text-sm font-bold md:text-lg">
-            {props.name}
-          </h2>
+          <h2 className="px-[10px] text-lg font-bold">{props.name}</h2>
 
           <div className="py-2 px-4 space-y-2 text-sm bg-gray-200 rounded-lg">
             <div className="flex space-x-2">
@@ -49,7 +47,7 @@ export const Card = (props: ReadTicket) => {
             </Link>
           </div>
         </div>
-      </a>
+      </div>
     </div>
   );
 };

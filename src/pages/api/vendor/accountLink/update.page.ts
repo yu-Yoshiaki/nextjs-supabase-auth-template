@@ -14,8 +14,8 @@ const createAccountLink = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const { url } = await stripe.accountLinks.create({
         account: params.id,
-        refresh_url: `${req.headers.origin}/vendor/auth/create/?refresh=true`,
-        return_url: `${req.headers.origin}/vendor/auth/create/?return=true`,
+        refresh_url: `${req.headers.origin}/business/auth/create/?refresh=true`,
+        return_url: `${req.headers.origin}/business/auth/create/?return=true`,
         type: "account_update",
       });
 
