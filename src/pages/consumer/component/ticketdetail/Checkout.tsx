@@ -18,7 +18,7 @@ export const Checkout = () => {
   if (error) return <div>failed to load</div>;
 
   return (
-    <div className="p-10 w-full text-center bg-white rounded-md border border-gray-200">
+    <div className="p-10 w-full text-center bg-white rounded-md border border-gray-200 shadow-xl">
       <form
         action={prices && `/api/payment/checkout/${prices[0].id}`}
         method="POST"
@@ -35,7 +35,7 @@ export const Checkout = () => {
         <button
           type="submit"
           role="link"
-          className="py-3 mx-auto w-[200px] text-xl text-center text-white bg-blue-300 rounded-full shadow-md hover:shadow-none"
+          className="py-3 mx-auto w-[200px] text-xl text-center text-white bg-blue-300 rounded-full hover:shadow-none"
         >
           チケット購入
         </button>

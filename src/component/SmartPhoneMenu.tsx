@@ -23,7 +23,7 @@ const data = [
   },
   { href: "", text: "設定", icon: <CogIcon className="w-5 h-5" /> },
   {
-    href: "/vendor/auth/create",
+    href: "/business/auth/create",
     text: "オーナーアカウントの作成",
     icon: <SolidLoginIcon className="w-5 h-5" />,
   },
