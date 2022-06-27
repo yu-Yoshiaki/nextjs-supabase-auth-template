@@ -10,8 +10,8 @@ const createCheckoutSession = async (
   if (req.method === "POST") {
     try {
       const session = await stripe.checkout.sessions.create({
-        success_url: `${req.headers.origin}/api/checkout/success/?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${req.headers.origin}/customer/ticket/checkoutFinish/?canceled=true`,
+        success_url: `${req.headers.origin}/api/payment/checkout/success/?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${req.headers.origin}/consumer/ticket/checkoutFinish/?canceled=true`,
         mode: "payment",
         line_items: [
           {
