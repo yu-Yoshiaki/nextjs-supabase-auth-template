@@ -12,7 +12,7 @@ const Success = async (req: NextApiRequest, res: NextApiResponse) => {
       const customer = (await stripe.customers.retrieve(
         session.customer as string
       )) as Stripe.Response<Stripe.Customer>;
-      const redirectUrl = `/customer/ticket/checkoutFinish/?success=true&name=${customer.name}`;
+      const redirectUrl = `/ticket/checkout/finish/?success=true&name=${customer.name}`;
 
       res.redirect(303, redirectUrl);
     } catch (e: any) {
