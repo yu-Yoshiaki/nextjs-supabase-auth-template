@@ -14,7 +14,7 @@ export const Layout: CustomLayout = (page) => {
       <main className="mt-[80px] min-h-[calc(100vh-160px)] bg-blue-50">
         <LayoutErrorBoundary>{page}</LayoutErrorBoundary>
       </main>
-      <Footer />{" "}
+      <Footer />
     </div>
   );
 };

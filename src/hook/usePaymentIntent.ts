@@ -6,21 +6,25 @@ export const usePaymentIntent = (props: {
   amount: number;
   paymentMethod?: string;
 }) => {
-  const [clientSecret, setClientSecret] = useState<string>();
+  const [clientSecret, setClientSecret] = useState<string | null>(null);
 
   const fetchClientSecretForPayment = useCallback(async () => {
-    const res = await axios.post("/api/payment/element/createPaymentIntent", {
-      ...props,
-    });
+    const res = await axios.post<{ clientSecret: string | null }>(
+      "/api/payment/element/createPaymentIntent",
+      {
+        ...props,
+      }
+    );
 
-    const { clientSecret }: { clientSecret: string } = res.data;
+    const { clientSecret } = res.data;
+
+    if (!clientSecret) return;
     setClientSecret(clientSecret);
-    return;
   }, [props]);
 
   useEffect(() => {
     fetchClientSecretForPayment();
   }, []);
 
-  return { clientSecret, fetchClientSecretForPayment };
+  return { clientSecret };
 };

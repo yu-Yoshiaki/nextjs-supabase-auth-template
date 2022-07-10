@@ -16,7 +16,6 @@
 
 ## バックエンド
 
-- Firebase
 - Supabase
 - Stripe
 - Vercel
@@ -25,3 +24,8 @@
 
 プロダクト操作、料金操作
 Stripe → webhook → Firebase
+
+## Supabase の方情報抽出
+
+コンソールで以下を入力
+npx openapi-typescript https://"your-project".supabase.co/rest/v1/?apikey="your-anon-key" --output types/supabase.ts
