@@ -4,15 +4,14 @@ import { LoginIcon, LogoutIcon } from "@heroicons/react/outline";
 import {
   CogIcon,
   HomeIcon,
-  LoginIcon as SolidLoginIcon,
   ShoppingCartIcon,
   UserCircleIcon,
 } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 import { memo } from "react";
 import { Fragment } from "react";
-import { useUserStatus } from "src/hook/useUserStatus";
-import { auth } from "src/lib/firebase";
+import { useUserSession } from "src/hook/useUserSession";
+import { supabase } from "src/lib/supabase";
 
 const data = [
   { href: "/", text: "ホーム", icon: <HomeIcon className="w-5 h-5" /> },
@@ -23,9 +22,9 @@ const data = [
   },
   { href: "", text: "設定", icon: <CogIcon className="w-5 h-5" /> },
   {
-    href: "/business/auth/create",
-    text: "オーナーアカウントの作成",
-    icon: <SolidLoginIcon className="w-5 h-5" />,
+    href: "/consumer",
+    text: "プロフィール",
+    icon: <CogIcon className="w-5 h-5" />,
   },
 ];
 
@@ -34,19 +33,19 @@ type Button = {
   href: string;
   icon?: JSX.Element;
   className: string;
-  clickFunction?: "login" | "logout" | "move";
+  clickFunction?: "signin" | "signout" | "move";
 };
 
 const Button = (props: Button) => {
   const router = useRouter();
   const handleClick = async () => {
     switch (props.clickFunction) {
-      case "logout": {
-        await auth.signOut();
-        return router.push("/");
+      case "signout": {
+        await supabase.auth.signOut();
+        router.push("/");
       }
-      case "login": {
-        return router.push("/consumer/auth/login");
+      case "signin": {
+        return router.push("/consumer");
       }
       case "move": {
         return router.push(props.href);
@@ -64,7 +63,9 @@ const Button = (props: Button) => {
 
 // eslint-disable-next-line react/display-name
 export const SmartPhoneMenu = memo(() => {
-  const { user } = useUserStatus();
+  const { session } = useUserSession();
+  const user = supabase.auth.user();
+
   return (
     <Popover>
       <div>
@@ -86,12 +87,12 @@ export const SmartPhoneMenu = memo(() => {
             <Popover.Panel className="absolute right-5 z-30 p-5 mt-2 w-[80%] max-w-[480px] bg-white rounded-md divide-y focus:outline-none shadow-lg origin-top-right">
               <div>
                 <div className="p-1">
-                  {user && (
+                  {session && (
                     <div className="flex items-center mb-3 space-x-3">
                       <p className="py-2 px-3 text-sm whitespace-nowrap bg-red-300 rounded-lg">
                         ログイン中
                       </p>
-                      <p className="overflow-hidden">{user.uid}</p>
+                      <p className="overflow-hidden">{user?.id}</p>
                     </div>
                   )}
                   {data.map(({ text, href, icon }) => {
@@ -108,20 +109,20 @@ export const SmartPhoneMenu = memo(() => {
                   })}
                 </div>
                 <div className="p-1">
-                  {user ? (
+                  {session ? (
                     <div>
                       <Button
                         href={"/"}
                         text={"ログアウト"}
                         icon={<LogoutIcon className="w-5 h-5" />}
-                        clickFunction={"logout"}
+                        clickFunction={"signout"}
                         className={
-                          "group flex items-center p-2 space-x-2 w-full text-sm text-blue-400 rounded-md"
+                          "group flex items-center p-2 space-x-2 w-full text-sm text-blue-400 rounded-md hover:shadow-md"
                         }
                       />
 
                       <Button
-                        href={"/consumer/auth/delete"}
+                        href={"/consumer/delete"}
                         text={"退会"}
                         clickFunction={"move"}
                         className={
@@ -134,7 +135,7 @@ export const SmartPhoneMenu = memo(() => {
                       href={"/"}
                       text={"ログイン"}
                       icon={<LoginIcon className="w-5 h-5" />}
-                      clickFunction={"login"}
+                      clickFunction={"signin"}
                       className={
                         "group flex items-center p-2 space-x-2 w-full text-sm text-blue-400 rounded-md hover:shadow-md"
                       }

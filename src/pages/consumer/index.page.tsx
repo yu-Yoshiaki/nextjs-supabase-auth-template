@@ -1,37 +1,16 @@
-import type { CustomNextPage, GetStaticProps } from "next";
+import type { CustomNextPage } from "next";
+import { useUserSession } from "src/hook/useUserSession";
 import { Layout } from "src/layout";
-import { fetchCollection } from "src/lib/fetchCollection";
-import type { ReadTicket } from "src/type/ticket";
-import { SWRConfig } from "swr";
 
-import { Ticketlist } from "./component/Ticketlist";
+import { Profile } from "./component/Profile";
+import { Signin } from "./component/Signin";
 
-const Index: CustomNextPage<{ posts: ReadTicket[] }> = (props) => {
-  return (
-    <SWRConfig
-      value={{
-        fallbackData: props.posts,
-        revalidateIfStale: false,
-        revalidateOnFocus: false,
-        revalidateOnReconnect: false,
-      }}
-    >
-      <Ticketlist />
-    </SWRConfig>
-  );
+const Auth: CustomNextPage = () => {
+  const { session } = useUserSession();
+
+  return <div>{session ? <Profile session={session} /> : <Signin />}</div>;
 };
 
-export const getStaticProps: GetStaticProps = async () => {
-  const posts = await fetchCollection();
+Auth.getLayout = Layout;
 
-  return {
-    props: {
-      posts,
-    },
-    revalidate: 5,
-  };
-};
-
-Index.getLayout = Layout;
-
-export default Index;
+export default Auth;
