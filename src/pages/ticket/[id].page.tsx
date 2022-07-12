@@ -6,12 +6,13 @@ import { Layout } from "src/layout";
 import { supabase } from "src/lib/supabase";
 import type { Data } from "src/pages/index.page";
 import {
-  Checkout,
+  // Checkout,
   DateTime,
   Description,
   Organizer,
   TicketName,
 } from "src/pages/ticket/component";
+import { CheckoutSession } from "src/pages/ticket/component/CheckoutSession";
 import type { definitions } from "src/type/supabase";
 import { SWRConfig } from "swr";
 
@@ -91,12 +92,14 @@ const Index: CustomNextPage<{
                   <Organizer />
                 </div>
 
-                <div>
+                <CheckoutSession priceid={props.data[0].prices[0].id} />
+                {/* <div>
                   <Checkout
                     priceData={props.data[0].prices}
                     productData={props.data}
                   />
-                </div>
+                  <button onClick={handleClick}>Checkout</button>
+                </div> */}
               </div>
             </article>
           )}
