@@ -7,7 +7,7 @@ export const CheckoutSession = (props: Props) => {
   ///一時的なもの。本番はStripe Elementsを使用予定。
 
   return (
-    <div className="flex flex-col p-10 w-full text-center bg-white rounded-md border border-gray-200 shadow-xl">
+    <div className="flex flex-col p-10 w-full text-center bg-white rounded-md border border-gray-200 shadow-md">
       <div className="mb-4">
         <p className={`text-2xl font-semibold`}>{props.unitAmount}円</p>
       </div>

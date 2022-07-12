@@ -92,17 +92,17 @@ const Index: CustomNextPage<{
                   <Organizer />
                 </div>
 
-                <CheckoutSession
-                  priceid={props.data[0].prices[0].id}
-                  unitAmount={props.data[0].prices[0].unit_amount}
-                />
-                {/* <div>
-                  <Checkout
+                <div>
+                  <CheckoutSession
+                    priceid={props.data[0].prices[0].id}
+                    unitAmount={props.data[0].prices[0].unit_amount}
+                  />
+                  {/* <Checkout
                     priceData={props.data[0].prices}
                     productData={props.data}
                   />
-                  <button onClick={handleClick}>Checkout</button>
-                </div> */}
+                  <button onClick={handleClick}>Checkout</button> */}
+                </div>
               </div>
             </article>
           )}

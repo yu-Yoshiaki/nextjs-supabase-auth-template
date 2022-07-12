@@ -43,7 +43,7 @@ export const Checkout = (props: Props) => {
   };
 
   return (
-    <div className="flex flex-col p-10 w-full text-center bg-white rounded-md border border-gray-200 shadow-xl">
+    <div className="flex flex-col p-10 w-full text-center bg-white rounded-md border border-gray-200 shadow-md">
       <div className="mb-4">
         <p className={`text-2xl font-semibold`}>{formatData}円</p>
       </div>
