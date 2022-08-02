@@ -1,4 +1,4 @@
-# 誰でもチケットを販売できるアプリ
+# Next.js + Supabase Authenticate テンプレート
 
 ## 技術スタック
 
@@ -8,7 +8,6 @@
 - Prettier
 - Jest
 - Tailwind CSS
-- Stripe.js
 
 ## ソース管理
 
@@ -17,18 +16,6 @@
 ## バックエンド
 
 - Supabase
-- Vercel
-
-## 決済システム
-
-- Stripe
-
-~~## 処理の流れ~~
-
-~~プロダクト操作、料金操作~~
-~~Stripe → webhook → Firebase~~
-Firebaes → Supabase に乗り換え
-Supabase は、サーバーレス関数が開発途上のため見送り。
 
 ## Supabase の型情報抽出
 
