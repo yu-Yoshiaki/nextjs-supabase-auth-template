@@ -1,6 +1,6 @@
 import type { CustomNextPage } from "next";
+import { Layout } from "src/component";
 import { useUserSession } from "src/hook/useUserSession";
-import { Layout } from "src/layout";
 
 import { Profile } from "./component/Profile";
 import { Signin } from "./component/Signin";

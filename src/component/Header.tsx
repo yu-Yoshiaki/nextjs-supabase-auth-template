@@ -1,13 +1,12 @@
 import Link from "next/link";
 import { memo } from "react";
-import { DontPurchaseAlert, LoginButton } from "src/component";
 
 /**
  * @package
  */
 
 // eslint-disable-next-line react/display-name
-export const HeaderPC = memo(() => {
+export const Header = memo(() => {
   return (
     <header className="fixed inset-x-0 top-0 z-10 w-full bg-white">
       <div className="mx-auto w-[80%] h-[80px] md:flex md:justify-between md:items-center">
@@ -20,9 +19,6 @@ export const HeaderPC = memo(() => {
             </a>
           </Link>
         </div>
-        <DontPurchaseAlert />
-
-        <LoginButton />
       </div>
     </header>
   );
