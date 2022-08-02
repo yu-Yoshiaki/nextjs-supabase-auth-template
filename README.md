@@ -1,4 +1,4 @@
-# 誰でもチケットを販売できるアプリ
+# Next.js + Supabase Authenticate テンプレート
 
 ## 技術スタック
 
@@ -8,7 +8,6 @@
 - Prettier
 - Jest
 - Tailwind CSS
-- Stripe.js
 
 ## ソース管理
 
@@ -17,20 +16,19 @@
 ## バックエンド
 
 - Supabase
-- Vercel
-
-## 決済システム
-
-- Stripe
-
-~~## 処理の流れ~~
-
-~~プロダクト操作、料金操作~~
-~~Stripe → webhook → Firebase~~
-Firebaes → Supabase に乗り換え
-Supabase は、サーバーレス関数が開発途上のため見送り。
 
 ## Supabase の型情報抽出
 
 コンソールで以下を入力
-npx openapi-typescript https://"your-project".supabase.co/rest/v1/?apikey="your-anon-key" --output types/supabase.ts
+npx openapi-typescript https://"your-project".supabase.co/rest/v1/?apikey="your-anon-key" --output type/supabase.ts
+
+## Supabase を利用するにあたって
+
+### 用意するもの
+
+- Supabase のプロジェクト URL
+- anon key
+- role key (ユーザー削除用)
+
+※ ユーザー削除はサーバーサイドで起動する必要がある。(Next.js だと SSG, SSR。もしくは API Route で。)
+※ サーバーサイドで Supabase を使用する場合に role key が必要。

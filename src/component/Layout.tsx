@@ -8,7 +8,7 @@ export const Layout: CustomLayout = (page) => {
   return (
     <div>
       <Header />
-      <main className="mt-[80px] min-h-[calc(100vh-160px)] bg-blue-50">
+      <main className="mt-[80px] min-h-[calc(100vh-160px)] bg-gray-200">
         <LayoutErrorBoundary>{page}</LayoutErrorBoundary>
       </main>
       <Footer />
