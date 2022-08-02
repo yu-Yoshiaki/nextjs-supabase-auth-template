@@ -17,15 +17,20 @@
 ## バックエンド
 
 - Supabase
-- Stripe
 - Vercel
 
-## 処理の流れ
+## 決済システム
 
-プロダクト操作、料金操作
-Stripe → webhook → Firebase
+- Stripe
 
-## Supabase の方情報抽出
+~~## 処理の流れ~~
+
+~~プロダクト操作、料金操作~~
+~~Stripe → webhook → Firebase~~
+Firebaes → Supabase に乗り換え
+Supabase は、サーバーレス関数が開発途上のため見送り。
+
+## Supabase の型情報抽出
 
 コンソールで以下を入力
 npx openapi-typescript https://"your-project".supabase.co/rest/v1/?apikey="your-anon-key" --output types/supabase.ts
