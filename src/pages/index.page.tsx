@@ -1,47 +1,14 @@
-import type { CustomNextPage, GetStaticProps } from "next";
-import { Ticketlist } from "src/component/Ticketlist";
-import { Layout } from "src/layout";
-import { supabase } from "src/lib/supabase";
-import type { definitions } from "src/type/supabase";
-import { SWRConfig } from "swr";
+import type { CustomNextPage } from "next";
+import { Layout, List } from "src/component";
 
-export type Data = definitions["products"] & {
-  prices: Array<definitions["prices"]>;
-};
-
-const Index: CustomNextPage<{
-  data: Array<Data>;
-}> = (props) => {
+const Auth: CustomNextPage = () => {
   return (
-    <SWRConfig
-      value={{
-        fallbackData: props.data,
-        revalidateIfStale: false,
-        revalidateOnFocus: false,
-        revalidateOnReconnect: false,
-      }}
-    >
-      <Ticketlist />
-    </SWRConfig>
+    <div className="flex justify-center items-center py-20">
+      <List />
+    </div>
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
-  const { data, error } = await supabase
-    .from<Data>("products")
-    .select("*, prices(id, unit_amount)")
-    .eq("active", "true");
+Auth.getLayout = Layout;
 
-  if (error) return { props: { status: error.message } };
-
-  return {
-    props: {
-      data,
-    },
-    revalidate: 5,
-  };
-};
-
-Index.getLayout = Layout;
-
-export default Index;
+export default Auth;
