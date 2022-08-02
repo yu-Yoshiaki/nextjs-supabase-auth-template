@@ -47,7 +47,6 @@ export const Checkout = (props: Props) => {
       <div className="mb-4">
         <p className={`text-2xl font-semibold`}>{formatData}円</p>
       </div>
-
       <button
         onClick={handleAddItem}
         className="p-3 text-center text-white bg-blue-300 rounded-full hover:shadow-none"
