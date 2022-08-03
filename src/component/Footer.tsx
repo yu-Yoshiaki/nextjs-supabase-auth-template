@@ -8,7 +8,7 @@ import { memo } from "react";
 export const Footer = memo(() => {
   return (
     <footer className="flex justify-between items-center px-4 h-[80px] text-center text-gray-600">
-      <small>&copy; 2022 Next.js + SupabaseAuth</small>
+      <small>&copy; 2022 Next.js + FirebaseAuth</small>
     </footer>
   );
 });

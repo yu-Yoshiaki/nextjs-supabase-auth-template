@@ -1,25 +1,21 @@
-import axios from "axios";
+import { deleteUser } from "firebase/auth";
 import type { CustomNextPage } from "next";
 import { useRouter } from "next/router";
 import { useUserSession } from "src/hook/useUserSession";
-import { supabase } from "src/lib/supabase";
 
 export const Delete: CustomNextPage = () => {
-  const { session } = useUserSession();
+  const { user } = useUserSession();
   const router = useRouter();
 
   const handleUserDelete = async () => {
-    if (session) {
-      const user = supabase.auth.user();
-      if (!user) {
-        alert("error");
-        return;
+    if (user) {
+      try {
+        await deleteUser(user);
+        alert("ユーザー情報を削除しました。");
+        router.push("/");
+      } catch (err: any) {
+        alert(err.message);
       }
-
-      const res = await axios.get(`/api/${user.id}/delete`);
-      const data = await res.data;
-      alert(data);
-      router.push("/");
     }
   };
 

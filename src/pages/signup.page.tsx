@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { Layout } from "src/component";
 import { useUserSession } from "src/hook/useUserSession";
 
-import { Signin } from "../component/Signin";
+import { Signup } from "../component/Signup";
 
 const Auth: CustomNextPage = () => {
   const { user } = useUserSession();
@@ -18,7 +18,7 @@ const Auth: CustomNextPage = () => {
 
   return (
     <div className="flex justify-center items-center py-20">
-      <Signin />
+      <Signup />
     </div>
   );
 };

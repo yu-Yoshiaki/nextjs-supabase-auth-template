@@ -1,4 +1,4 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -10,7 +10,7 @@ type Inputs = {
   password: string;
 };
 
-export const Signin = () => {
+export const Signup = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -29,7 +29,7 @@ export const Signin = () => {
   }) => {
     try {
       setIsLoading(true);
-      await signInWithEmailAndPassword(auth, email, password);
+      await createUserWithEmailAndPassword(auth, email, password);
       alert("Success!");
       router.push("/");
     } catch (error: any) {
@@ -41,7 +41,7 @@ export const Signin = () => {
 
   return (
     <div className="p-10 bg-white md:w-[500px]">
-      <h2 className="text-2xl font-bold">ログイン</h2>
+      <h2 className="text-2xl font-bold">新規登録</h2>
       <div className="flex flex-col space-y-5">
         <form onSubmit={handleSubmit(handleLogin)}>
           <div className="grid grid-cols-2">
@@ -80,13 +80,13 @@ export const Signin = () => {
           </div>
 
           <input
-            value={isLoading ? "Loading" : "Login"}
+            value={isLoading ? "Loading" : "新規登録"}
             type="submit"
             className="py-2 px-12 text-lg text-white bg-blue-400 rounded border-0 hover:ring"
           />
         </form>
-        <Link href="/signup">
-          <a>新規登録</a>
+        <Link href="/signin">
+          <a>ログイン</a>
         </Link>
       </div>
     </div>

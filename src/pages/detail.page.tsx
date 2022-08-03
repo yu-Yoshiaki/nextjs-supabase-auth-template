@@ -3,9 +3,9 @@ import { Layout } from "src/component";
 import { useUserSession } from "src/hook/useUserSession";
 
 const Detail: CustomNextPage = () => {
-  const { session } = useUserSession();
+  const { user } = useUserSession();
 
-  if (!session)
+  if (!user)
     return (
       <div className="flex justify-center items-center py-20 ">
         <div className="min-h-[400px] bg-white md:w-[500px]">

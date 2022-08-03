@@ -13,7 +13,7 @@ const App: CustomAppPage = (props) => {
   return (
     <>
       <Head>
-        <title>Next.js + SupabaseAuth</title>
+        <title>Next.js + FirebaseAuth</title>
       </Head>
       {getLayout(<props.Component {...props.pageProps} />)}
     </>
